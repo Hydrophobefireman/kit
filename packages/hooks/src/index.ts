@@ -9,3 +9,6 @@ export * from "./use-rerender";
 export * from "./use-resource";
 export * from "./use-scroll-to-anchor";
 export * from "./use-viewport-size";
+export * from "./types";
+export * from "./use-keyboard-event";
+export * from "./use-keypress";

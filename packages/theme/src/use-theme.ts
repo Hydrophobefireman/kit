@@ -1,7 +1,9 @@
+import { useSharedState } from "statedrive";
+
+import { useAtomListener } from "@hydrophobefireman/kit/hooks";
+
 import { ThemeAtom } from "./state";
 import { ThemeListener } from "./types";
-import { useAtomListener } from "@hydrophobefireman/kit/hooks";
-import { useSharedState } from "statedrive";
 export function useTheme() {
   const [theme, setTheme] = useSharedState(ThemeAtom);
   function toggle() {

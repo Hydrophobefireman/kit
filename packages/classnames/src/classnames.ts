@@ -48,7 +48,7 @@ export const grid = "kit-grid";
 
 export const flex = "kit-flex";
 
-export const inlineFlex = "kit-inline-black";
+export const inlineFlex = "kit-inline-flex";
 
 export const block = "kit-block";
 
@@ -65,3 +65,16 @@ export const relative = "kit-relative";
 export const fixed = "kit-fixed";
 
 export const sticky = "kit-sticky";
+
+export const inputContainer = "kit-input-container";
+export const input = "kit-input";
+export const inputMaterial = "kit-input-material";
+
+export const inputLarge = "kit-input-container-large";
+export const inputSmall = "kit-input-container-small";
+export const inputDefault = "kit-input-container-default";
+
+export const inputHelperText = "kit-input-helper";
+export const inputHelperActive = "kit-input-helper-active";
+export const inputHelperInactive = "kit-input-helper-inactive";
+export const errored = "kit-errored";

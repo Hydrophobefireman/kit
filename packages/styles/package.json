@@ -25,7 +25,6 @@
       "@hydrophobefireman/kit/loading": "0.0.0-june-29-02-32",
       "@hydrophobefireman/kit/router": "0.0.0-june-29-02-32",
       "@hydrophobefireman/kit/skeleton": "0.0.0-june-29-02-32",
-      "@hydrophobefireman/kit/theme": "0.0.0-june-29-02-32",
-      "@hydrophobefireman/kit/tooltip": "0.0.0-june-29-02-32"
+      "@hydrophobefireman/kit/theme": "0.0.0-june-29-02-32"
    }
 }

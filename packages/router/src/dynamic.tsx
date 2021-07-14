@@ -1,9 +1,12 @@
-import { DynamicComponentProps, Preloader } from "./types";
+import { ComplexComponent, _util } from "@hydrophobefireman/kit";
+import { Spinner } from "@hydrophobefireman/kit/loading";
 import { useLayoutEffect, useState } from "@hydrophobefireman/ui-lib";
 
-import { ComplexComponent } from "@hydrophobefireman/kit";
-import { Spinner } from "@hydrophobefireman/kit/loading";
+import { DynamicComponentProps, Preloader } from "./types";
 
+function RouteSpinner() {
+  return <Spinner size="4rem" />;
+}
 export function dynamic(
   loader: Preloader,
   { fallback, errorFallback, unsafe }: DynamicComponentProps = {}
@@ -11,7 +14,7 @@ export function dynamic(
   function Fallback({ error }: any) {
     return errorFallback ? errorFallback(error) : <div>An error occured</div>;
   }
-  const F = fallback || Spinner;
+  const F = fallback || RouteSpinner;
   const C = function Dynamic(props: any) {
     const [C, setComponent] = useState<ComplexComponent>(null);
     const [exception, setException] = useState<Error>(null);
@@ -37,12 +40,12 @@ export function dynamic(
     return <C />;
   };
 
-  if (!unsafe) C._preload = loader;
+  C._preload = unsafe ? null : loader;
   C._fallback = Fallback;
   C._loader = F;
   return C;
 }
 
 export function isLoadableRoute(x: any): x is ReturnType<typeof dynamic> {
-  return typeof x === "function" && "_preload" in x;
+  return typeof x === "function" && !!x._preload;
 }

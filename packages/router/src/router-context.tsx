@@ -1,11 +1,13 @@
-import { TransitionRouterContext } from "./types";
 import { createContext } from "@hydrophobefireman/ui-lib";
+
+import { TransitionRouterContext } from "./types";
 
 export const Ctx = createContext<TransitionRouterContext>({
   params: {},
   path: null,
   pendingTransitionOut: false,
   searchParams: null,
+  transitionStyle: null,
 });
 export function RouterContext(
   props: TransitionRouterContext & { children?: any }

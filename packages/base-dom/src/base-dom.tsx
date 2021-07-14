@@ -1,28 +1,10 @@
-import * as classnames from "@hydrophobefireman/kit/classnames";
-
 import { BaseDomProps, _util } from "@hydrophobefireman/kit";
 import { h, useRef } from "@hydrophobefireman/ui-lib";
 
-const { createClassProp, onlyOneProp, warn } = _util;
+import { displayModeMap, displayProps, isSelfClosingElement } from "./util";
 
-type DisplayProps =
-  | "block"
-  | "inline"
-  | "inlineBlock"
-  | "flex"
-  | "grid"
-  | "inlineFlex"
-  | "none";
+const { createClassProp, onlyOneProp, applyRef } = _util;
 
-const displayModeMap = new Map<DisplayProps, string>([
-  ["block", classnames.block],
-  ["inline", classnames.inline],
-  ["inlineBlock", classnames.inlineBlock],
-  ["flex", classnames.flex],
-  ["inlineFlex", classnames.inlineFlex],
-  ["grid", classnames.grid],
-]);
-const displayProps = /* #__PURE__ */  Array.from(displayModeMap.keys());
 export function BaseDom(props: BaseDomProps) {
   const {
     element,
@@ -35,7 +17,8 @@ export function BaseDom(props: BaseDomProps) {
   } = props;
   if (depends !== undefined) {
     throw new TypeError(
-      "This component does not know how to render skeleton views! Write your custom implementation or use a different component"
+      "This component does not know how to render skeleton views! " +
+        "Write your custom implementation or use a different component"
     );
   }
   const displayMode =
@@ -48,7 +31,7 @@ export function BaseDom(props: BaseDomProps) {
     klass,
     className,
   ]);
-
+  const el = element || "div";
   const {
     block,
     inline,
@@ -58,24 +41,21 @@ export function BaseDom(props: BaseDomProps) {
     grid,
     none,
     style,
+    children,
     ...filteredProps
   } = rest;
-  return h(element || "div", {
-    class: cls,
-    ...filteredProps,
-    style: style as {},
-    ref,
-    disabled,
-    "kit-disabled": disabled,
-  });
-}
-
-function applyRef(ref: any, value: any) {
-  if (!ref) return;
-  if (typeof ref === "function")
-    return warn(
-      ref(value),
-      "Using function as an element's dom ref might cause it to be called multiple times on each render"
-    );
-  ref.current = value;
+  return h(
+    el,
+    Object.assign(
+      {
+        class: cls,
+        style: style as {},
+        ref,
+        disabled,
+        children: isSelfClosingElement(el) ? null : children,
+        "kit-disabled": disabled,
+      },
+      filteredProps
+    )
+  );
 }

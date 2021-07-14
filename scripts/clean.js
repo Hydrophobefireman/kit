@@ -8,7 +8,7 @@ async function main() {
   await rm(core, { force: true, recursive: true });
 
   // run just in case
-  postpublish();
+  await postpublish();
   const { kitPackages } = await fromPackageJson();
   await Promise.all(
     kitPackages.map(async (package) => {

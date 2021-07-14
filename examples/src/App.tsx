@@ -1,21 +1,18 @@
+import "@hydrophobefireman/kit/styles";
+
 // javascript is supported
 import "./App.css";
-import "@hydrophobefireman/kit/styles";
+
+import { css } from "catom";
 
 import { Button, ButtonProps } from "@hydrophobefireman/kit/button";
 import { Container, Resource } from "@hydrophobefireman/kit/container";
+import { Input } from "@hydrophobefireman/kit/input";
+import { useTheme } from "@hydrophobefireman/kit/theme";
 import { VNode, render, useEffect, useState } from "@hydrophobefireman/ui-lib";
 
-import { AsyncCodes } from "./AsyncCodes";
 import { RouterTest } from "./RouterTest";
-import { css } from "catom";
-import { useTheme } from "@hydrophobefireman/kit/theme";
 
-// const old = document.createElement;
-// document.createElement = (...a) => {
-//   console.log(a);
-//   return old.apply(document, a);
-// };
 function App(): VNode {
   const [name, setName] = useState("");
   const [refetch, setRefetch] = useState({});
@@ -26,7 +23,7 @@ function App(): VNode {
   const { currentTheme, toggle } = useTheme();
   return (
     <>
-      {/* <Resource
+      <Resource
         resourceName="name"
         isPending={!name}
         class={[
@@ -128,15 +125,28 @@ function App(): VNode {
           mode="warning"
         />
       </Container>
-      */}
-      <Container
-        horizontal="center"
-        class={css({ margin: "auto", maxWidth: "80vw" })}
-      >
-        {/* <AsyncCodes /> */}
+
+      <Container horizontal="center">
         <RouterTest />
       </Container>
+      <Container horizontal="center" row>
+        <TestInput variant="material" placeholder="hello" />
+        <TestInput variant="material" placeholder="hello" size="large" />
+        <TestInput errored placeholder="hello" size="small" />
+      </Container>
     </>
+  );
+}
+function TestInput(props: any) {
+  const [value, setValue] = useState(props.value || "");
+  return (
+    <Input.Search
+      {...props}
+      value={value}
+      setValue={setValue}
+      errored={!!value.length}
+      helperText={"Helper Text"}
+    />
   );
 }
 
@@ -148,7 +158,12 @@ function TextButton({
   "label"
 >) {
   return (
-    <Button label={text} variant="shadow" {...rest}>
+    <Button
+      style={{ fontSize: ".9rem" }}
+      label={text}
+      variant="shadow"
+      {...rest}
+    >
       {text}
     </Button>
   );

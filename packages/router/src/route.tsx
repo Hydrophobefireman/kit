@@ -1,22 +1,22 @@
 import { ComplexComponent } from "@hydrophobefireman/kit";
-import { RouteComponentProps } from "./types";
-import { useMemo } from "@hydrophobefireman/ui-lib";
+import { useCallback } from "@hydrophobefireman/ui-lib";
+
 import { useTransitionRouter } from "./hooks";
+import { RouteComponentProps } from "./types";
 
 export function Route({ render }: RouteComponentProps) {
-  const { pendingTransitionOut, path, params } = useTransitionRouter();
-  const func = useMemo(
-    () => (R: ComplexComponent) => <R params={params} />,
+  const { pendingTransitionOut, path, params, transitionStyle } =
+    useTransitionRouter();
+  const func = useCallback(
+    (R: ComplexComponent) => <R params={params} />,
     [params]
   );
+  const css = { transition: "var(--kit-transition)" };
+  if (pendingTransitionOut) {
+    Object.assign(css, transitionStyle || { opacity: 0.5 });
+  }
   return (
-    <div
-      kit-route={path}
-      style={{
-        transition: "var(--kit-transition)",
-        opacity: pendingTransitionOut ? 0.5 : 1,
-      }}
-    >
+    <div data-kit-route={path} style={css}>
       {func(render)}
     </div>
   );

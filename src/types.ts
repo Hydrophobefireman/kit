@@ -20,7 +20,7 @@ export type DOMElements = keyof RemoveIndex<JSX.IntrinsicElements>;
 
 export type DOMClass = any;
 interface _BaseDomProps {
-  element?: DOMElements;
+  element?: DOMElements | ComplexComponent;
   block?: boolean;
   inline?: boolean;
   inlineBlock?: boolean;
@@ -53,10 +53,15 @@ export type OptionalPick<T, K extends keyof T> = {
 export type BaseElement<T> = Omit<BaseDomProps, "element" | keyof T> & T;
 
 type Renderable = JSX.Element | string | number | boolean;
-interface ClassComponent {
-  new (props: any, state: any);
+
+interface ClassComponentProto {
   render(props: any, state: any): Renderable;
 }
+interface ClassComponent {
+  new (props: any, state: any);
+  readonly prototype: ClassComponentProto;
+}
+
 type FunctionalCompnent = (props: any) => Renderable;
 export type ComplexComponent = FunctionalCompnent | ClassComponent;
 

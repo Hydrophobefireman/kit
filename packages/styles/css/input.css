@@ -1,0 +1,85 @@
+.kit-input-container {
+  align-items: center;
+  max-width: 100%;
+  flex-direction: column;
+}
+
+.kit-input-helper {
+  min-height: 0.85rem;
+  font-size: 0.85rem;
+  transition: var(--kit-transition);
+  color: var(--kit-error-light);
+  align-self: baseline;
+}
+.kit-input-helper-active {
+  opacity: 1;
+}
+.kit-input-helper-inactive {
+  opacity: 0;
+  transform: translateY(10px);
+}
+.kit-input-material ~ label {
+  left: 0.75rem;
+  transition: var(--kit-transition);
+  font-size: var(--kit-form-font-size);
+  background: transparent;
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+  top: 25%;
+  user-select: none;
+  pointer-events: none;
+}
+
+.kit-input.kit-input-material:focus:not(.kit-errored) {
+  --kit-border: var(--kit-theme-fg);
+}
+.kit-input.kit-errored,
+.kit-input.kit-errored ~ label,
+.kit-input.kit-errored:focus {
+  --kit-border: var(--kit-error) !important;
+}
+
+.kit-input-material:focus ~ label,
+.kit-input-material[data-kit-active] ~ label {
+  transform: translateY(var(--kit-label-jump, -90%));
+  opacity: 1;
+  background: var(--kit-background);
+  color: var(--kit-theme-fg);
+}
+
+.kit-input-container-default {
+  --kit-form-font-size: 0.95rem;
+  --kit-input-height: 2.5rem;
+}
+.kit-input-container-small {
+  --kit-form-font-size: 0.75rem;
+  --kit-input-height: 2rem;
+}
+.kit-input-container-large {
+  --kit-form-font-size: 1.2rem;
+  --kit-input-height: 3rem;
+}
+.kit-input {
+  --kit-border: var(--kit-shade-2);
+  appearance: none;
+  border-radius: var(--kit-radius);
+  border: 2px solid;
+  border-color: var(--kit-border);
+  padding: 2px 0.75rem;
+  background-color: var(--kit-background);
+  color: var(--kit-foreground);
+  outline: none;
+  transition: var(--kit-transition);
+  height: 2rem;
+  font-size: var(--kit-form-font-size);
+  height: var(--kit-input-height);
+}
+.kit-input-material ~ label,
+.kit-input::placeholder {
+  color: var(--kit-foreground);
+  opacity: 0.5;
+}
+
+.kit-input:focus {
+  --kit-border: var(--kit-shade-5);
+}

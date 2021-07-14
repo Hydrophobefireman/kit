@@ -1,5 +1,5 @@
 import { ComplexComponent } from "@hydrophobefireman/kit";
-
+import { Properties } from "csstype";
 export interface RouteComponentProps {
   render: ComplexComponent;
 }
@@ -17,6 +17,7 @@ interface RouterContext {
 }
 export interface TransitionRouterContext extends RouterContext {
   pendingTransitionOut: boolean;
+  transitionStyle: Properties;
 }
 export type TransitionPath = (
   | { component: ComplexComponent }
@@ -30,11 +31,14 @@ export interface TransitionManagerProps {
   child: TransitionPath;
   path: any;
   params: Record<string, string>;
+  transitionStyle: Properties;
 }
 
 export interface RouterProps {
   fallbackComponent?: any;
   paths?: RouterPaths;
+  transitionStyle?: Properties;
+  inMemoryRouter?: boolean;
 }
 
 export type RouterPaths = Record<string, TransitionPath>;

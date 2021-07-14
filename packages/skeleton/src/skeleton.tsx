@@ -1,8 +1,6 @@
-import * as classnames from "@hydrophobefireman/kit/classnames";
-
 import { BaseDomProps, OptionalPick, _util } from "@hydrophobefireman/kit";
-
 import { BaseDom } from "@hydrophobefireman/kit/base-dom";
+import * as classnames from "@hydrophobefireman/kit/classnames";
 
 export function Skeleton({
   children,
@@ -13,6 +11,7 @@ export function Skeleton({
   _util.guardCss(style);
   return (
     <BaseDom
+      aria-hidden
       class={classnames.noEvents}
       className={_util.createClassProp([className, cls])}
       style={{ ...(style as any), position: "relative" }}

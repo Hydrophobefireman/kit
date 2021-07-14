@@ -1,3 +1,4 @@
+import { ComplexComponent } from "@hydrophobefireman/kit";
 import {
   Path,
   Router as UIRouter,
@@ -6,17 +7,16 @@ import {
   useRef,
   useState,
 } from "@hydrophobefireman/ui-lib";
+
+import { isLoadableRoute } from "./dynamic";
+import { Route } from "./route";
+import { RouterContext } from "./router-context";
 import {
   Preloader,
   RouterProps,
   TransitionManagerProps,
   TransitionPath,
 } from "./types";
-
-import { ComplexComponent } from "@hydrophobefireman/kit";
-import { Route } from "./route";
-import { RouterContext } from "./router-context";
-import { isLoadableRoute } from "./dynamic";
 
 // yeah we don't usually
 // extend classes of components
@@ -28,11 +28,21 @@ import { isLoadableRoute } from "./dynamic";
 
 export function Router(props: RouterProps) {
   return (
-    <UIRouter paths={props.paths} fallbackComponent={props.fallbackComponent}>
+    <UIRouter
+      paths={props.paths}
+      fallbackComponent={props.fallbackComponent}
+      inMemoryRouter={props.inMemoryRouter}
+    >
       {Object.keys(props.paths).map((x) => {
         const val = props.paths[x];
         return (
-          <Path match={x} component={TransitionManager} child={val} path={x} />
+          <Path
+            match={x}
+            component={TransitionManager}
+            child={val}
+            path={x}
+            transitionStyle={props.transitionStyle}
+          />
         );
       })}
     </UIRouter>
@@ -42,10 +52,12 @@ export function Router(props: RouterProps) {
 function functionThatReturns<T>(x: T) {
   return () => x;
 }
+
 export function TransitionManager({
   child,
   path,
   params,
+  transitionStyle,
 }: TransitionManagerProps) {
   const [transitionComplete, setTransitionComplete] = useState(false);
   const [childState, _setChildState] = useState<ComplexComponent>(null);
@@ -69,10 +81,8 @@ export function TransitionManager({
       let preloader: Preloader = preload;
       let Fallback: ComplexComponent = fallback;
 
-      if (isLoadableRoute(component)) {
-        preloader = preloader || component._preload;
-        Fallback = Fallback || component._fallback;
-      }
+      preloader = preloader || (component as any)._preload;
+      Fallback = Fallback || (component as any)._fallback;
       if (preloader) {
         preloader()
           .then((res) => {
@@ -96,6 +106,7 @@ export function TransitionManager({
   }, [path]);
   return (
     <RouterContext
+      transitionStyle={transitionStyle}
       params={params}
       path={path}
       searchParams={UIRouter.searchParams}

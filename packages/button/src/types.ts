@@ -6,6 +6,7 @@ export interface ButtonProps {
   prefix?: any;
   suffix?: any;
   variant?: "shadow" | "normal" | "custom";
+  href?: string;
 }
 
 export {};

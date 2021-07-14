@@ -4,6 +4,7 @@ const { join } = require("path");
 const packageJsonLoc = join(root, "package.json");
 const packageDir = join(root, "packages");
 
+
 /**@returns {Promise<typeof import("../package.json")>} */
 async function fromPackageJson() {
   const js = await readFile(packageJsonLoc);
@@ -36,4 +37,5 @@ module.exports = {
   packageDir,
   postpublish,
   fromPackageJson,
+  packageJsonLoc
 };

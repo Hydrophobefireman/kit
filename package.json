@@ -15,26 +15,26 @@
       ".": "./dist/kit.modern.js",
       "./styles/css/": "./styles/css/",
       "./styles/": "./styles/",
-      "./styles": "./styles/index.js",
+      "./styles": "./styles/dist/styles.modern.js",
       "./package.json": "./package.json",
       "./": "./",
+      "./alerts": "./alerts/dist/alerts.modern.js",
       "./autocomplete": "./autocomplete/dist/autocomplete.modern.js",
+      "./base-dom": "./base-dom/dist/base-dom.modern.js",
+      "./button": "./button/dist/button.modern.js",
+      "./classnames": "./classnames/dist/classnames.modern.js",
       "./container": "./container/dist/container.modern.js",
+      "./form": "./form/dist/form.modern.js",
       "./hooks": "./hooks/dist/hooks.modern.js",
       "./http": "./http/dist/http.modern.js",
       "./input": "./input/dist/input.modern.js",
-      "./theme": "./theme/dist/theme.modern.js",
-      "./button": "./button/dist/button.modern.js",
-      "./skeleton": "./skeleton/dist/skeleton.modern.js",
-      "./classnames": "./classnames/dist/classnames.modern.js",
-      "./base-dom": "./base-dom/dist/base-dom.modern.js",
-      "./form": "./form/dist/form.modern.js",
-      "./router": "./router/dist/router.modern.js",
       "./loading": "./loading/dist/loading.modern.js",
-      "./alerts": "./alerts/dist/alerts.modern.js",
-      "./tooltip": "./tooltip/dist/tooltip.modern.js"
+      "./router": "./router/dist/router.modern.js",
+      "./skeleton": "./skeleton/dist/skeleton.modern.js",
+      "./theme": "./theme/dist/theme.modern.js"
    },
    "scripts": {
+      "_i": "for i in ./packages/*; do echo \"$i\" && cp \"$i\" ./examples/node_modules/@hydrophobefireman/kit/ -r ;done && cp dist ./examples/node_modules/@hydrophobefireman/kit/ -r",
       "prebuild": "node scripts/clean.js",
       "prepublishOnly": "npm run build &&  node scripts/prepublishOnly.js",
       "postpublish": "node scripts/postpublish.js",
@@ -43,21 +43,20 @@
       "chore:move-types": "node scripts/move-types.js",
       "build": "run-p build:* --max-parallel 3",
       "build:core": "npm run chore:build -- --cwd . && npm run chore:move-types -- . ",
+      "build:alerts": "npm run chore:build -- --cwd ./packages/alerts && npm run chore:move-types -- ./packages/alerts",
       "build:autocomplete": "npm run chore:build -- --cwd ./packages/autocomplete && npm run chore:move-types -- ./packages/autocomplete",
+      "build:base-dom": "npm run chore:build -- --cwd ./packages/base-dom && npm run chore:move-types -- ./packages/base-dom",
+      "build:button": "npm run chore:build -- --cwd ./packages/button && npm run chore:move-types -- ./packages/button",
+      "build:classnames": "npm run chore:build -- --cwd ./packages/classnames && npm run chore:move-types -- ./packages/classnames",
       "build:container": "npm run chore:build -- --cwd ./packages/container && npm run chore:move-types -- ./packages/container",
+      "build:form": "npm run chore:build -- --cwd ./packages/form && npm run chore:move-types -- ./packages/form",
       "build:hooks": "npm run chore:build -- --cwd ./packages/hooks && npm run chore:move-types -- ./packages/hooks",
       "build:http": "npm run chore:build -- --cwd ./packages/http && npm run chore:move-types -- ./packages/http",
       "build:input": "npm run chore:build -- --cwd ./packages/input && npm run chore:move-types -- ./packages/input",
-      "build:theme": "npm run chore:build -- --cwd ./packages/theme && npm run chore:move-types -- ./packages/theme",
-      "build:button": "npm run chore:build -- --cwd ./packages/button && npm run chore:move-types -- ./packages/button",
-      "build:skeleton": "npm run chore:build -- --cwd ./packages/skeleton && npm run chore:move-types -- ./packages/skeleton",
-      "build:classnames": "npm run chore:build -- --cwd ./packages/classnames && npm run chore:move-types -- ./packages/classnames",
-      "build:base-dom": "npm run chore:build -- --cwd ./packages/base-dom && npm run chore:move-types -- ./packages/base-dom",
-      "build:form": "npm run chore:build -- --cwd ./packages/form && npm run chore:move-types -- ./packages/form",
-      "build:router": "npm run chore:build -- --cwd ./packages/router && npm run chore:move-types -- ./packages/router",
       "build:loading": "npm run chore:build -- --cwd ./packages/loading && npm run chore:move-types -- ./packages/loading",
-      "build:alerts": "npm run chore:build -- --cwd ./packages/alerts && npm run chore:move-types -- ./packages/alerts",
-      "build:tooltip": "npm run chore:build -- --cwd ./packages/tooltip && npm run chore:move-types -- ./packages/tooltip"
+      "build:router": "npm run chore:build -- --cwd ./packages/router && npm run chore:move-types -- ./packages/router",
+      "build:skeleton": "npm run chore:build -- --cwd ./packages/skeleton && npm run chore:move-types -- ./packages/skeleton",
+      "build:theme": "npm run chore:build -- --cwd ./packages/theme && npm run chore:move-types -- ./packages/theme"
    },
    "sideEffects": false,
    "peerDependencies": {
@@ -70,6 +69,27 @@
       "microbundle": "^0.13.3",
       "npm-run-all": "^4.1.5",
       "typescript": "^4.3.4"
+   },
+   "kitBase": {
+      "exports": {
+         ".": "./dist/kit.modern.js",
+         "./styles/css/": "./styles/css/",
+         "./styles/": "./styles/",
+         "./styles": "./styles/dist/styles.modern.js",
+         "./package.json": "./package.json",
+         "./": "./"
+      },
+      "scripts": {
+         "_i": "for i in ./packages/*; do echo \"$i\" && cp \"$i\" ./examples/node_modules/@hydrophobefireman/kit/ -r ;done && cp dist ./examples/node_modules/@hydrophobefireman/kit/ -r",
+         "prebuild": "node scripts/clean.js",
+         "prepublishOnly": "npm run build &&  node scripts/prepublishOnly.js",
+         "postpublish": "node scripts/postpublish.js",
+         "create-package": "node scripts/create-package.js",
+         "chore:build": "microbundle src/index.ts  --no-sourcemap -o ./dist -f modern  --raw true --compress false --tsconfig tsconfig.json",
+         "chore:move-types": "node scripts/move-types.js",
+         "build": "run-p build:* --max-parallel 3",
+         "build:core": "npm run chore:build -- --cwd . && npm run chore:move-types -- . "
+      }
    },
    "kitPackages": [
       "alerts",
@@ -85,8 +105,6 @@
       "loading",
       "router",
       "skeleton",
-      "styles",
-      "theme",
-      "tooltip"
+      "theme"
    ]
 }

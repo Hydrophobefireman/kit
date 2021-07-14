@@ -1,8 +1,9 @@
 import { createState, subscribe } from "statedrive";
 
-import { Theme } from "./types";
-import { UI_THEME_ATTRIBUTE } from "./constants";
 import { _util } from "@hydrophobefireman/kit";
+
+import { UI_THEME_ATTRIBUTE } from "./constants";
+import { Theme } from "./types";
 
 const { getDocElAttribute, setDocElAttribute } = _util;
 export const ThemeAtom = createState<Theme>({

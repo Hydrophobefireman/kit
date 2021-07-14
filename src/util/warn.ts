@@ -4,3 +4,11 @@ export function warn<T>(x: T, message: string): T {
   }
   return x;
 }
+
+export function warnOnce() {
+  let count = 0;
+  return <T>(x: T, message: string) => {
+    if (count++) return x;
+    return warn(x, message);
+  };
+}

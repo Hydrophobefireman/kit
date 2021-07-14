@@ -1,10 +1,9 @@
+import { _util, useIsPending } from "@hydrophobefireman/kit";
+import { BaseDom } from "@hydrophobefireman/kit/base-dom";
 import * as classnames from "@hydrophobefireman/kit/classnames";
+import { Skeleton } from "@hydrophobefireman/kit/skeleton";
 
 import { ContainerProps, GenericContainerProps } from "./types";
-import { _util, useIsPending } from "@hydrophobefireman/kit";
-
-import { BaseDom } from "@hydrophobefireman/kit/base-dom";
-import { Skeleton } from "@hydrophobefireman/kit/skeleton";
 
 const alignmentMap = new Map<
   GenericContainerProps["horizontal"] | GenericContainerProps["vertical"],

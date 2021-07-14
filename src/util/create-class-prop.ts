@@ -1,5 +1,6 @@
 import { DOMClass } from "../types";
 import { flat } from "./flat";
+
 export function createClassProp(c: DOMClass): string {
   return flat([c], (obj: any) => {
     if (typeof obj === "string" || typeof obj === "number") return obj;

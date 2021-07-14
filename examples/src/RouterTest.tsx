@@ -1,56 +1,65 @@
-import { Route, Router, dynamic } from "@hydrophobefireman/kit/router";
+import { Router, dynamic } from "@hydrophobefireman/kit/router";
 
 import { A } from "@hydrophobefireman/ui-lib";
-import { Path } from "@hydrophobefireman/ui-lib";
+import { Button } from "@hydrophobefireman/kit/button";
+import { link } from "@hydrophobefireman/kit/classnames";
 
 function getDynamic(x: any) {
+  let loadedOnce = false;
   return dynamic(
     () =>
       new Promise((resolve) =>
         setTimeout(
           () =>
-            resolve(function F(y) {
-              // console.log(y);
+            resolve(function F() {
               return x;
             }),
-          1500
+          loadedOnce ? 0 : (loadedOnce = true) && 1500
         )
       )
   );
 }
+
+function RouteButton({ href, text }: any) {
+  return (
+    <Button
+      label={text}
+      variant="shadow"
+      mode="secondary"
+      href={href}
+      style={{ margin: "10px", display: "block" }}
+    >
+      {text}
+    </Button>
+  );
+}
 const Root = getDynamic(
   <div>
-    <A href="/1">Page 1</A>
-    <div>
-      <A href="/o/2">Page 2</A>
-    </div>
+    <RouteButton href="/1" text="Page 1" />
+    <RouteButton href="/o/2" text="Page 2" />
   </div>
 );
 const Page1 = getDynamic(
   <div>
-    <A href="/">Home</A>
-    <div>
-      <A href="/o/2">Page 2</A>
-    </div>
+    <RouteButton href="/" text="Home" />
+    <RouteButton href="/o/2" text="Page 2" />
   </div>
 );
 const Page2 = getDynamic(
   <div>
-    <A href="/">Home</A>
-    <div>
-      <A href="/1">Page 1</A>
-    </div>
+    <RouteButton href="/" text="Home" />
+    <RouteButton href="/1" text="Page 1" />
   </div>
 );
 export function RouterTest() {
-  // console.log("1")
   return (
     <Router
+      transitionStyle={null}
       paths={{
         "/": { component: Root },
         "/1": { component: Page1 },
         "/o/:ok": { component: Page2 },
       }}
-    ></Router>
+    />
   );
 }

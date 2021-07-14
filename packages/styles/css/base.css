@@ -85,6 +85,8 @@ html {
   --kit-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
   --kit-border: var(--kit-background);
   --kit-secondary: var(--kit-shade-5);
+  --kit-form-font-size: 0.87rem;
+  --kit-input-height: 2.5rem;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
 }
