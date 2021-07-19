@@ -1,0 +1,10 @@
+.kit-autocomplete-options {
+  margin-bottom: 1rem;
+  flex: 1;
+  margin-top: -0.5rem;
+  box-shadow: var(--kit-shadow);
+  border: 2px solid var(--kit-shade-2);
+  border-radius: var(--kit-radius);
+  z-index: 10000;
+  position: fixed;
+}

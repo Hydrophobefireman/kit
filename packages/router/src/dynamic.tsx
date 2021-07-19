@@ -1,6 +1,6 @@
 import { ComplexComponent, _util } from "@hydrophobefireman/kit";
 import { Spinner } from "@hydrophobefireman/kit/loading";
-import { useLayoutEffect, useState } from "@hydrophobefireman/ui-lib";
+import { h, useLayoutEffect, useState } from "@hydrophobefireman/ui-lib";
 
 import { DynamicComponentProps, Preloader } from "./types";
 
@@ -36,7 +36,7 @@ export function dynamic(
         });
     }, []);
     if (exception) return <Fallback error={exception} />;
-    if (!C) return <F {...props} />;
+    if (!C) return h(F, props as any);
     return <C />;
   };
 

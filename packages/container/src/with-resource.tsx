@@ -1,4 +1,5 @@
 import { PendingDataContext, _util } from "@hydrophobefireman/kit";
+import { h } from "@hydrophobefireman/ui-lib";
 
 import { Container } from "./container";
 import { ContainerProps } from "./types";
@@ -22,7 +23,7 @@ export function Resource({
   };
   return (
     <PendingDataContext.Provider value={ctx}>
-      <Container {...rest} />
+      {h(Container, rest as any)}
     </PendingDataContext.Provider>
   );
 }

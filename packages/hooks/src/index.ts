@@ -12,3 +12,5 @@ export * from "./use-viewport-size";
 export * from "./types";
 export * from "./use-keyboard-event";
 export * from "./use-keypress";
+export * from "./use-observer";
+export * from "./use-scroll";

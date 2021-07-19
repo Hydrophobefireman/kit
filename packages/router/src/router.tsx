@@ -18,34 +18,28 @@ import {
   TransitionPath,
 } from "./types";
 
-// yeah we don't usually
-// extend classes of components
-// but we just want ui-lib/router's path matching functionality
-// and our own custom render method
-// everything else is exactly the same
-// we cannot just wrap the router because router component
-// doesn't render the children you pass it and the implementation is hidden
-
 export function Router(props: RouterProps) {
   return (
-    <UIRouter
-      paths={props.paths}
-      fallbackComponent={props.fallbackComponent}
-      inMemoryRouter={props.inMemoryRouter}
-    >
-      {Object.keys(props.paths).map((x) => {
-        const val = props.paths[x];
-        return (
-          <Path
-            match={x}
-            component={TransitionManager}
-            child={val}
-            path={x}
-            transitionStyle={props.transitionStyle}
-          />
-        );
-      })}
-    </UIRouter>
+    <kit-router-root>
+      <UIRouter
+        paths={props.paths}
+        fallbackComponent={props.fallbackComponent}
+        inMemoryRouter={props.inMemoryRouter}
+      >
+        {Object.keys(props.paths).map((x) => {
+          const val = props.paths[x];
+          return (
+            <Path
+              match={x}
+              component={TransitionManager}
+              child={val}
+              path={x}
+              transitionStyle={props.transitionStyle}
+            />
+          );
+        })}
+      </UIRouter>
+    </kit-router-root>
   );
 }
 

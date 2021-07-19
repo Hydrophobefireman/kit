@@ -39,7 +39,7 @@ function BaseButton(props: BaseElement<ButtonProps>) {
   } = props;
   _util.guardCss(style);
   _util.guardExists(label, "Provide a label for your buttons");
-  const styleObject: any = Object.assign({ alignItems: "center" }, style);
+  const styleObject: any = _util.extend({ alignItems: "center" }, style);
 
   if (foreground) {
     styleObject["--kit-foreground"] = foreground;
@@ -49,23 +49,8 @@ function BaseButton(props: BaseElement<ButtonProps>) {
   }
   const isLink = !!rest.href;
   const element = isLink ? getLinkElement(rest.href) : "button";
-
-  return (
-    <BaseDom
-      element={element}
-      aria-label={label}
-      class={[
-        cls,
-        className,
-        classnames.button,
-        variantClassMap.get(variant),
-        modeClassMap.get(mode),
-        isLink && classnames.link,
-      ]}
-      style={styleObject}
-      flex
-      {...rest}
-    >
+  const cVnodes = (
+    <>
       {prefix && (
         <BaseDom element="span" flex>
           {prefix}
@@ -79,7 +64,28 @@ function BaseButton(props: BaseElement<ButtonProps>) {
           {suffix}
         </BaseDom>
       )}
-    </BaseDom>
+    </>
+  );
+  return h(
+    BaseDom,
+    _util.extend(
+      {
+        element,
+        "aria-label": label,
+        class: [
+          cls,
+          className,
+          classnames.button,
+          variantClassMap.get(variant),
+          modeClassMap.get(mode),
+          isLink && classnames.link,
+        ],
+        style: styleObject,
+        flex: true,
+      },
+      rest
+    ) as any,
+    cVnodes
   );
 }
 function getLinkElement(href: string) {
@@ -92,14 +98,17 @@ function DependantButton(props: BaseElement<ButtonProps>) {
       return props.skeleton(resourceName);
     }
     const { class: cls, className, prefix: _, ...rest } = props;
-    return (
-      <BaseButton
-        prefix={<Spinner />}
-        kit-disabled
-        aria-hidden
-        class={[cls, className, classnames.noEvents]}
-        {..._util.removeEventsFromProps(rest)}
-      />
+    return h(
+      BaseButton,
+      _util.extend(
+        {
+          prefix: <Spinner />,
+          disabled: true,
+          "aria-hidden": true,
+          class: [cls, className, classnames.noEvents],
+        },
+        _util.removeEventsFromProps(rest)
+      ) as any
     );
   }
   return h(BaseButton, props as any);

@@ -46,7 +46,7 @@ export function BaseDom(props: BaseDomProps) {
   } = rest;
   return h(
     el,
-    Object.assign(
+    _util.extend(
       {
         class: cls,
         style: style as {},

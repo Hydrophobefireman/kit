@@ -16,8 +16,8 @@ export function Route({ render }: RouteComponentProps) {
     Object.assign(css, transitionStyle || { opacity: 0.5 });
   }
   return (
-    <div data-kit-route={path} style={css}>
+    <kit-route data-kit-route={path} style={css}>
       {func(render)}
-    </div>
+    </kit-route>
   );
 }

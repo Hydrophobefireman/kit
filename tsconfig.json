@@ -8,8 +8,7 @@
     "rootDir": ".",
     "moduleResolution": "node",
     "skipLibCheck": true,
-    "jsx": "react-jsx",
-    "jsxImportSource": "@hydrophobefireman/ui-lib",
+    "jsx": "preserve",
     "paths": {
       "@hydrophobefireman/kit": ["./src/index"],
       "@hydrophobefireman/kit/*": ["./packages/*/src"]

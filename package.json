@@ -24,6 +24,7 @@
       "./button": "./button/dist/button.modern.js",
       "./classnames": "./classnames/dist/classnames.modern.js",
       "./container": "./container/dist/container.modern.js",
+      "./dropdown": "./dropdown/dist/dropdown.modern.js",
       "./form": "./form/dist/form.modern.js",
       "./hooks": "./hooks/dist/hooks.modern.js",
       "./http": "./http/dist/http.modern.js",
@@ -39,7 +40,7 @@
       "prepublishOnly": "npm run build &&  node scripts/prepublishOnly.js",
       "postpublish": "node scripts/postpublish.js",
       "create-package": "node scripts/create-package.js",
-      "chore:build": "microbundle src/index.ts  --no-sourcemap -o ./dist -f modern  --raw true --compress false --tsconfig tsconfig.json",
+      "chore:build": "microbundle src/index.ts --jsxImportSource @hydrophobefireman/ui-lib  --no-sourcemap -o ./dist -f modern  --raw true --compress false --tsconfig tsconfig.json",
       "chore:move-types": "node scripts/move-types.js",
       "build": "run-p build:* --max-parallel 3",
       "build:core": "npm run chore:build -- --cwd . && npm run chore:move-types -- . ",
@@ -49,6 +50,7 @@
       "build:button": "npm run chore:build -- --cwd ./packages/button && npm run chore:move-types -- ./packages/button",
       "build:classnames": "npm run chore:build -- --cwd ./packages/classnames && npm run chore:move-types -- ./packages/classnames",
       "build:container": "npm run chore:build -- --cwd ./packages/container && npm run chore:move-types -- ./packages/container",
+      "build:dropdown": "npm run chore:build -- --cwd ./packages/dropdown && npm run chore:move-types -- ./packages/dropdown",
       "build:form": "npm run chore:build -- --cwd ./packages/form && npm run chore:move-types -- ./packages/form",
       "build:hooks": "npm run chore:build -- --cwd ./packages/hooks && npm run chore:move-types -- ./packages/hooks",
       "build:http": "npm run chore:build -- --cwd ./packages/http && npm run chore:move-types -- ./packages/http",
@@ -68,7 +70,7 @@
       "csstype": "^3.0.8",
       "microbundle": "^0.13.3",
       "npm-run-all": "^4.1.5",
-      "typescript": "^4.3.4"
+      "typescript": "^4.3.5"
    },
    "kitBase": {
       "exports": {
@@ -85,7 +87,7 @@
          "prepublishOnly": "npm run build &&  node scripts/prepublishOnly.js",
          "postpublish": "node scripts/postpublish.js",
          "create-package": "node scripts/create-package.js",
-         "chore:build": "microbundle src/index.ts  --no-sourcemap -o ./dist -f modern  --raw true --compress false --tsconfig tsconfig.json",
+         "chore:build": "microbundle src/index.ts --jsxImportSource @hydrophobefireman/ui-lib  --no-sourcemap -o ./dist -f modern  --raw true --compress false --tsconfig tsconfig.json",
          "chore:move-types": "node scripts/move-types.js",
          "build": "run-p build:* --max-parallel 3",
          "build:core": "npm run chore:build -- --cwd . && npm run chore:move-types -- . "
@@ -98,6 +100,7 @@
       "button",
       "classnames",
       "container",
+      "dropdown",
       "form",
       "hooks",
       "http",

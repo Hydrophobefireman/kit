@@ -5,6 +5,7 @@ import "./App.css";
 
 import { css } from "catom";
 
+import { AutoComplete } from "@hydrophobefireman/kit/autocomplete";
 import { Button, ButtonProps } from "@hydrophobefireman/kit/button";
 import { Container, Resource } from "@hydrophobefireman/kit/container";
 import { Input } from "@hydrophobefireman/kit/input";
@@ -128,6 +129,22 @@ function App(): VNode {
 
       <Container horizontal="center">
         <RouterTest />
+      </Container>
+      <Container horizontal="center" row>
+        <AutoComplete
+          label="Search"
+          mode="search"
+          variant="material"
+          options={[
+            { value: "ok" },
+            {
+              value: "hello",
+              render() {
+                return <div class={css({ color: "blue" })}>Heeeloo</div>;
+              },
+            },
+          ]}
+        />
       </Container>
       <Container horizontal="center" row>
         <TestInput variant="material" placeholder="hello" />

@@ -6,7 +6,7 @@ function preventDefault(e: Event) {
 
 export function useFileDrop(el?: HTMLElement): [File[] | null, () => void] {
   el = el || document.documentElement;
-  const [files, setFiles] = useState(null);
+  const [files, setFiles] = useState<File[]>(null);
   useEffect(() => {
     const onDrop = (e: DragEvent) => {
       e.stopPropagation();

@@ -1,9 +1,12 @@
-export function warn<T>(x: T, message: string): T {
-  if (process.env.NODE_ENV === "development") {
-    console.warn(message);
-  }
-  return x;
-}
+export const warn =
+  process.env.NODE_ENV === "development"
+    ? function warn<T>(x: T, message: string): T {
+        console.warn(message);
+        return x;
+      }
+    : function warn<T>(x: T, _: any) {
+        return x;
+      };
 
 export function warnOnce() {
   let count = 0;

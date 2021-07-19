@@ -78,3 +78,6 @@ export const inputHelperText = "kit-input-helper";
 export const inputHelperActive = "kit-input-helper-active";
 export const inputHelperInactive = "kit-input-helper-inactive";
 export const errored = "kit-errored";
+
+
+export const autocompleteOptions="kit-autocomplete-options"
