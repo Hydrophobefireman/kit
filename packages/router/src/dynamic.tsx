@@ -16,8 +16,8 @@ export function dynamic(
   }
   const F = fallback || RouteSpinner;
   const C = function Dynamic(props: any) {
-    const [C, setComponent] = useState<ComplexComponent>(null);
-    const [exception, setException] = useState<Error>(null);
+    const [C, setComponent] = useState<ComplexComponent | null>(null);
+    const [exception, setException] = useState<Error | null>(null);
 
     useLayoutEffect(() => {
       loader()

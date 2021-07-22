@@ -7,10 +7,9 @@ const packageJsonTemplate = (name, version) => ({
   name,
   version,
   private: true,
-  main: `dist/${name}.modern.js`,
-  module: `dist/${name}.modern.js`,
-  source: "src/index.ts",
-  types: "dist/index.d.ts",
+  main: `src/index.js`,
+  module: `src/index.js`,
+  types: "src/index.d.ts",
   license: "MIT",
   scripts: {
     build: "microbundle --raw",

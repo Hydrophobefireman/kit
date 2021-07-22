@@ -1,8 +1,5 @@
-import { Router, dynamic } from "@hydrophobefireman/kit/router";
-
-import { A } from "@hydrophobefireman/ui-lib";
 import { Button } from "@hydrophobefireman/kit/button";
-import { link } from "@hydrophobefireman/kit/classnames";
+import { Router, dynamic } from "@hydrophobefireman/kit/router";
 
 function getDynamic(x: any) {
   let loadedOnce = false;

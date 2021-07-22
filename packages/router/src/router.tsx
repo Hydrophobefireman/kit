@@ -54,7 +54,7 @@ export function TransitionManager({
   transitionStyle,
 }: TransitionManagerProps) {
   const [transitionComplete, setTransitionComplete] = useState(false);
-  const [childState, _setChildState] = useState<ComplexComponent>(null);
+  const [childState, _setChildState] = useState<ComplexComponent | null>(null);
   const latestChildRef = useRef(child);
   latestChildRef.current = child;
   function endTransition() {
@@ -72,8 +72,8 @@ export function TransitionManager({
     const next = latestChildRef.current;
     if ("component" in next) {
       const { component, preload, fallback } = next;
-      let preloader: Preloader = preload;
-      let Fallback: ComplexComponent = fallback;
+      let preloader: Preloader = preload!;
+      let Fallback: ComplexComponent = fallback!;
 
       preloader = preloader || (component as any)._preload;
       Fallback = Fallback || (component as any)._fallback;

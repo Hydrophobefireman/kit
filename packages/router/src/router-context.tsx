@@ -8,7 +8,7 @@ export const Ctx = createContext<TransitionRouterContext>({
   pendingTransitionOut: false,
   searchParams: null,
   transitionStyle: null,
-});
+} as any);
 export function RouterContext(
   props: TransitionRouterContext & { children?: any }
 ) {

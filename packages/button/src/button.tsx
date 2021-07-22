@@ -8,8 +8,8 @@ import { ButtonProps } from "./types";
 
 const variantClassMap = new Map<ButtonProps["variant"], string>([
   ["custom", classnames.buttonCustom],
-  ["normal", classnames.buttonNormal],
-  ["shadow", classnames.buttonShadow],
+  ["normal", `${classnames.buttonNormal} ${classnames.ripple}`],
+  ["shadow", `${classnames.buttonShadow} ${classnames.ripple}`],
 ]);
 
 const modeClassMap = new Map<ButtonProps["mode"], string>([
@@ -47,8 +47,9 @@ function BaseButton(props: BaseElement<ButtonProps>) {
   if (background) {
     styleObject["--kit-background"] = background;
   }
-  const isLink = !!rest.href;
-  const element = isLink ? getLinkElement(rest.href) : "button";
+  const href = rest.href;
+  const isLink = !!href;
+  const element = isLink ? getLinkElement(href!) : "button";
   const cVnodes = (
     <>
       {prefix && (

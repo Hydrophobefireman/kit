@@ -1,9 +1,9 @@
-export function onlyOneProp<T>(arr: readonly string[], props: T, message: any) {
+export function onlyOneProp<T>(arr: string[], props: T, message: any) {
   let count = 0;
   let common = [];
   for (const i in props) {
     if (arr.indexOf(i) > -1) {
-      common.push(i);
+      (common as any).push(i);
       count++;
     }
   }

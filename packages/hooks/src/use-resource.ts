@@ -1,6 +1,5 @@
-import { useEffect, useState } from "@hydrophobefireman/ui-lib";
-
 import { useIsPending } from "@hydrophobefireman/kit";
+import { useEffect, useState } from "@hydrophobefireman/ui-lib";
 
 export interface AbortableFetchResponse<T> {
   result: Promise<{ data: T; error?: string }>;
@@ -21,7 +20,7 @@ function buildUseResource(independant: boolean) {
   >(func: T, args: Parameters<T>) {
     type Ret = PromiseResponse<ReturnType<T>["result"]>["data"];
     const [resp, setResp] = useState<Ret>(null);
-    const [error, setError] = useState("");
+    const [error, setError] = useState<any>("");
     function clearError() {
       setError(null);
     }

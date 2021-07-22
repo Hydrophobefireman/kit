@@ -70,7 +70,6 @@
   color: var(--kit-foreground);
   outline: none;
   transition: var(--kit-transition);
-  height: 2rem;
   font-size: var(--kit-form-font-size);
   height: var(--kit-input-height);
 }

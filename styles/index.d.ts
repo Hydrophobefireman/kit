@@ -1,6 +1,6 @@
 declare module "*.css" {
   const def: any;
-  export default _def;
+  export default def;
 }
 import "./css/base.css";
 import "./css/layout.css";

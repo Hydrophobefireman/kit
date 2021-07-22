@@ -6,27 +6,28 @@ function preventDefault(e: Event) {
 
 export function useFileDrop(el?: HTMLElement): [File[] | null, () => void] {
   el = el || document.documentElement;
-  const [files, setFiles] = useState(null);
+  const [files, setFiles] = useState<File[] | null>(null);
   useEffect(() => {
     const onDrop = (e: DragEvent) => {
       e.stopPropagation();
       e.preventDefault();
-      if (e.dataTransfer.items) {
-        const tf = Array.from(e.dataTransfer.items);
+      const dt = e.dataTransfer!;
+      if (dt.items) {
+        const tf = Array.from(dt.items);
         setFiles(
           tf
             .map((i) => (i.kind === "file" ? i.getAsFile() : null))
-            .filter(Boolean)
+            .filter(Boolean) as any
         );
       } else {
-        setFiles(Array.from(e.dataTransfer.files));
+        setFiles(Array.from(dt.files));
       }
     };
-    el.addEventListener("drop", onDrop);
-    el.addEventListener("dragover", preventDefault);
+    el!.addEventListener("drop", onDrop);
+    el!.addEventListener("dragover", preventDefault);
     return () => {
-      el.removeEventListener("drop", onDrop);
-      el.removeEventListener("dragover", preventDefault);
+      el!.removeEventListener("drop", onDrop);
+      el!.removeEventListener("dragover", preventDefault);
     };
   }, []);
   return [files && files.length ? files : null, () => setFiles(null)];

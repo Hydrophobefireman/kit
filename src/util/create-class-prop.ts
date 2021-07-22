@@ -5,7 +5,8 @@ export function createClassProp(c: DOMClass): string {
   return flat([c], (obj: any) => {
     if (typeof obj === "string" || typeof obj === "number") return obj;
     if (Array.isArray(obj)) return obj;
-    let next = [];
+
+    let next: any[] = [];
 
     for (const key in obj as any) {
       if (obj[key]) {

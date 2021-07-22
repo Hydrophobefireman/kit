@@ -1,7 +1,7 @@
 import { BaseElement, _util, useIsPending } from "@hydrophobefireman/kit";
 import { BaseDom } from "@hydrophobefireman/kit/base-dom";
 import * as classnames from "@hydrophobefireman/kit/classnames";
-import { useKeyPress } from "@hydrophobefireman/kit/hooks";
+import { useId, useKeyPress } from "@hydrophobefireman/kit/hooks";
 import { h, useMemo, useRef } from "@hydrophobefireman/ui-lib";
 
 import { InputProps } from "./types";
@@ -11,11 +11,6 @@ const sizeToClassNameMap = new Map<InputProps["size"], string>([
   ["small", classnames.inputSmall],
   ["large", classnames.inputLarge],
 ]);
-
-let _id = 0;
-const kitAutoIdPrefix = `__kit-auto-id-${Math.random()
-  .toString(32)
-  .substring(2)}`;
 
 function BaseInput({
   variant,
@@ -34,8 +29,8 @@ function BaseInput({
   helperText,
   ...props
 }: BaseElement<InputProps>) {
-  const currentIdx = useMemo(() => String(id || ++_id), [id]);
-  const idx = id ? currentIdx : `${kitAutoIdPrefix}-${currentIdx}`;
+  const idx = useId(id);
+  const labelIdx = `${idx}--label`;
   const s = size || "default";
   const isMat = variant === "material";
   const active = !!value;
@@ -60,6 +55,7 @@ function BaseInput({
             value: value,
             placeholder: isMat ? null : placeholder || label,
             "data-kit-active": active,
+            "aria-labelledby": labelIdx,
             inlineFlex: true,
             dom: dom,
             class: [
@@ -73,19 +69,25 @@ function BaseInput({
           props
         ) as any
       )}
-      <div
-        class={[
-          classnames.inputHelperText,
-          errored
-            ? classnames.inputHelperActive
-            : classnames.inputHelperInactive,
-        ]}
-      >
-        {helperText}
-      </div>
+      {helperText && (
+        <div
+          class={[
+            classnames.inputHelperText,
+            errored
+              ? classnames.inputHelperActive
+              : classnames.inputHelperInactive,
+          ]}
+        >
+          {helperText}
+        </div>
+      )}
       <label
         for={idx}
-        class={[labelClass, isMat ? classnames.absolute : classnames.srOnly]}
+        id={labelIdx}
+        class={[
+          labelClass as any,
+          isMat ? classnames.absolute : classnames.srOnly,
+        ]}
       >
         {label || placeholder}
       </label>
@@ -115,10 +117,13 @@ export function SearchInput(props: BaseElement<InputProps>) {
   const dom = useRef<HTMLInputElement>();
   _util.applyRef(props.dom, dom.current);
 
-  useKeyPress("Escape", () => props.setValue(""), { target: dom.current });
+  useKeyPress("Escape", () => props.setValue && props.setValue(""), {
+    target: dom.current,
+  });
   useKeyPress(
     "/",
-    _util.buildRaf(() => dom.current && dom.current.focus())
+    _util.buildRaf(() => dom.current && dom.current.focus()),
+    { target: typeof window !== "undefined" ? window : undefined }
   );
   return h(Input, _util.extend(props as any, { dom }));
 }

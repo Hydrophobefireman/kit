@@ -34,7 +34,7 @@ interface _BaseDomProps {
   dom?: { current: any };
   skeleton?(resource: any): any;
   children?: any;
-  style?: Properties;
+  style?: Properties & { [k: string]: any };
   ref?: any;
 }
 

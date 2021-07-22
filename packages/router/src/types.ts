@@ -1,5 +1,6 @@
-import { ComplexComponent } from "@hydrophobefireman/kit";
 import { Properties } from "csstype";
+
+import { ComplexComponent } from "@hydrophobefireman/kit";
 export interface RouteComponentProps {
   render: ComplexComponent;
 }
@@ -36,7 +37,7 @@ export interface TransitionManagerProps {
 
 export interface RouterProps {
   fallbackComponent?: any;
-  paths?: RouterPaths;
+  paths: RouterPaths;
   transitionStyle?: Properties;
   inMemoryRouter?: boolean;
 }

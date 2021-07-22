@@ -1,9 +1,8 @@
-const { rename, rRoot, root, readFile } = require("./actions");
+const { rRoot, root, readFile, rm } = require("./actions");
 const { join } = require("path");
 
 const packageJsonLoc = join(root, "package.json");
 const packageDir = join(root, "packages");
-
 
 /**@returns {Promise<typeof import("../package.json")>} */
 async function fromPackageJson() {
@@ -13,14 +12,14 @@ async function fromPackageJson() {
 
 async function postpublish() {
   const { kitPackages } = await fromPackageJson();
+  await rm(join(root, "dist"), { force: true, recursive: true });
   return await Promise.all(
     kitPackages.map(async (x) => {
       const loc = join(root, x);
-      const dest = join(packageDir, x);
       try {
-        await rename(loc, dest);
+        await rm(loc, { force: true, recursive: true });
       } catch (e) {
-        console.log("[prebuild] Skip moving", rRoot(loc));
+        console.log("[prebuild] Skip clean", rRoot(loc));
       }
     })
   );
@@ -37,5 +36,5 @@ module.exports = {
   packageDir,
   postpublish,
   fromPackageJson,
-  packageJsonLoc
+  packageJsonLoc,
 };

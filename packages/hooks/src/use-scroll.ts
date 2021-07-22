@@ -1,17 +1,11 @@
-import { useState } from "@hydrophobefireman/ui-lib";
-
+import { useLatestRef } from "./use-latest-ref";
 import { useMount } from "./use-mount";
 
-function getScroll() {
-  if (!window) return { x: 0, y: 0 };
-  return { x: window.scrollX, y: window.scrollY };
-}
-export function useScroll() {
-  const [obj, setScroll] = useState(getScroll);
+export function useScroll(cb: (e: Event) => void) {
+  const ref = useLatestRef(cb);
   useMount(() => {
-    const listener = () => setScroll(getScroll);
-    window.addEventListener("scroll", listener);
-    return () => window.removeEventListener("scroll", listener);
+    const callback = (e: Event) => ref.current(e);
+    window.addEventListener("scroll", callback);
+    return () => window.removeEventListener("scroll", callback);
   });
-  return obj;
 }

@@ -1,18 +1,17 @@
-import { RefType, useEffect } from "@hydrophobefireman/ui-lib";
+import { useEffect } from "@hydrophobefireman/ui-lib";
+
+import { useLatestRef } from "./use-latest-ref";
 
 const config = { attributes: false, childList: true, subtree: true };
 
-export function useObserver(
-  ref: RefType<HTMLElement>,
-  callback: MutationCallback
-) {
+export function useObserver(current: HTMLElement, cb: MutationCallback) {
+  const callback = useLatestRef(cb);
   useEffect(() => {
-    const { current } = ref;
     if (!current) return;
     let unmount = false;
     const cb: MutationCallback = (mutations, obs) => {
       if (unmount) return;
-      callback(mutations, obs);
+      callback.current(mutations, obs);
     };
     const observer = new MutationObserver(cb);
     observer.observe(current, config);
@@ -20,5 +19,5 @@ export function useObserver(
       unmount = true;
       observer.disconnect();
     };
-  }, [ref.current]);
+  }, [current]);
 }

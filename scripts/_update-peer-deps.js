@@ -29,17 +29,10 @@ async function updatePackages() {
     })
   );
   const exportsField = Object.assign({}, kitBase.exports);
-  const scripts = Object.assign({}, kitBase.scripts);
   kitPackages.forEach((packageName) => {
-    exportsField[
-      `./${packageName}`
-    ] = `./${packageName}/dist/${packageName}.modern.js`;
-    scripts[
-      `build:${packageName}`
-    ] = `npm run chore:build -- --cwd ./packages/${packageName} && npm run chore:move-types -- ./packages/${packageName}`;
+    exportsField[`./${packageName}`] = `./${packageName}/src/index.js`;
   });
   packageJson.exports = exportsField;
-  packageJson.scripts = scripts;
   await writeFile(packageJsonLoc, prettyJSON(packageJson));
 }
 module.exports.updatePackages = updatePackages;

@@ -1,8 +1,11 @@
 import { BaseElement, _util, useIsPending } from "@hydrophobefireman/kit";
 import * as classnames from "@hydrophobefireman/kit/classnames";
 import { Container } from "@hydrophobefireman/kit/container";
+import { Dropdown } from "@hydrophobefireman/kit/dropdown";
+import { useClickAway, useId } from "@hydrophobefireman/kit/hooks";
 import { Input } from "@hydrophobefireman/kit/input";
-import { h, useRef, useState } from "@hydrophobefireman/ui-lib";
+import { Transition } from "@hydrophobefireman/kit/transition";
+import { h, useEffect, useRef, useState } from "@hydrophobefireman/ui-lib";
 
 import { AutoCompleteOptions } from "./autocompleteOptions";
 import { AutoCompleteProps } from "./types";
@@ -15,22 +18,66 @@ function BaseAutoComplete({
   options,
   containerClass,
   isPending,
+  __depends,
+  id,
   ...props
 }: BaseElement<AutoCompleteProps>) {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(String(value) || "");
+  useEffect(() => {
+    setQuery(value as any);
+  }, [value]);
   const ref = useRef<HTMLInputElement>();
+  const [dirty, setDirty] = useState(false);
+  _util.applyRef(props.dom, ref.current);
+  const parentRef = useRef<HTMLElement>();
+  const expanded = !isPending && dirty;
+  const idx = useId(id);
   const inputJsx = h(
     mode === "search" ? Input.Search : Input,
-    _util.extend(props, { value: query, setValue: setQuery, dom: ref } as any)
+    _util.extend(props, {
+      autoComplete: "off",
+      value: query,
+      onFocus: () => {
+        setDirty(true);
+      },
+      setValue: (v: string) => {
+        setDirty(true);
+        setQuery(v);
+      },
+      dom: ref,
+      depends: __depends,
+      "aria-autocomplete": "list",
+      "aria-expanded": expanded,
+    } as any)
   );
-  _util.applyRef(props.dom, ref.current);
-
+  function select(e: JSX.TargetedMouseEvent<any>) {
+    const { currentTarget } = e;
+    setQuery(currentTarget.dataset.value);
+    setDirty(false);
+  }
+  useClickAway(() => setDirty(false), parentRef.current);
+  const dropdownActive = expanded && options.length > 0;
   return (
-    <Container class={containerClass}>
+    <Container class={containerClass} dom={parentRef}>
       {inputJsx}
-      <div class={classnames.autocompleteOptions}>
-        {!isPending && <AutoCompleteOptions options={options} query={query} />}
-      </div>
+      <Dropdown parent={parentRef.current}>
+        <Transition
+          leaveClass={classnames.autocompleteInactive}
+          class={classnames.autocompleteDropdown}
+          id={dropdownActive ? idx : ""}
+          render={
+            dropdownActive && (
+              <div class={classnames.autocompleteOptions}>
+                <AutoCompleteOptions
+                  options={options}
+                  query={query}
+                  select={select}
+                />
+              </div>
+            )
+          }
+        />
+      </Dropdown>
     </Container>
   );
 }
@@ -41,12 +88,13 @@ function DependantAutoComplete(props: BaseElement<AutoCompleteProps>) {
     return h(
       BaseAutoComplete,
       _util.extend(_util.removeEventsFromProps(props), {
+        __depends: true,
         disabled: true,
         isPending,
       }) as any
     );
 
-  return h(BaseAutoComplete, props as any);
+  return h(BaseAutoComplete, _util.extend({ __depends: true }, props as any));
 }
 
 export function AutoComplete({

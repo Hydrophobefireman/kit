@@ -1,17 +1,14 @@
 import { PendingDataContext, _util } from "@hydrophobefireman/kit";
-import { h } from "@hydrophobefireman/ui-lib";
 
-import { Container } from "./container";
-import { ContainerProps } from "./types";
-
-export type ResourceContainerProps = ContainerProps & {
+export type ResourceContainerProps = {
   isPending: boolean;
   resourceName: string;
+  children?: any;
 };
 export function Resource({
   isPending,
   resourceName,
-  ...rest
+  children,
 }: ResourceContainerProps) {
   _util.guardBoolean(
     isPending,
@@ -23,7 +20,7 @@ export function Resource({
   };
   return (
     <PendingDataContext.Provider value={ctx}>
-      {h(Container, rest as any)}
+      {children}
     </PendingDataContext.Provider>
   );
 }

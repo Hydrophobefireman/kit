@@ -14,3 +14,7 @@ export * from "./use-keyboard-event";
 export * from "./use-keypress";
 export * from "./use-observer";
 export * from "./use-scroll";
+export * from "./use-resize";
+export * from "./use-click-away";
+export * from "./use-latest-ref";
+export * from "./use-id";

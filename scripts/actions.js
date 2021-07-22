@@ -34,7 +34,7 @@ const mkdir = async function mkdir(path, ...rest) {
 
 /** @type {fs['readdir']} */
 const readdir = async function readdir(path, ...rest) {
-  console.log(`[Debug]: Reading ${rRoot(path)}`);
+  console.log(`[fs] Reading ${rRoot(path)}/`);
   return await fs.readdir(path, ...rest);
 };
 
@@ -42,6 +42,12 @@ const readdir = async function readdir(path, ...rest) {
 const rename = async function rename(src, dest) {
   console.log(`$ mv ${rRoot(src)} ${rRoot(dest)}`);
   return await fs.rename(src, dest);
+};
+
+/**@type {fs['copyFile']} */
+const copyFile = async function copyFile(src, dest, ...rest) {
+  console.log(`$ cp ${rRoot(src)} ${rRoot(dest)}`);
+  return await fs.copyFile(src, dest);
 };
 module.exports = {
   writeFile,
@@ -52,4 +58,5 @@ module.exports = {
   rename,
   rRoot,
   root,
+  copyFile,
 };

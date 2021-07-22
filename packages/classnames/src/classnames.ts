@@ -13,6 +13,7 @@ export const buttonWarning = "kit-button-warning";
 export const buttonError = "kit-button-error";
 export const buttonSecondary = "kit-button-secondary";
 export const buttonSuccess = "kit-button-success";
+export const ripple = "kit-ripple";
 
 export const link = "kit-link";
 
@@ -79,5 +80,12 @@ export const inputHelperActive = "kit-input-helper-active";
 export const inputHelperInactive = "kit-input-helper-inactive";
 export const errored = "kit-errored";
 
+export const autocompleteOptions = "kit-autocomplete-options";
+export const autocompleteInactive = "kit-ac-dropdown-inactive";
+export const autocompleteDropdown = "kit-ac-dropdown";
 
-export const autocompleteOptions="kit-autocomplete-options"
+export const dropdown = "kit-dropdown";
+export const autocompleteOption = "kit-ac-option";
+export const autocompleteCurrentValue = "kit-ac-selected";
+
+export const transitionRoot = "kit-transition-root";

@@ -1,32 +1,72 @@
-import {
-  useEffect,
-  useRef,
-  useState,
-  Fragment,
-  h,
-} from "@hydrophobefireman/ui-lib";
-
+import { useEffect, useRef, useState } from "@hydrophobefireman/ui-lib";
+import * as classnames from "@hydrophobefireman/kit/classnames";
 import {
   AutoCompleteOptions,
   AutoCompleteOptionsRendererProps,
   AutoCompleteValue,
+  OptionsRendererProps,
 } from "./types";
 import { clean, contains } from "./util";
+import { useKeyPress } from "@hydrophobefireman/kit/hooks";
 
-function renderOptions(options: AutoCompleteOptions[]) {
-  return options.map(({ render, value }) => (
-    <div>{render ? render(value) : value}</div>
-  ));
+function OptionsValue({
+  render,
+  value,
+  select,
+  currentValue,
+}: AutoCompleteOptions & {
+  select(e: any): void;
+  currentValue: AutoCompleteValue;
+}) {
+  const dom = useRef<HTMLDivElement>();
+  useKeyPress("Enter", select, { target: dom.current });
+  return (
+    <div
+      ref={dom}
+      onClick={select}
+      data-value={value}
+      data-active={String(currentValue === value)}
+      tabIndex={0}
+      class={[
+        classnames.autocompleteOption,
+        currentValue === value ? classnames.autocompleteCurrentValue : "",
+      ]}
+    >
+      {render ? render(value) : value}
+    </div>
+  );
+}
+function OptionsRenderer({
+  options,
+  currentValue,
+  select,
+}: OptionsRendererProps) {
+  return (
+    <>
+      {options.map(({ render, value }) => (
+        <OptionsValue
+          render={render}
+          value={value}
+          select={select}
+          currentValue={currentValue}
+        />
+      ))}
+    </>
+  );
 }
 
 export function AutoCompleteOptions({
   options,
   query,
+  select,
   containsFunction,
 }: AutoCompleteOptionsRendererProps) {
+  query = query || "";
   const funcRef = useRef<(a: AutoCompleteValue, b: string) => boolean>();
   funcRef.current = containsFunction || contains;
-  const [filteredOptions, setFilteredOptions] = useState([]);
+  const [filteredOptions, setFilteredOptions] = useState<AutoCompleteOptions[]>(
+    []
+  );
   useEffect(() => {
     const { current } = funcRef;
     if (!options || !options.length) return setFilteredOptions([]);
@@ -36,5 +76,11 @@ export function AutoCompleteOptions({
     setFilteredOptions(options.filter((x) => !!current(x.value, query)));
   }, [query, options, containsFunction]);
 
-  return h(Fragment, null, renderOptions(filteredOptions));
+  return (
+    <OptionsRenderer
+      options={filteredOptions}
+      currentValue={query}
+      select={select}
+    />
+  );
 }

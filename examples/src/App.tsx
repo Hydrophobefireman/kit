@@ -10,6 +10,7 @@ import { Button, ButtonProps } from "@hydrophobefireman/kit/button";
 import { Container, Resource } from "@hydrophobefireman/kit/container";
 import { Input } from "@hydrophobefireman/kit/input";
 import { useTheme } from "@hydrophobefireman/kit/theme";
+import { Transition } from "@hydrophobefireman/kit/transition";
 import { VNode, render, useEffect, useState } from "@hydrophobefireman/ui-lib";
 
 import { RouterTest } from "./RouterTest";
@@ -24,22 +25,80 @@ function App(): VNode {
   const { currentTheme, toggle } = useTheme();
   return (
     <>
-      <Resource
-        resourceName="name"
-        isPending={!name}
-        class={[
-          css({
-            margin: "auto",
-            width: "500px",
-            height: "200px",
-            border: "2px solid",
-            marginTop: "20px",
-          }),
-        ]}
-        horizontal="center"
-        vertical="center"
-      >
-        <Container element="main">
+      <Container horizontal="center" row>
+        <AutoComplete
+          label="Search"
+          mode="search"
+          variant="material"
+          options={[
+            { value: "Things Fall Apart" },
+            { value: "Fairy tales" },
+            { value: "The Divine Comedy" },
+            { value: "The Epic Of Gilgamesh" },
+            { value: "The Book Of Job" },
+            { value: "One Thousand and One Nights" },
+            { value: "Njál's Saga" },
+            { value: "Pride and Prejudice" },
+            { value: "Le Père Goriot" },
+            { value: "Molloy, Malone Dies, The Unnamable, the trilogy" },
+            { value: "The Decameron" },
+            { value: "Ficciones" },
+            { value: "Wuthering Heights" },
+            { value: "The Stranger" },
+            { value: "Poems" },
+            { value: "Journey to the End of the Night" },
+            { value: "Don Quijote De La Mancha" },
+            { value: "The Canterbury Tales" },
+            { value: "Stories" },
+            { value: "Nostromo" },
+            { value: "Great Expectations" },
+            { value: "Jacques the Fatalist" },
+            { value: "Berlin Alexanderplatz" },
+            { value: "Crime and Punishment" },
+            { value: "The Idiot" },
+            { value: "The Possessed" },
+            { value: "The Brothers Karamazov" },
+            { value: "Middlemarch" },
+            { value: "Invisible Man" },
+            { value: "Medea" },
+            { value: "Absalom, Absalom!" },
+            { value: "The Sound and the Fury" },
+            { value: "Madame Bovary" },
+            { value: "Sentimental Education" },
+            { value: "Gypsy Ballads" },
+            { value: "One Hundred Years of Solitude" },
+            { value: "Love in the Time of Cholera" },
+            { value: "Faust" },
+            { value: "Dead Souls" },
+            { value: "The Tin Drum" },
+            { value: "The Devil to Pay in the Backlands" },
+            { value: "Hunger" },
+            { value: "The Old Man and the Sea" },
+            { value: "Iliad" },
+            { value: "Odyssey" },
+            { value: "A Doll's House" },
+            { value: "Ulysses" },
+            { value: "The Trial" },
+            { value: "The Castle" },
+          ]}
+        />
+      </Container>
+
+      <Resource resourceName="name" isPending={!name}>
+        <Container
+          element="main"
+          class={[
+            css({
+              margin: "auto",
+              width: "500px",
+              height: "200px",
+              border: "2px solid",
+              marginTop: "20px",
+            }),
+          ]}
+          horizontal="center"
+          vertical="center"
+        >
           <Container element="div" style={{ width: "100%" }}>
             <div>
               Hello{" "}
@@ -126,25 +185,9 @@ function App(): VNode {
           mode="warning"
         />
       </Container>
-
+      <TransitionTest />
       <Container horizontal="center">
         <RouterTest />
-      </Container>
-      <Container horizontal="center" row>
-        <AutoComplete
-          label="Search"
-          mode="search"
-          variant="material"
-          options={[
-            { value: "ok" },
-            {
-              value: "hello",
-              render() {
-                return <div class={css({ color: "blue" })}>Heeeloo</div>;
-              },
-            },
-          ]}
-        />
       </Container>
       <Container horizontal="center" row>
         <TestInput variant="material" placeholder="hello" />
@@ -166,7 +209,28 @@ function TestInput(props: any) {
     />
   );
 }
-
+function TransitionTest() {
+  const [id, setId] = useState(0);
+  return (
+    <Container horizontal="center" style={{ "--kit-transition": "1s" } as any}>
+      <Transition
+        id={id}
+        idleClass={css({ color: "red" })}
+        leaveClass={css({ opacity: "0.5", textDecoration: "underline" })}
+        enterClass={css({ color: "blue" })}
+        render={id % 2 ? null : () => <div>Hello, {id}</div>}
+      />
+      <Button
+        mode="secondary"
+        variant="shadow"
+        label="new ID"
+        onClick={() => setId(id + 1)}
+      >
+        Click
+      </Button>
+    </Container>
+  );
+}
 function TextButton({
   text,
   ...rest

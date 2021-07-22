@@ -1,0 +1,26 @@
+.kit-fade-in {
+  animation: soft-fade-in 0.3s ease forwards;
+}
+
+@keyframes soft-fade-in {
+  0% {
+    opacity: 0.3;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.kit-card-shadow {
+  box-shadow: var(--kit-shadow);
+}
+
+::-webkit-scrollbar {
+  background: var(--kit-background);
+  width: 0.8rem;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--kit-violet-lightest);
+  border-radius: 2px;
+  z-index: 10;
+}

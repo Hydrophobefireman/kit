@@ -1,8 +1,7 @@
-import { useEffect, useRef } from "@hydrophobefireman/ui-lib";
+import { useEffect } from "@hydrophobefireman/ui-lib";
 
-import { Keys } from "./types";
+import { useLatestRef } from "./use-latest-ref";
 
-const Win = typeof window !== "undefined" && window;
 export type KeyboardMode = "keydown" | "keyup" | "keypress";
 export interface UseKeyboardOptions {
   mode?: KeyboardMode;
@@ -12,18 +11,16 @@ export interface UseKeyboardOptions {
 
 export function useKeyboard(
   listener: (e: JSX.TargetedKeyboardEvent<any>) => void,
-  { mode, target, passive = true }: UseKeyboardOptions = {}
+  { mode, target, passive = true }: UseKeyboardOptions
 ) {
-  target = target || Win;
-  mode = mode || "keydown";
-  const l = useRef(listener);
-  l.current = listener;
+  const keyboardMode = mode || "keydown";
+  const l = useLatestRef(listener);
   useEffect(() => {
     if (!target) return;
-    function listener(e: JSX.TargetedKeyboardEvent<any>) {
+    function ev(e: JSX.TargetedKeyboardEvent<any>) {
       l.current(e);
     }
-    target.addEventListener(mode, listener, { passive });
-    return () => target.removeEventListener(mode, listener);
+    target.addEventListener(keyboardMode, ev, { passive });
+    return () => target.removeEventListener(keyboardMode, ev);
   }, [mode, target]);
 }
