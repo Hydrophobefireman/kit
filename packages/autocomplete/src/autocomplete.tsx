@@ -18,7 +18,7 @@ function BaseAutoComplete({
   options,
   containerClass,
   isPending,
-  __depends,
+  depends,
   dropdownClass,
   noSuggestions,
   id,
@@ -47,7 +47,7 @@ function BaseAutoComplete({
         setQuery(v);
       },
       dom: ref,
-      depends: __depends,
+      depends,
       "aria-autocomplete": "list",
       "aria-expanded": expanded,
     } as any)
@@ -65,7 +65,11 @@ function BaseAutoComplete({
   return (
     <Container class={containerClass} dom={parentRef}>
       {inputJsx}
-      <Dropdown parent={parentRef.current} class={dropdownClass}>
+      <Dropdown
+        style={dropdownActive ? null : { overflow: "hidden" }}
+        parent={parentRef.current}
+        class={dropdownClass}
+      >
         <Transition
           enterClass={classnames.autocompleteInactive}
           leaveClass={classnames.autocompleteInactive}
@@ -93,19 +97,15 @@ function DependantAutoComplete(props: BaseElement<AutoCompleteProps>) {
     return h(
       BaseAutoComplete,
       _util.extend(_util.removeEventsFromProps(props), {
-        __depends: true,
         disabled: true,
         isPending,
       }) as any
     );
 
-  return h(BaseAutoComplete, _util.extend({ __depends: true }, props as any));
+  return h(BaseAutoComplete, props as any);
 }
 
-export function AutoComplete({
-  depends,
-  ...props
-}: BaseElement<AutoCompleteProps>) {
-  if (depends) return h(DependantAutoComplete, props as any);
+export function AutoComplete(props: BaseElement<AutoCompleteProps>) {
+  if (props.depends) return h(DependantAutoComplete, props as any);
   return h(BaseAutoComplete, props as any);
 }

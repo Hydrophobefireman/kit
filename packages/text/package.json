@@ -1,10 +1,9 @@
 {
-   "name": "dropdown",
+   "name": "text",
    "version": "0.0.1-jul-23",
    "private": true,
    "main": "src/index.js",
    "module": "src/index.js",
-   "source": "src/index.ts",
    "types": "src/index.d.ts",
    "license": "MIT",
    "scripts": {
@@ -21,6 +20,7 @@
       "@hydrophobefireman/kit/button": "0.0.1-jul-23",
       "@hydrophobefireman/kit/classnames": "0.0.1-jul-23",
       "@hydrophobefireman/kit/container": "0.0.1-jul-23",
+      "@hydrophobefireman/kit/dropdown": "0.0.1-jul-23",
       "@hydrophobefireman/kit/form": "0.0.1-jul-23",
       "@hydrophobefireman/kit/hooks": "0.0.1-jul-23",
       "@hydrophobefireman/kit/http": "0.0.1-jul-23",
@@ -28,7 +28,6 @@
       "@hydrophobefireman/kit/loading": "0.0.1-jul-23",
       "@hydrophobefireman/kit/router": "0.0.1-jul-23",
       "@hydrophobefireman/kit/skeleton": "0.0.1-jul-23",
-      "@hydrophobefireman/kit/text": "0.0.1-jul-23",
       "@hydrophobefireman/kit/theme": "0.0.1-jul-23",
       "@hydrophobefireman/kit/transition": "0.0.1-jul-23"
    }

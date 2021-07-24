@@ -23,7 +23,6 @@ export interface AutoCompleteProps extends Omit<InputProps, "value"> {
   containerClass?: string;
   isPending?: boolean;
   noSuggestions?: JSX.Element | ComplexComponent;
-  __depends?: boolean;
   dropdownClass?: string;
 }
 export interface OptionsRendererProps {

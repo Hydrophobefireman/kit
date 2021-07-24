@@ -18,9 +18,10 @@ function App(): VNode {
   const [name, setName] = useState("");
   const [refetch, setRefetch] = useState({});
   useEffect(() => {
-    setName("");
+    console.log("ok");
     setTimeout(() => setName("John"), 1000);
   }, [refetch]);
+  console.log("ok1");
   const { currentTheme, toggle } = useTheme();
   return (
     <>
@@ -119,6 +120,7 @@ function App(): VNode {
             depends
             label="Refetch"
             onClick={() => {
+              setName("");
               setRefetch({});
             }}
           >

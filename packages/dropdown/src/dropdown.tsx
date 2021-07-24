@@ -36,11 +36,14 @@ export function Dropdown(props: DropdownProps) {
       block
       dom={ref}
       class={cls}
-      style={{
-        top: `${rect.top}px`,
-        left: `${rect.left + 2}px`,
-        width: `${rect.width}px`,
-      }}
+      style={_util.extend(
+        {
+          top: `${rect.top}px`,
+          left: `${rect.left + 2}px`,
+          width: `${rect.width}px`,
+        },
+        props.style
+      )}
     >
       {props.children}
     </BaseDom>

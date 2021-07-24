@@ -12,7 +12,7 @@
    "main": "dist/src/index.js",
    "module": "dist/src/index.js",
    "exports": {
-      ".": "./dist/src/index.js",
+      ".": "./dist/src/index.jskit.modern.js",
       "./styles/css/": "./styles/css/",
       "./styles/": "./styles/",
       "./styles": "./styles/index.js",
@@ -32,6 +32,7 @@
       "./loading": "./loading/src/index.js",
       "./router": "./router/src/index.js",
       "./skeleton": "./skeleton/src/index.js",
+      "./text": "./text/src/index.js",
       "./theme": "./theme/src/index.js",
       "./transition": "./transition/src/index.js"
    },
@@ -79,6 +80,7 @@
       "loading",
       "router",
       "skeleton",
+      "text",
       "theme",
       "transition"
    ]

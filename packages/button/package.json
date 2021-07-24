@@ -28,6 +28,7 @@
       "@hydrophobefireman/kit/loading": "0.0.1-jul-23",
       "@hydrophobefireman/kit/router": "0.0.1-jul-23",
       "@hydrophobefireman/kit/skeleton": "0.0.1-jul-23",
+      "@hydrophobefireman/kit/text": "0.0.1-jul-23",
       "@hydrophobefireman/kit/theme": "0.0.1-jul-23",
       "@hydrophobefireman/kit/transition": "0.0.1-jul-23"
    }

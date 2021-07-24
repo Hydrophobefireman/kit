@@ -15,12 +15,15 @@
   box-shadow: var(--kit-shadow);
 }
 
-::-webkit-scrollbar {
-  background: var(--kit-background);
-  width: 0.8rem;
-}
 ::-webkit-scrollbar-thumb {
-  background: var(--kit-violet-lightest);
-  border-radius: 2px;
+  background-color: var(--kit-scroll-thumb);
+  border-radius: 5px;
   z-index: 10;
+}
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  border-radius: 0px;
+  background-color: var(--kit-background);
 }
