@@ -4,7 +4,6 @@
     "outDir": "dist",
     "alwaysStrict": true,
     "declaration": true,
-    "incremental": true,
     "target": "ESNext",
     "rootDir": ".",
     "strictNullChecks": true,
@@ -18,6 +17,7 @@
       "@hydrophobefireman/kit/*": ["./packages/*/src"]
     }
   },
+
   "include": ["src/*", "packages"],
   "exclude": ["node_modules", "dist/*", "examples/"]
 }

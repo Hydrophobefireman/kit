@@ -1,13 +1,12 @@
-const { rm } = require("./actions");
+const { mkdir } = require("./actions");
 const { join } = require("path");
-const { postpublish, root, packageDir, fromPackageJson } = require("./util");
+const { postpublish, root } = require("./util");
 
 async function main() {
   console.log(`Root: ${root}`);
   const core = join(root, "dist");
-  await rm(core, { force: true, recursive: true });
-  // run just in case
   await postpublish();
+  await mkdir(core);
 }
 
 if (require.main === module) {

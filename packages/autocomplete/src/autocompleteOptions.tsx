@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "@hydrophobefireman/ui-lib";
+import { h, useEffect, useRef, useState } from "@hydrophobefireman/ui-lib";
 import * as classnames from "@hydrophobefireman/kit/classnames";
 import {
   AutoCompleteOptions,
@@ -40,17 +40,28 @@ function OptionsRenderer({
   options,
   currentValue,
   select,
+  noSuggestions,
 }: OptionsRendererProps) {
   return (
     <>
-      {options.map(({ render, value }) => (
-        <OptionsValue
-          render={render}
-          value={value}
-          select={select}
-          currentValue={currentValue}
-        />
-      ))}
+      {options && options.length > 0 ? (
+        options.map(({ render, value }) => (
+          <OptionsValue
+            render={render}
+            value={value}
+            select={select}
+            currentValue={currentValue}
+          />
+        ))
+      ) : noSuggestions ? (
+        typeof noSuggestions === "function" ? (
+          h(noSuggestions)
+        ) : (
+          noSuggestions
+        )
+      ) : (
+        <div>No suggestions found</div>
+      )}
     </>
   );
 }

@@ -55,13 +55,17 @@ function BaseAutoComplete({
     setQuery(currentTarget.dataset.value);
     setDirty(false);
   }
-  useClickAway(() => setDirty(false), parentRef.current);
   const dropdownActive = expanded && options.length > 0;
+  useClickAway(
+    () => setDirty(false),
+    dropdownActive ? parentRef.current : (null as any)
+  );
   return (
     <Container class={containerClass} dom={parentRef}>
       {inputJsx}
       <Dropdown parent={parentRef.current}>
         <Transition
+          enterClass={classnames.autocompleteInactive}
           leaveClass={classnames.autocompleteInactive}
           class={classnames.autocompleteDropdown}
           id={dropdownActive ? idx : ""}

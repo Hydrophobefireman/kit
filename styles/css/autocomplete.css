@@ -1,4 +1,5 @@
 .kit-autocomplete-options {
+  flex: 1;
   background: var(--kit-background);
   border: 2px solid var(--kit-shade-2);
   box-shadow: var(--kit-shadow);

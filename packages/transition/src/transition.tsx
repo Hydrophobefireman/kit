@@ -2,7 +2,13 @@ import { BaseElement, _util } from "@hydrophobefireman/kit";
 import { BaseDom } from "@hydrophobefireman/kit/base-dom";
 import * as classnames from "@hydrophobefireman/kit/classnames";
 import { useLatestRef } from "@hydrophobefireman/kit/hooks";
-import { h, useEffect, useRef, useState } from "@hydrophobefireman/ui-lib";
+import {
+  h,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "@hydrophobefireman/ui-lib";
 
 import { RenderState, TransitionProps } from "./types";
 
@@ -14,7 +20,9 @@ export function Transition({
   leaveClass,
   as,
   class: cls,
+  children,
   className,
+  style,
   ...rest
 }: BaseElement<TransitionProps>) {
   const isFirstRender = useRef(true);
@@ -23,13 +31,15 @@ export function Transition({
   const nextChildRef = useLatestRef(render);
   const currentChildRef = useLatestRef(child);
   function scheduleNextChild() {
-    setRenderState("INITIAL");
+    setRenderState(nextChildRef.current ? "INITIAL" : "UNMOUNT");
+    currentChildRef.current = nextChildRef.current;
     setChild(() => nextChildRef.current);
   }
+
   function nextRenderState() {
     switch (renderState) {
       case "INITIAL":
-        return currentChildRef.current && setRenderState("IDLE");
+        return setRenderState("IDLE");
       case "UNMOUNT":
         scheduleNextChild();
         return;
@@ -38,22 +48,33 @@ export function Transition({
         return;
     }
   }
-
+  useEffect(() => {
+    if (render) {
+      if (render !== currentChildRef.current) {
+        setChild(() => render);
+      }
+    }
+  }, [render]);
   useEffect(() => {
     if (isFirstRender.current) {
       isFirstRender.current = false;
-      return setRenderState("INITIAL");
+      return setRenderState(nextChildRef.current ? "INITIAL" : "UNMOUNT");
     }
-    if (!currentChildRef.current) {
-      scheduleNextChild();
-    } else {
-      setRenderState("UNMOUNT");
-    }
+    if (!nextChildRef.current) return setRenderState("UNMOUNT");
+    scheduleNextChild();
   }, [id]);
+
+  const css = _util.extend(
+    {},
+    style,
+    !child ? { transition: "0.0001s" } : null
+  );
   return h(
     BaseDom,
     _util.extend(
       {
+        style: css,
+
         id,
         element: as || "div",
         onTransitionEnd: nextRenderState,

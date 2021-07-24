@@ -10,7 +10,6 @@ import { Button, ButtonProps } from "@hydrophobefireman/kit/button";
 import { Container, Resource } from "@hydrophobefireman/kit/container";
 import { Input } from "@hydrophobefireman/kit/input";
 import { useTheme } from "@hydrophobefireman/kit/theme";
-import { Transition } from "@hydrophobefireman/kit/transition";
 import { VNode, render, useEffect, useState } from "@hydrophobefireman/ui-lib";
 
 import { RouterTest } from "./RouterTest";
@@ -185,7 +184,6 @@ function App(): VNode {
           mode="warning"
         />
       </Container>
-      <TransitionTest />
       <Container horizontal="center">
         <RouterTest />
       </Container>
@@ -209,28 +207,7 @@ function TestInput(props: any) {
     />
   );
 }
-function TransitionTest() {
-  const [id, setId] = useState(0);
-  return (
-    <Container horizontal="center" style={{ "--kit-transition": "1s" } as any}>
-      <Transition
-        id={id}
-        idleClass={css({ color: "red" })}
-        leaveClass={css({ opacity: "0.5", textDecoration: "underline" })}
-        enterClass={css({ color: "blue" })}
-        render={id % 2 ? null : () => <div>Hello, {id}</div>}
-      />
-      <Button
-        mode="secondary"
-        variant="shadow"
-        label="new ID"
-        onClick={() => setId(id + 1)}
-      >
-        Click
-      </Button>
-    </Container>
-  );
-}
+
 function TextButton({
   text,
   ...rest

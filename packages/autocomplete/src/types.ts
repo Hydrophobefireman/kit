@@ -1,3 +1,4 @@
+import { ComplexComponent } from "@hydrophobefireman/kit";
 import { InputProps } from "@hydrophobefireman/kit/input";
 
 export type AutoCompleteValue = string | number | null;
@@ -26,5 +27,6 @@ export interface OptionsRendererProps {
   options: AutoCompleteOptions[];
   currentValue: AutoCompleteValue;
   select: AutoCompleteOptionsRendererProps["select"];
+  noSuggestions?: JSX.Element | ComplexComponent;
 }
 export {};

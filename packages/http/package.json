@@ -12,7 +12,7 @@
    },
    "peerDependencies": {
       "@hydrophobefireman/flask-jwt-jskit": "^0.1.5",
-      "@hydrophobefireman/ui-lib": "^1.9.9",
+      "@hydrophobefireman/ui-lib": "^1.10.0",
       "statedrive": "^0.0.13",
       "@hydrophobefireman/kit": "0.0.1-jul-23",
       "@hydrophobefireman/kit/alerts": "0.0.1-jul-23",
