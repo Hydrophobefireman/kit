@@ -11,6 +11,7 @@ export interface AutoCompleteOptionsRendererProps {
   query: string;
   select(e: JSX.TargetedMouseEvent<any>): void;
   containsFunction?(a: AutoCompleteValue, b: string): boolean;
+  noSuggestions?: JSX.Element | ComplexComponent;
 }
 
 export interface AutoCompleteProps extends Omit<InputProps, "value"> {
@@ -21,12 +22,13 @@ export interface AutoCompleteProps extends Omit<InputProps, "value"> {
   itemRender?(value: AutoCompleteValue): JSX.Element;
   containerClass?: string;
   isPending?: boolean;
+  noSuggestions?: JSX.Element | ComplexComponent;
   __depends?: boolean;
+  dropdownClass?: string;
 }
 export interface OptionsRendererProps {
   options: AutoCompleteOptions[];
   currentValue: AutoCompleteValue;
   select: AutoCompleteOptionsRendererProps["select"];
-  noSuggestions?: JSX.Element | ComplexComponent;
 }
 export {};

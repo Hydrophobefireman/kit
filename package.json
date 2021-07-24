@@ -80,5 +80,8 @@
       "skeleton",
       "theme",
       "transition"
-   ]
+   ],
+   "dependencies": {
+      "@types/node": "^16.4.1"
+   }
 }

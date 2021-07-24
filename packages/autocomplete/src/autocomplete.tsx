@@ -19,6 +19,8 @@ function BaseAutoComplete({
   containerClass,
   isPending,
   __depends,
+  dropdownClass,
+  noSuggestions,
   id,
   ...props
 }: BaseElement<AutoCompleteProps>) {
@@ -63,7 +65,7 @@ function BaseAutoComplete({
   return (
     <Container class={containerClass} dom={parentRef}>
       {inputJsx}
-      <Dropdown parent={parentRef.current}>
+      <Dropdown parent={parentRef.current} class={dropdownClass}>
         <Transition
           enterClass={classnames.autocompleteInactive}
           leaveClass={classnames.autocompleteInactive}
@@ -71,13 +73,12 @@ function BaseAutoComplete({
           id={dropdownActive ? idx : ""}
           render={
             dropdownActive && (
-              <div class={classnames.autocompleteOptions}>
-                <AutoCompleteOptions
-                  options={options}
-                  query={query}
-                  select={select}
-                />
-              </div>
+              <AutoCompleteOptions
+                noSuggestions={noSuggestions}
+                options={options}
+                query={query}
+                select={select}
+              />
             )
           }
         />

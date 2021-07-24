@@ -40,28 +40,17 @@ function OptionsRenderer({
   options,
   currentValue,
   select,
-  noSuggestions,
 }: OptionsRendererProps) {
   return (
     <>
-      {options && options.length > 0 ? (
-        options.map(({ render, value }) => (
-          <OptionsValue
-            render={render}
-            value={value}
-            select={select}
-            currentValue={currentValue}
-          />
-        ))
-      ) : noSuggestions ? (
-        typeof noSuggestions === "function" ? (
-          h(noSuggestions)
-        ) : (
-          noSuggestions
-        )
-      ) : (
-        <div>No suggestions found</div>
-      )}
+      {options.map(({ render, value }) => (
+        <OptionsValue
+          render={render}
+          value={value}
+          select={select}
+          currentValue={currentValue}
+        />
+      ))}
     </>
   );
 }
@@ -71,6 +60,7 @@ export function AutoCompleteOptions({
   query,
   select,
   containsFunction,
+  noSuggestions,
 }: AutoCompleteOptionsRendererProps) {
   query = query || "";
   const funcRef = useRef<(a: AutoCompleteValue, b: string) => boolean>();
@@ -87,11 +77,21 @@ export function AutoCompleteOptions({
     setFilteredOptions(options.filter((x) => !!current(x.value, query)));
   }, [query, options, containsFunction]);
 
-  return (
-    <OptionsRenderer
-      options={filteredOptions}
-      currentValue={query}
-      select={select}
-    />
+  return filteredOptions.length ? (
+    <div class={classnames.autocompleteOptions}>
+      <OptionsRenderer
+        options={filteredOptions}
+        currentValue={query}
+        select={select}
+      />
+    </div>
+  ) : noSuggestions ? (
+    typeof noSuggestions === "function" ? (
+      h(noSuggestions)
+    ) : (
+      noSuggestions
+    )
+  ) : (
+    <kit-no-suggestions />
   );
 }

@@ -26,6 +26,10 @@ function App(): VNode {
     <>
       <Container horizontal="center" row>
         <AutoComplete
+          dropdownClass={css({
+            maxHeight: "300px",
+            overflow: "auto",
+          })}
           label="Search"
           mode="search"
           variant="material"
