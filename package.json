@@ -50,6 +50,7 @@
       "statedrive": "^0.0.13"
    },
    "devDependencies": {
+      "@types/node": "^16.4.1",
       "csstype": "^3.0.8",
       "typescript": "^4.3.5"
    },
@@ -80,8 +81,5 @@
       "skeleton",
       "theme",
       "transition"
-   ],
-   "dependencies": {
-      "@types/node": "^16.4.1"
-   }
+   ]
 }
