@@ -17,7 +17,7 @@ const alignmentMap = new Map<
   ["bottom", "flex-end"],
 ]);
 
-function IndependantContainer({
+function BaseContainer({
   element = "div",
   row,
   style,
@@ -66,13 +66,13 @@ function DependantContainer(props: ContainerProps) {
         className={props.className}
         style={props.style}
       >
-        {h(IndependantContainer, _util.removeEventsFromProps(props) as any)}
+        {h(BaseContainer, _util.removeEventsFromProps(props) as any)}
       </Skeleton>
     );
-  return h(IndependantContainer, props as any);
+  return h(BaseContainer, props as any);
 }
 
 export function Container({ depends, ...props }: ContainerProps) {
   if (depends) return h(DependantContainer, props as any);
-  return h(IndependantContainer, props as any);
+  return h(BaseContainer, props as any);
 }

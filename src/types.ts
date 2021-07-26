@@ -65,4 +65,41 @@ interface ClassComponent {
 type FunctionalCompnent = (props: any) => Renderable;
 export type ComplexComponent = FunctionalCompnent | ClassComponent;
 
+export type KitColors =
+  | "kit-background"
+  | "kit-shade-1"
+  | "kit-shade-2"
+  | "kit-shade-3"
+  | "kit-shade-4"
+  | "kit-shade-5"
+  | "kit-shade-6"
+  | "kit-shade-7"
+  | "kit-shade-8"
+  | "kit-foreground"
+  | "kit-error-lightest"
+  | "kit-error-light"
+  | "kit-error"
+  | "kit-error-dark"
+  | "kit-selection"
+  | "kit-success-lightest"
+  | "kit-success-light"
+  | "kit-success"
+  | "kit-success-dark"
+  | "kit-warning-lightest"
+  | "kit-warning-light"
+  | "kit-warning"
+  | "kit-warning-dark"
+  | "kit-violet-lightest"
+  | "kit-violet-light"
+  | "kit-violet"
+  | "kit-violet-dark"
+  | "kit-cyan-lightest"
+  | "kit-cyan-light"
+  | "kit-cyan"
+  | "kit-cyan-dark"
+  | "kit-highlight-purple"
+  | "kit-highlight-magenta"
+  | "kit-highlight-pink"
+  | "kit-highlight-yellow";
+
 export {};

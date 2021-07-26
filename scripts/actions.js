@@ -3,7 +3,7 @@ const { relative } = require("path");
 
 const { join } = require("path");
 const root = join(__dirname, "..");
-
+const dist = join(root, "dist");
 function rRoot(path) {
   return relative(root, path);
 }
@@ -51,6 +51,7 @@ const copyFile = async function copyFile(src, dest, ...rest) {
 };
 module.exports = {
   writeFile,
+  dist,
   readFile,
   rm,
   mkdir,

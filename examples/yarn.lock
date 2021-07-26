@@ -1032,10 +1032,10 @@
   resolved "https://registry.yarnpkg.com/@hydrophobefireman/qwc/-/qwc-0.0.6.tgz#e1028ffa3ad0c9f05afb368b03cb10082c84d68e"
   integrity sha512-ofxA3P5Ztx2y+fvJ6nFrWnuimUSjOphmE+7klrgqpDWgfB1t9wPGo51jmGb/eSMzIhPM1TV98//+/WkkSGE0FQ==
 
-"@hydrophobefireman/ui-lib@^1.10.0":
-  version "1.10.0"
-  resolved "https://registry.yarnpkg.com/@hydrophobefireman/ui-lib/-/ui-lib-1.10.0.tgz#2df08441d729673c136af9279cd533b1d79b6b65"
-  integrity sha512-zUa4lZa8Z8txY5Dah8+j25o15ChA01yvUP5vQUcgxxwM1DCc53ydt5JpOC73UJRVfW0dVrPynzRly3+1hTn5Sw==
+"@hydrophobefireman/ui-lib@^1.10.3":
+  version "1.10.3"
+  resolved "https://registry.yarnpkg.com/@hydrophobefireman/ui-lib/-/ui-lib-1.10.3.tgz#9fb0ccccb7fc71197b71791def3e3f4423a4af90"
+  integrity sha512-Ur+j2MLBoFO3rWdmJ+GcdLaRXNOUjRf+2SxV1wWzG8GixKfCbGaNSquOqeFoknk528t/gCnh+HLQ2YaYkG+5iA==
 
 "@trysound/sax@0.1.1":
   version "0.1.1"

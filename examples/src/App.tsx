@@ -9,6 +9,7 @@ import { AutoComplete } from "@hydrophobefireman/kit/autocomplete";
 import { Button, ButtonProps } from "@hydrophobefireman/kit/button";
 import { Container, Resource } from "@hydrophobefireman/kit/container";
 import { Input } from "@hydrophobefireman/kit/input";
+import { Text } from "@hydrophobefireman/kit/text";
 import { useTheme } from "@hydrophobefireman/kit/theme";
 import { VNode, render, useEffect, useState } from "@hydrophobefireman/ui-lib";
 
@@ -17,11 +18,11 @@ import { RouterTest } from "./RouterTest";
 function App(): VNode {
   const [name, setName] = useState("");
   const [refetch, setRefetch] = useState({});
+  // debugger
   useEffect(() => {
-    console.log("ok");
     setTimeout(() => setName("John"), 1000);
   }, [refetch]);
-  console.log("ok1");
+
   const { currentTheme, toggle } = useTheme();
   return (
     <>
@@ -106,13 +107,9 @@ function App(): VNode {
           <Container element="div" style={{ width: "100%" }}>
             <div>
               Hello{" "}
-              <Container
-                depends
-                element="div"
-                style={{ display: "inline-block" }}
-              >
-                {name || "Loading"}
-              </Container>
+              <Text depends as="strong">
+                {name}
+              </Text>
             </div>
           </Container>
           <Button
@@ -198,6 +195,13 @@ function App(): VNode {
         <TestInput variant="material" placeholder="hello" size="large" />
         <TestInput errored placeholder="hello" size="small" />
       </Container>
+      <Resource isPending={true} resourceName="ok">
+        <Container horizontal="center">
+          <Text size={16} color="kit-highlight-pink">
+            Hello World
+          </Text>
+        </Container>
+      </Resource>
     </>
   );
 }

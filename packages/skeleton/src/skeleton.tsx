@@ -12,9 +12,9 @@ export function Skeleton({
   return (
     <BaseDom
       aria-hidden
-      class={classnames.noEvents}
-      className={_util.createClassProp([className, cls])}
-      style={_util.extend(style, { position: "relative" })}
+      inlineBlock
+      className={[className, cls, classnames.noEvents]}
+      style={_util.extend({ position: "relative" }, style)}
     >
       <span class={classnames.skeletonWrapper}>{children}</span>
     </BaseDom>

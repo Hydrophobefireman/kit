@@ -2,7 +2,7 @@ export function onlyOneProp<T>(arr: string[], props: T, message: any) {
   let count = 0;
   let common = [];
   for (const i in props) {
-    if (arr.indexOf(i) > -1) {
+    if (arr.indexOf(i) > -1 && props[i] !== undefined) {
       (common as any).push(i);
       count++;
     }

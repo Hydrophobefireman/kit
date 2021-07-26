@@ -19,7 +19,6 @@ html:not([data-kit-theme="dark"]) {
   --kit-error-light: #ff1a1a;
   --kit-error: #e00;
   --kit-error-dark: #c50000;
-
   --kit-selection: var(--kit-cyan);
   --kit-scroll-thumb: rgba(22, 24, 35, 0.34);
 }

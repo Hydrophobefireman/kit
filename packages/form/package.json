@@ -12,24 +12,7 @@
    },
    "peerDependencies": {
       "@hydrophobefireman/flask-jwt-jskit": "^0.1.5",
-      "@hydrophobefireman/ui-lib": "^1.10.0",
-      "statedrive": "^0.0.13",
-      "@hydrophobefireman/kit": "0.0.1-jul-23",
-      "@hydrophobefireman/kit/alerts": "0.0.1-jul-23",
-      "@hydrophobefireman/kit/autocomplete": "0.0.1-jul-23",
-      "@hydrophobefireman/kit/base-dom": "0.0.1-jul-23",
-      "@hydrophobefireman/kit/button": "0.0.1-jul-23",
-      "@hydrophobefireman/kit/classnames": "0.0.1-jul-23",
-      "@hydrophobefireman/kit/container": "0.0.1-jul-23",
-      "@hydrophobefireman/kit/dropdown": "0.0.1-jul-23",
-      "@hydrophobefireman/kit/hooks": "0.0.1-jul-23",
-      "@hydrophobefireman/kit/http": "0.0.1-jul-23",
-      "@hydrophobefireman/kit/input": "0.0.1-jul-23",
-      "@hydrophobefireman/kit/loading": "0.0.1-jul-23",
-      "@hydrophobefireman/kit/router": "0.0.1-jul-23",
-      "@hydrophobefireman/kit/skeleton": "0.0.1-jul-23",
-      "@hydrophobefireman/kit/text": "0.0.1-jul-23",
-      "@hydrophobefireman/kit/theme": "0.0.1-jul-23",
-      "@hydrophobefireman/kit/transition": "0.0.1-jul-23"
+      "@hydrophobefireman/ui-lib": "^1.10.3",
+      "statedrive": "^0.0.13"
    }
 }
