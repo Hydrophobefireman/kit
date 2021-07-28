@@ -89,3 +89,10 @@ export const autocompleteOption = "kit-ac-option";
 export const autocompleteCurrentValue = "kit-ac-selected";
 
 export const transitionRoot = "kit-transition-root";
+
+export const checkbox = "kit-checkbox";
+export const _checkboxInputHidden = "kit-checkbox-input";
+export const checkboxIcon = "kit-checkbox-icon";
+export const checkboxIconActive = "kit-checkbox-active";
+export const checkboxIconContainer = "kit-icon-container";
+export const checkboxIsInvalid = "kit-checkbox-invalid";

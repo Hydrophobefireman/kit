@@ -22,8 +22,7 @@ export function BaseDom(props: BaseDomProps) {
     );
   }
   const displayMode =
-    onlyOneProp(displayProps, props, "Multiple display props provided!") ||
-    "flex";
+    onlyOneProp(displayProps, props, "Multiple display props provided!") || "";
   const ref = useRef<any>();
   applyRef(dom, ref.current);
   const cls = createClassProp([

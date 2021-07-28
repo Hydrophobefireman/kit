@@ -71,6 +71,7 @@ function BaseInput({
       )}
       {helperText && (
         <div
+          aria-hidden={!errored}
           class={[
             classnames.inputHelperText,
             errored

@@ -15,8 +15,8 @@ export function dynamic(
     return errorFallback ? errorFallback(error) : <div>An error occured</div>;
   }
   const F = fallback || RouteSpinner;
-  const C = function Dynamic(props: any) {
-    const [C, setComponent] = useState<ComplexComponent | null>(null);
+  const dynamicComponent = function Dynamic(props: any) {
+    const [Component, setComponent] = useState<ComplexComponent | null>(null);
     const [exception, setException] = useState<Error | null>(null);
 
     useLayoutEffect(() => {
@@ -36,14 +36,14 @@ export function dynamic(
         });
     }, []);
     if (exception) return <Fallback error={exception} />;
-    if (!C) return h(F, props as any);
-    return <C />;
+    if (!Component) return h(F, props as any);
+    return <Component />;
   };
 
-  C._preload = unsafe ? null : loader;
-  C._fallback = Fallback;
-  C._loader = F;
-  return C;
+  dynamicComponent._preload = unsafe ? null : loader;
+  dynamicComponent._fallback = Fallback;
+  dynamicComponent._loader = F;
+  return dynamicComponent;
 }
 
 export function isLoadableRoute(x: any): x is ReturnType<typeof dynamic> {

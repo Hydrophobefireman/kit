@@ -9,6 +9,7 @@ import { AutoComplete } from "@hydrophobefireman/kit/autocomplete";
 import { Button, ButtonProps } from "@hydrophobefireman/kit/button";
 import { Container, Resource } from "@hydrophobefireman/kit/container";
 import { Input } from "@hydrophobefireman/kit/input";
+import { Checkbox, useCheckbox } from "@hydrophobefireman/kit/input";
 import { Text } from "@hydrophobefireman/kit/text";
 import { useTheme } from "@hydrophobefireman/kit/theme";
 import { VNode, render, useEffect, useState } from "@hydrophobefireman/ui-lib";
@@ -106,10 +107,7 @@ function App(): VNode {
         >
           <Container element="div" style={{ width: "100%" }}>
             <div>
-              Hello{" "}
-              <Text depends as="strong">
-                {name}
-              </Text>
+              Hello <Text.strong depends>{name}</Text.strong>
             </div>
           </Container>
           <Button
@@ -202,7 +200,18 @@ function App(): VNode {
           </Text>
         </Container>
       </Resource>
+      <Container horizontal="center">
+        <CheckboxTest />
+      </Container>
     </>
+  );
+}
+function CheckboxTest() {
+  const { checked, toggle } = useCheckbox(false);
+  return (
+    <Checkbox checked={checked} onCheck={toggle} errored={!checked}>
+      Hello
+    </Checkbox>
   );
 }
 function TestInput(props: any) {

@@ -84,7 +84,7 @@ html {
   --kit-padding: 0.5rem;
   --kit-transition: 0.3s ease;
   --kit-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
-  --kit-border: var(--kit-background);
+  --kit-border: var(--kit-foreground);
   --kit-secondary: var(--kit-shade-5);
   --kit-form-font-size: 0.87rem;
   --kit-input-height: 2.5rem;

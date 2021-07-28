@@ -6,6 +6,10 @@ export interface GenericContainerProps {
   horizontal?: "left" | "right" | "center";
   vertical?: "top" | "center" | "bottom";
 }
-export type ContainerProps = BaseDomProps & GenericContainerProps;
+export type ContainerProps = Omit<
+  BaseDomProps,
+  "block" | "inlineBlock" | "flex" | "inlineFlex" | "grid"
+> &
+  GenericContainerProps;
 
 export {};
