@@ -1,5 +1,4 @@
 const {
-  postpublish,
   packageDir,
   prettyJSON,
   fromPackageJson,

@@ -35,6 +35,7 @@ function BaseButton(props: BaseElement<ButtonProps>) {
     prefix,
     suffix,
     variant,
+    preserveScroll,
     ...rest
   } = props;
   _util.guardCss(style);
@@ -84,11 +85,13 @@ function BaseButton(props: BaseElement<ButtonProps>) {
         style: styleObject,
         flex: true,
       },
+      element === A ? { preserveScroll } : null,
       rest
     ) as any,
     cVnodes
   );
 }
+
 function getLinkElement(href: string) {
   return _util.isSameOrigin(href) ? A : "a";
 }

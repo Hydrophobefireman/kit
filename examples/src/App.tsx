@@ -9,7 +9,12 @@ import { AutoComplete } from "@hydrophobefireman/kit/autocomplete";
 import { Button, ButtonProps } from "@hydrophobefireman/kit/button";
 import { Container, Resource } from "@hydrophobefireman/kit/container";
 import { Input } from "@hydrophobefireman/kit/input";
-import { Checkbox, useCheckbox } from "@hydrophobefireman/kit/input";
+import {
+  Checkbox,
+  RadioGroup,
+  RadioInput,
+  useCheckbox,
+} from "@hydrophobefireman/kit/input";
 import { Text } from "@hydrophobefireman/kit/text";
 import { useTheme } from "@hydrophobefireman/kit/theme";
 import { VNode, render, useEffect, useState } from "@hydrophobefireman/ui-lib";
@@ -23,10 +28,20 @@ function App(): VNode {
   useEffect(() => {
     setTimeout(() => setName("John"), 1000);
   }, [refetch]);
+  const [value, setValue] = useState(null);
 
   const { currentTheme, toggle } = useTheme();
   return (
     <>
+      <div style={{ "--kit-radiod-color": "blue" }}>
+        <RadioGroup value={value} setValue={setValue} label="Time">
+          <RadioInput errored={value !== "Now"} value="Now">
+            OK
+          </RadioInput>
+          <RadioInput value="Tomorrow">Tmrw</RadioInput>
+          <RadioInput value="Never">Soon</RadioInput>
+        </RadioGroup>
+      </div>
       <Container horizontal="center" row>
         <AutoComplete
           dropdownClass={css({

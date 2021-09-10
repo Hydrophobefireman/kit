@@ -8,7 +8,7 @@ export interface GenericContainerProps {
 }
 export type ContainerProps = Omit<
   BaseDomProps,
-  "block" | "inlineBlock" | "flex" | "inlineFlex" | "grid"
+  "block" | "inlineBlock" | "flex" | "grid" | "inline"
 > &
   GenericContainerProps;
 

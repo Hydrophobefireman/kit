@@ -90,9 +90,18 @@ export const autocompleteCurrentValue = "kit-ac-selected";
 
 export const transitionRoot = "kit-transition-root";
 
-export const checkbox = "kit-checkbox";
-export const _checkboxInputHidden = "kit-checkbox-input";
+export const _hiddenInput = "kit-hidden-input";
+
+export const relInput = "kit-rel-input";
+
+export const _checkboxInputHidden = `kit-checkbox-input ${_hiddenInput}`;
 export const checkboxIcon = "kit-checkbox-icon";
 export const checkboxIconActive = "kit-checkbox-active";
-export const checkboxIconContainer = "kit-icon-container";
+export const checkboxIconContainer = "kit-cb-icon-container";
 export const checkboxIsInvalid = "kit-checkbox-invalid";
+
+export const _radioInputHidden = `kit-radio-input ${_hiddenInput}`;
+export const radioSpan = "kit-radio-span";
+export const radioIndicator = "kit-radio-indicator";
+export const radioIndicatorActive = "kit-radio-indicator-active";
+export const radioIndicatorIsInvalid = "kit-radio-indicator-invalid";

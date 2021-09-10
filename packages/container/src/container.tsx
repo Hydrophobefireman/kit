@@ -26,6 +26,7 @@ function BaseContainer({
   vertical = "center",
   class: klass,
   className,
+  inlineFlex,
   ...rest
 }: ContainerProps) {
   _util.guardCss(style);
@@ -45,7 +46,8 @@ function BaseContainer({
     _util.extend(
       {
         element,
-        flex: true,
+        flex: inlineFlex ? undefined : true,
+        inlineFlex: inlineFlex || undefined,
         style: css,
         class: [classnames.container, klass, className],
       },

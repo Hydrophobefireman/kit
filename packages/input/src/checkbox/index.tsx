@@ -11,16 +11,18 @@ export function Checkbox({
   onCheck,
   boxClass,
   children,
+  inline,
   errored,
   boxStyle,
 }: CheckboxProps) {
   return (
     <Container
+      inlineFlex={inline}
       row
       vertical="center"
       element="label"
       class={[
-        classnames.checkbox,
+        classnames.relInput,
         boxClass,
         { [classnames.checkboxIsInvalid]: errored },
       ]}
@@ -35,7 +37,7 @@ export function Checkbox({
         type="checkbox"
         aria-checked={checked}
       />
-      <span class={classnames.checkboxIconContainer}>
+      <span class={classnames.checkboxIconContainer} aria-hidden>
         <Checkmark active={checked} />
       </span>
       {children}
@@ -47,7 +49,7 @@ function Checkmark({ active }: { active: boolean }) {
   const D = BaseDom as any;
   return (
     <D
-      aria-hidden="true"
+      aria-hidden
       role="img"
       element="svg"
       class={[

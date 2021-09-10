@@ -4,3 +4,5 @@ src/
 tsconfig.tsbuildinfo
 *.tsbuildinfo
 packages/
+www/
+scripts/

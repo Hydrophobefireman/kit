@@ -7,6 +7,7 @@ export interface ButtonProps {
   suffix?: any;
   variant?: "shadow" | "normal" | "custom";
   href?: string;
+  preserveScroll?: boolean;
 }
 
 export {};

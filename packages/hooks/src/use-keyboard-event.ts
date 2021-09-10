@@ -17,6 +17,7 @@ export function useKeyboard(
   const l = useLatestRef(listener);
   useEffect(() => {
     if (!target) return;
+
     function ev(e: JSX.TargetedKeyboardEvent<any>) {
       l.current(e);
     }

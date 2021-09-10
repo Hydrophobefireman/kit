@@ -18,6 +18,15 @@ type RemoveIndex<T> = {
 };
 export type DOMElements = keyof RemoveIndex<JSX.IntrinsicElements>;
 
+type BaseDomDisplayProps =
+  | "block"
+  | "inline"
+  | "inlineBlock"
+  | "flex"
+  | "inlineFlex"
+  | "grid"
+  | "none";
+
 export type DOMClass = any;
 interface _BaseDomProps {
   element?: DOMElements | ComplexComponent;
@@ -50,7 +59,11 @@ export type OptionalPick<T, K extends keyof T> = {
   [P in K]?: T[P];
 };
 
-export type BaseElement<T> = Omit<BaseDomProps, "element" | keyof T> & T;
+export type BaseElement<T> = Omit<
+  BaseDomProps,
+  "element" | BaseDomDisplayProps | keyof T
+> &
+  T;
 
 type Renderable = JSX.Element | string | number | boolean;
 

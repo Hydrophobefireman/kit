@@ -126,3 +126,10 @@ body {
     background-position: -200% 0;
   }
 }
+
+@media (prefers-reduced-motion) {
+  *,
+  html {
+    --kit-transition: 0.0001s !important;
+  }
+}

@@ -5,5 +5,6 @@ export interface CheckboxProps {
   boxStyle?: any;
   children?: any;
   errored?: boolean;
+  inline?: boolean;
 }
 export {};
