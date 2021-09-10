@@ -33,7 +33,7 @@ function App(): VNode {
   const { currentTheme, toggle } = useTheme();
   return (
     <>
-      <div style={{ "--kit-radiod-color": "blue" }}>
+      <div>
         <RadioGroup value={value} setValue={setValue} label="Time">
           <RadioInput errored={value !== "Now"} value="Now">
             OK
