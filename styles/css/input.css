@@ -89,15 +89,15 @@
   color: var(--kit-foreground);
   transition: var(--kit-transition);
 }
-.kit-rel-input:focus-visible {
-  outline: 1px solid;
-}
 
-.kit-radio-indicator-invalid,
+.kit-radio-invalid,
 .kit-checkbox-invalid {
   --kit-foreground: var(--kit-error);
   --kit-border: var(--kit-error);
   --kit-radio-color: var(--kit-error);
+}
+.kit-radio-input:hover + .kit-radio-span {
+  box-shadow: 0px 0px 2px 3px var(--kit-shade-2);
 }
 
 .kit-hidden-input {
@@ -128,7 +128,8 @@
   width: var(--kit-checkbox-size, 1rem);
   border-radius: calc(var(--kit-radius) - 1px);
 }
-input.kit-checkbox-input:focus-visible + .kit-cb-icon-container {
+input.kit-checkbox-input:focus-visible + .kit-cb-icon-container,
+.kit-rel-input:focus-visible {
   outline: 1px solid;
 }
 .kit-checkbox-icon.kit-checkbox-active {
@@ -140,6 +141,7 @@ input.kit-checkbox-input:focus-visible + .kit-cb-icon-container {
   width: var(--kit-radio-size, 1rem);
   border-radius: 50%;
   position: relative;
+  transition: var(--kit-transition);
 }
 
 .kit-radio-indicator {

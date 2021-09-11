@@ -22,11 +22,12 @@ export function Checkbox({
       vertical="center"
       element="label"
       class={[
-        classnames.relInput,
+        classnames.relInputLabel,
         boxClass,
         { [classnames.checkboxIsInvalid]: errored },
       ]}
       style={boxStyle}
+      for={inputId}
     >
       <BaseDom
         element="input"

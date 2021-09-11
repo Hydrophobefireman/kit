@@ -25,7 +25,7 @@ function RouteButton({ href, text }: any) {
       mode="secondary"
       href={href}
       preserveScroll
-      style={{ margin: "10px", display: "block" }}
+      style={{ margin: "10px" }}
     >
       {text}
     </Button>

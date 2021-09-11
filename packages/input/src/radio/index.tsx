@@ -96,9 +96,9 @@ export function RadioInput<T>({
       vertical="center"
       element="label"
       class={[
-        classnames.relInput,
+        classnames.relInputLabel,
         labelClass,
-        errored && classnames.radioIndicatorIsInvalid,
+        errored && classnames.radioIsInvalid,
       ]}
       data-radio-value={value}
       inlineFlex={inline}
@@ -112,15 +112,15 @@ export function RadioInput<T>({
         _util.extend(
           {
             element: "input",
+            type: "radio",
             onInput: update,
             id: inputId,
-            "aria-labelledby": labelId,
             checked: isSelected,
             class: classnames._radioInputHidden,
-            type: "radio",
             name: name,
-            "aria-invalid": errored,
             tabIndex: -1,
+            "aria-labelledby": labelId,
+            "aria-invalid": errored,
             "aria-checked": isSelected,
           },
           rest

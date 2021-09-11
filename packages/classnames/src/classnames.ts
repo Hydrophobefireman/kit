@@ -92,7 +92,7 @@ export const transitionRoot = "kit-transition-root";
 
 export const _hiddenInput = "kit-hidden-input";
 
-export const relInput = "kit-rel-input";
+export const relInputLabel = "kit-rel-input";
 
 export const _checkboxInputHidden = `kit-checkbox-input ${_hiddenInput}`;
 export const checkboxIcon = "kit-checkbox-icon";
@@ -104,4 +104,12 @@ export const _radioInputHidden = `kit-radio-input ${_hiddenInput}`;
 export const radioSpan = "kit-radio-span";
 export const radioIndicator = "kit-radio-indicator";
 export const radioIndicatorActive = "kit-radio-indicator-active";
-export const radioIndicatorIsInvalid = "kit-radio-indicator-invalid";
+export const radioIsInvalid = "kit-radio-invalid";
+
+export const _switchInputHidden = `kit-switch ${_hiddenInput}`;
+export const switchSpan = "kit-switch-span";
+export const switchIndicator = "kit-switch-indicator";
+export const switchActive = "kit-switch-active";
+export const switchInactive = "kit-switch-inactive";
+export const switchIntermediate = "kit-switch-intermediate";
+export const switchIsInvalid = "kit-switch-invalid";
