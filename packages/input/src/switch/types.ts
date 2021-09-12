@@ -3,5 +3,6 @@ export interface SwitchProps {
   labelClass?: string;
   errored?: boolean;
   inline?: boolean;
+  depends?: boolean;
 }
 export {};

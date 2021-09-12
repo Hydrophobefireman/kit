@@ -80,6 +80,7 @@ export const inputHelperActive = "kit-input-helper-active";
 export const inputHelperInactive = "kit-input-helper-inactive";
 export const errored = "kit-errored";
 
+export const _autoCompleteInlineList = "kit-inline-ul";
 export const autocompleteOptions = "kit-autocomplete-options";
 export const autocompleteInactive = "kit-ac-dropdown-inactive";
 export const autocompleteDropdown = "kit-ac-dropdown";
@@ -107,9 +108,9 @@ export const radioIndicatorActive = "kit-radio-indicator-active";
 export const radioIsInvalid = "kit-radio-invalid";
 
 export const _switchInputHidden = `kit-switch ${_hiddenInput}`;
-export const switchSpan = "kit-switch-span";
 export const switchIndicator = "kit-switch-indicator";
 export const switchActive = "kit-switch-active";
 export const switchInactive = "kit-switch-inactive";
 export const switchIntermediate = "kit-switch-intermediate";
+export const switchLabel = "kit-switch-label";
 export const switchIsInvalid = "kit-switch-invalid";

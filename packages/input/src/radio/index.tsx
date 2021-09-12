@@ -1,4 +1,4 @@
-import { BaseElement, _util } from "@hydrophobefireman/kit";
+import { BaseElement, _util, useIsPending } from "@hydrophobefireman/kit";
 import { BaseDom } from "@hydrophobefireman/kit/base-dom";
 import * as classnames from "@hydrophobefireman/kit/classnames";
 import { Container } from "@hydrophobefireman/kit/container";
@@ -10,6 +10,8 @@ import {
   useContext,
   useRef,
 } from "@hydrophobefireman/ui-lib";
+
+import { RadioInputProps } from "./types";
 
 export * from "./types";
 const RadioContext = createContext({
@@ -24,6 +26,7 @@ export function RadioGroup<T>({
   setValue,
   as,
   label,
+  depends,
   name,
   ...rest
 }: BaseElement<{
@@ -31,6 +34,7 @@ export function RadioGroup<T>({
   setValue(a: T): void;
   label: string;
   as?: "div" | "span" | "Fragment";
+  depends?: boolean;
 }>) {
   const isFragment = as === "Fragment";
   const el = isFragment ? Fragment : as || "div";
@@ -45,7 +49,7 @@ export function RadioGroup<T>({
           "data-current-value": value,
         }),
     <RadioContext.Provider
-      value={{ value, setValue, name: radioGroupName } as any}
+      value={{ value, setValue, name: radioGroupName, depends } as any}
     >
       {children}
     </RadioContext.Provider>
@@ -56,26 +60,26 @@ export function useRadio<T>(): {
   value: T;
   setValue(v: T): void;
   name: string;
+  depends: boolean;
 } {
   return useContext(RadioContext);
 }
-
-export function RadioInput<T>({
+type BaseRadioProps<T> = BaseElement<
+  RadioInputProps<T> & { ctx: ReturnType<typeof useRadio> }
+>;
+function BaseRadioInput<T>({
   value,
   children,
   errored,
   labelClass,
   inline,
   id,
+  ctx,
+  disabled,
   ...rest
-}: BaseElement<{
-  value: T;
-  errored?: boolean;
-  labelClass?: string;
-  inline?: boolean;
-}>) {
+}: BaseRadioProps<T>) {
+  const { value: currentValue, setValue, name } = ctx;
   const [inputId, labelId] = useLabelId(id);
-  const { value: currentValue, setValue, name } = useRadio<T>();
   const isSelected = currentValue === value;
   const label = useRef<HTMLLabelElement>();
   const update = () => setValue(value);
@@ -106,6 +110,7 @@ export function RadioInput<T>({
       tabIndex={0}
       for={inputId}
       id={labelId}
+      disabled={disabled}
     >
       {h(
         BaseDom,
@@ -122,6 +127,7 @@ export function RadioInput<T>({
             "aria-labelledby": labelId,
             "aria-invalid": errored,
             "aria-checked": isSelected,
+            disabled,
           },
           rest
         )
@@ -138,4 +144,27 @@ export function RadioInput<T>({
       {children}
     </Container>
   );
+}
+function DependantRadioInput<T>(props: BaseRadioProps<T>) {
+  const { isPending } = useIsPending();
+  if (!isPending) return h(BaseRadioInput, props as any);
+  return h(
+    BaseRadioInput,
+    _util.extend(_util.removeEventsFromProps(props) as any, {
+      labelClass: [props.labelClass, classnames.noEvents],
+      disabled: true,
+    })
+  );
+}
+export function RadioInput<T>(props: BaseElement<RadioInputProps<T>>) {
+  const { value: currentValue, setValue, name, depends } = useRadio<T>();
+
+  const childProps: any = _util.extend(
+    { ctx: { value: currentValue, setValue, name } },
+    props
+  );
+  if (depends) {
+    return h(DependantRadioInput, childProps);
+  }
+  return h(BaseRadioInput, childProps);
 }

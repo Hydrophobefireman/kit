@@ -8,7 +8,7 @@ import { css } from "catom";
 import { AutoComplete } from "@hydrophobefireman/kit/autocomplete";
 import { Button, ButtonProps } from "@hydrophobefireman/kit/button";
 import { Container, Resource } from "@hydrophobefireman/kit/container";
-import { Input } from "@hydrophobefireman/kit/input";
+import { Input, Switch, useSwitch } from "@hydrophobefireman/kit/input";
 import {
   Checkbox,
   RadioGroup,
@@ -31,9 +31,11 @@ function App(): VNode {
   const [value, setValue] = useState(null);
 
   const { currentTheme, toggle } = useTheme();
+  const [state, toggleSwitch] = useSwitch("intermediate");
   return (
     <>
-      <div>
+      <Container horizontal="center">
+        <Switch state={state} onInput={toggleSwitch} />
         <RadioGroup value={value} setValue={setValue} label="Time">
           <RadioInput errored={value !== "Now"} value="Now">
             OK
@@ -41,7 +43,7 @@ function App(): VNode {
           <RadioInput value="Tomorrow">Tmrw</RadioInput>
           <RadioInput value="Never">Soon</RadioInput>
         </RadioGroup>
-      </div>
+      </Container>
       <Container horizontal="center" row>
         <AutoComplete
           dropdownClass={css({

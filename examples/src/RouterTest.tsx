@@ -11,7 +11,7 @@ function getDynamic(x: any) {
             resolve(function F() {
               return x;
             }),
-          loadedOnce ? 0 : (loadedOnce = true) && 1500
+          1500
         )
       )
   );

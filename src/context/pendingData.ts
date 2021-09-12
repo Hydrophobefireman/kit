@@ -6,5 +6,8 @@ export const PendingDataContext = createContext({
 });
 
 export function useIsPending() {
-  return useContext(PendingDataContext);
+  return useContext(PendingDataContext) as any as {
+    resourceName: string;
+    isPending: boolean;
+  };
 }

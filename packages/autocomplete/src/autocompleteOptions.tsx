@@ -18,10 +18,10 @@ function OptionsValue({
   select(e: any): void;
   currentValue: AutoCompleteValue;
 }) {
-  const dom = useRef<HTMLDivElement>();
+  const dom = useRef<HTMLLIElement>();
   useKeyPress("Enter", select, { target: dom.current });
   return (
-    <div
+    <li
       ref={dom}
       onClick={select}
       data-value={value}
@@ -33,7 +33,7 @@ function OptionsValue({
       ]}
     >
       {render ? render(value) : value}
-    </div>
+    </li>
   );
 }
 function OptionsRenderer({
@@ -42,7 +42,7 @@ function OptionsRenderer({
   select,
 }: OptionsRendererProps) {
   return (
-    <>
+    <ul class={classnames._autoCompleteInlineList}>
       {options.map(({ render, value }) => (
         <OptionsValue
           render={render}
@@ -51,7 +51,7 @@ function OptionsRenderer({
           currentValue={currentValue}
         />
       ))}
-    </>
+    </ul>
   );
 }
 

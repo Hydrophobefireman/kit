@@ -162,3 +162,66 @@ input.kit-checkbox-input:focus-visible + .kit-cb-icon-container,
 .kit-radio-indicator.kit-radio-indicator-active {
   transform: scale(0.8);
 }
+
+.kit-switch-label {
+  width: 3.8rem;
+  height: 2rem;
+  outline: none;
+}
+.kit-switch-label.kit-switch-invalid {
+  --kit-switch-active-color: var(--kit-error);
+  --kit-switch-inactive-color: var(--kit-error);
+}
+.kit-switch-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: var(--kit-transition);
+  border-radius: var(--kit-switch-radious, 30px);
+  display: inline-flex;
+  align-items: center;
+}
+
+.kit-switch-indicator.kit-switch-active {
+  background-color: var(--kit-switch-active-color, var(--kit-success));
+}
+
+.kit-switch-indicator.kit-switch-inactive,
+.kit-switch-indicator.kit-switch-intermediate {
+  background-color: var(--kit-switch-inactive-color, var(--kit-shade-4));
+}
+.kit-switch.kit-hidden-input:focus-visible + .kit-switch-indicator {
+  outline: 2px solid;
+}
+.kit-switch.kit-hidden-input {
+  cursor: pointer;
+}
+.kit-switch.kit-hidden-input:hover + .kit-switch-indicator::before {
+  box-shadow: 0px 0px 3px 2px var(--kit-shade-5);
+}
+.kit-switch-indicator[disabled]::before {
+  pointer-events: none !important;
+  opacity: 0.5;
+}
+.kit-switch-indicator::before {
+  position: absolute;
+  content: " ";
+  height: 95%;
+  width: 50%;
+  background-color: var(--kit-shade-1);
+  transition: var(--kit-transition);
+  border-radius: var(--kit-indicator-radius, 50%);
+  cursor: pointer;
+}
+.kit-switch-indicator.kit-switch-inactive::before {
+  transform: translateX(1px);
+}
+
+.kit-switch-indicator.kit-switch-intermediate::before {
+  transform: translateX(50%);
+}
+.kit-switch-indicator.kit-switch-active::before {
+  transform: translateX(99%);
+}

@@ -15,8 +15,67 @@ export function Switch({
   errored,
   inline,
   id,
+  class: cls,
+  className,
+  depends,
+  disabled,
   ...rest
 }: BaseElement<SwitchProps>) {
+  const [inputId, labelId] = useLabelId(id);
+  const checked = state === "enabled";
+  return (
+    <Container
+      row
+      vertical="center"
+      element="label"
+      class={[
+        classnames.switchLabel,
+        classnames.relInputLabel,
+        labelClass,
+        errored && classnames.switchIsInvalid,
+      ]}
+      data-value={state}
+      inlineFlex
+      for={inputId}
+      id={labelId}
+      depends={depends}
+    >
+      {h(
+        BaseDom,
+        _util.extend(
+          {
+            element: "input",
+            type: "checkbox",
+            id: inputId,
+            checked: checked,
+            class: [classnames._switchInputHidden, cls, className],
+            tabindex: 0,
+            "aria-checked": checked,
+            "aria-labelledBy": labelId,
+            "aria-errored": errored,
+            disabled,
+          },
+          rest
+        )
+      )}
+      <BaseDom
+        element="span"
+        disabled={disabled}
+        aria-hidden
+        class={[
+          classnames.switchIndicator,
+          {
+            [classnames.switchActive]: checked,
+            [classnames.switchInactive]: state === "disabled",
+            [classnames.switchIntermediate]: state === "intermediate",
+          },
+        ]}
+      />
+    </Container>
+  );
+}
+
+export function useSwitch(state: SwitchProps["state"]) {
   const [currentState, setState] = useState<SwitchProps["state"]>(state);
   function toggle() {
     setState(
@@ -25,33 +84,5 @@ export function Switch({
         : "disabled"
     );
   }
-  const [inputId, labelId] = useLabelId(id);
-  return (
-    <Container
-      row
-      vertical="center"
-      element="label"
-      class={[
-        classnames.relInputLabel,
-        labelClass,
-        errored && classnames.switchIsInvalid,
-      ]}
-      data-value={`${state}`}
-      inlineFlex={inline}
-      for={inputId}
-      id={labelId}
-      tabIndex={0}
-    >
-      {h(
-        BaseDom,
-        _util.extend({
-          element: "input",
-          type: "checkbox",
-          id: inputId,
-          checked: state === "enabled",
-          
-        })
-      )}
-    </Container>
-  );
+  return [currentState, toggle, setState] as const;
 }
