@@ -35,7 +35,8 @@ function App(): VNode {
   return (
     <>
       <Container horizontal="center">
-        <Switch state={state} onInput={toggleSwitch} />
+        <Switch state={state} onInput={toggleSwitch} depends />
+
         <RadioGroup value={value} setValue={setValue} label="Time">
           <RadioInput errored={value !== "Now"} value="Now">
             OK
