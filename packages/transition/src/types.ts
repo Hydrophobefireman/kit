@@ -6,6 +6,7 @@ export interface TransitionProps {
   render: (() => JSX.Element) | JSX.Element | null | false;
   id: string | number;
   as?: DOMElements;
+  transitionHook?(e: TransitionEvent, state: "DONE" | "CANCEL");
 }
 export type RenderState = "INITIAL" | "IDLE" | "UNMOUNT";
 export {};

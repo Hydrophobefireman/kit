@@ -29,10 +29,3 @@
   outline: none;
   background-color: var(--kit-shade-2);
 }
-
-.kit-inline-ul {
-  display: inline;
-  padding: 0;
-  margin: 0;
-  list-style-type: none;
-}

@@ -164,8 +164,8 @@ input.kit-checkbox-input:focus-visible + .kit-cb-icon-container,
 }
 
 .kit-switch-label {
-  width: 3.8rem;
-  height: 2rem;
+  width: var(--kit-switch-width, 3.8rem);
+  height: var(--kit-switch-height, 2rem);
   outline: none;
 }
 .kit-switch-label.kit-switch-invalid {
@@ -179,18 +179,18 @@ input.kit-checkbox-input:focus-visible + .kit-cb-icon-container,
   right: 0;
   bottom: 0;
   transition: var(--kit-transition);
-  border-radius: var(--kit-switch-radious, 30px);
+  border-radius: var(--kit-switch-radius, 30px);
   display: inline-flex;
   align-items: center;
 }
 
 .kit-switch-indicator.kit-switch-active {
-  background-color: var(--kit-switch-active-color, var(--kit-success));
+  background-color: var(--kit-switch-bg-active-color, var(--kit-success));
 }
 
 .kit-switch-indicator.kit-switch-inactive,
 .kit-switch-indicator.kit-switch-intermediate {
-  background-color: var(--kit-switch-inactive-color, var(--kit-shade-4));
+  background-color: var(--kit-switch-bg-inactive-color, var(--kit-shade-4));
 }
 .kit-switch.kit-hidden-input:focus-visible + .kit-switch-indicator {
   outline: 2px solid;
@@ -210,7 +210,7 @@ input.kit-checkbox-input:focus-visible + .kit-cb-icon-container,
   content: " ";
   height: 95%;
   width: 50%;
-  background-color: var(--kit-shade-1);
+  background-color: var(--kit-switch-indicator-color, var(--kit-shade-1));
   transition: var(--kit-transition);
   border-radius: var(--kit-indicator-radius, 50%);
   cursor: pointer;

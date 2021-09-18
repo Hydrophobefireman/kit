@@ -9,3 +9,4 @@ import "./css/input.css";
 import "./css/autocomplete.css";
 import "./css/dropdown.css";
 import "./css/transition.css";
+import "./css/snackbar.css";

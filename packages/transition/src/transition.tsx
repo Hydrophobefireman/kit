@@ -2,13 +2,7 @@ import { BaseElement, _util } from "@hydrophobefireman/kit";
 import { BaseDom } from "@hydrophobefireman/kit/base-dom";
 import * as classnames from "@hydrophobefireman/kit/classnames";
 import { useLatestRef } from "@hydrophobefireman/kit/hooks";
-import {
-  h,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from "@hydrophobefireman/ui-lib";
+import { h, useEffect, useRef, useState } from "@hydrophobefireman/ui-lib";
 
 import { RenderState, TransitionProps } from "./types";
 
@@ -23,8 +17,12 @@ export function Transition({
   children,
   className,
   style,
+  transitionHook,
+  dom,
   ...rest
 }: BaseElement<TransitionProps>) {
+  const domRef = useRef<any>();
+  dom && (dom.current = domRef.current);
   const isFirstRender = useRef(true);
   const [renderState, setRenderState] = useState<RenderState | null>(null);
   const [child, setChild] = useState(() => render);
@@ -36,7 +34,9 @@ export function Transition({
     setChild(() => nextChildRef.current);
   }
 
-  function nextRenderState() {
+  function nextRenderState(e: TransitionEvent, mode: "DONE" | "CANCEL") {
+    if (e.target !== domRef.current) return;
+    transitionHook && _util.raf(() => transitionHook(e, mode));
     switch (renderState) {
       case "INITIAL":
         return setRenderState("IDLE");
@@ -73,12 +73,12 @@ export function Transition({
     BaseDom,
     _util.extend(
       {
+        dom: domRef,
         style: css,
-
         id,
         element: as || "div",
-        onTransitionEnd: nextRenderState,
-        onTransitionCancel: nextRenderState,
+        onTransitionEnd: (e) => nextRenderState(e, "DONE"),
+        onTransitionCancel: (e) => nextRenderState(e, "CANCEL"),
         class: [
           cls,
           className,

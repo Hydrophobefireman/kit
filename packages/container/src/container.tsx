@@ -11,7 +11,7 @@ const alignmentMap = new Map<
   string
 >([
   ["left", "flex-start"],
-  ["right", "flex-start"],
+  ["right", "flex-end"],
   ["top", "flex-start"],
   ["center", "center"],
   ["bottom", "flex-end"],

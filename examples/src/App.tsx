@@ -5,6 +5,8 @@ import "./App.css";
 
 import { css } from "catom";
 
+import { _util } from "@hydrophobefireman/kit";
+import { AlertRoot, useAlerts } from "@hydrophobefireman/kit/alerts";
 import { AutoComplete } from "@hydrophobefireman/kit/autocomplete";
 import { Button, ButtonProps } from "@hydrophobefireman/kit/button";
 import { Container, Resource } from "@hydrophobefireman/kit/container";
@@ -21,6 +23,21 @@ import { VNode, render, useEffect, useState } from "@hydrophobefireman/ui-lib";
 
 import { RouterTest } from "./RouterTest";
 
+function A() {
+  const { persist } = useAlerts();
+  const [a, s] = useState(0);
+  console.log(a);
+  useEffect(() => {
+    persist({
+      preventClose: true,
+      onActionClick: () => s((a: number) => a + 1),
+      actionText: `Incr`,
+      onCancelClick: console.log,
+      content: "Hello world",
+    });
+  }, [a]);
+  return null;
+}
 function App(): VNode {
   const [name, setName] = useState("");
   const [refetch, setRefetch] = useState({});
@@ -31,12 +48,19 @@ function App(): VNode {
   const [value, setValue] = useState(null);
 
   const { currentTheme, toggle } = useTheme();
-  const [state, toggleSwitch] = useSwitch("intermediate");
+  const { currentState, toggle: toggleSwitch } = useSwitch("intermediate");
   return (
     <>
+      <AlertRoot>
+        <A />
+      </AlertRoot>
       <Container horizontal="center">
-        <Switch state={state} onInput={toggleSwitch} depends />
-
+        <Switch
+          label="OKAY"
+          state={currentState}
+          onInput={toggleSwitch}
+          depends
+        />
         <RadioGroup value={value} setValue={setValue} label="Time">
           <RadioInput errored={value !== "Now"} value="Now">
             OK

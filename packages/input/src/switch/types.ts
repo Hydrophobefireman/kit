@@ -4,5 +4,6 @@ export interface SwitchProps {
   errored?: boolean;
   inline?: boolean;
   depends?: boolean;
+  label: string;
 }
 export {};

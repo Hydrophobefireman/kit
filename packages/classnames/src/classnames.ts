@@ -24,6 +24,7 @@ export const skeletonWrapper = "kit-skeleton-wrapper";
 export const mask = "kit-mask";
 
 export const fadeIn = "kit-fade-in";
+export const moveUp = "kit-move-up";
 
 export const cardShadow = "kit-card-shadow";
 
@@ -114,3 +115,8 @@ export const switchInactive = "kit-switch-inactive";
 export const switchIntermediate = "kit-switch-intermediate";
 export const switchLabel = "kit-switch-label";
 export const switchIsInvalid = "kit-switch-invalid";
+
+export const snackbarContainer = "kit-snackbar-container";
+export const snackbarRoot = "kit-snackbar-root";
+export const snackbarLeave = "kit-snackbar-leave";
+export const snackbarButton = "kit-snackbar-button";

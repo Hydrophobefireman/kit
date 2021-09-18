@@ -19,6 +19,7 @@ export function Switch({
   className,
   depends,
   disabled,
+  label,
   ...rest
 }: BaseElement<SwitchProps>) {
   const [inputId, labelId] = useLabelId(id);
@@ -71,6 +72,7 @@ export function Switch({
           },
         ]}
       />
+      <span class={classnames.srOnly}>{label}</span>
     </Container>
   );
 }
@@ -84,5 +86,5 @@ export function useSwitch(state: SwitchProps["state"]) {
         : "disabled"
     );
   }
-  return [currentState, toggle, setState] as const;
+  return { currentState, toggle, setState };
 }
