@@ -7,9 +7,8 @@ import { h, render } from "@hydrophobefireman/ui-lib";
 
 import { ToastOptions } from "./types";
 
-const CUSTOM_EVENT_KEY = `KIT-ALERT-IMPL-${Math.random()
-  .toString(32)
-  .substring(2)}`;
+const ALERT_ID = `KIT-ALERT-IMPL-${Math.random().toString(32).substring(2)}`;
+
 const alertTypeToClassnameMap = new Map([
   ["error", classnames.snackbarError],
   ["success", classnames.snackbarSuccess],
@@ -18,16 +17,16 @@ class UITree {
   private alertStack: Map<ToastOptions, boolean> = new Map();
   private _rendered = false;
   _renderOne(x: ToastOptions, isActive: boolean, i: number) {
-    const andClose = (fn: any, isCancel?: boolean) => {
+    const andClose = (fn: any, isCancelled?: boolean) => {
       if (!isActive) return;
       return (e: JSX.TargetedMouseEvent<HTMLButtonElement>) => {
         fn();
-        if (isCancel || !x.preventClose) this.pop(x);
+        if (isCancelled || !x.preventClose) this.pop(x);
       };
     };
     return (
       <Transition
-        id={isActive ? i : ""}
+        id={isActive ? ALERT_ID + i : ""}
         role="alert"
         leaveClass={classnames.snackbarLeave}
         style={{ bottom: `${Math.max(0, 15 * (this.alertStack.size - i))}px` }}
@@ -84,7 +83,7 @@ class UITree {
     render(h(C) as any, div);
   }
   dispatch() {
-    dispatchEvent(new Event(CUSTOM_EVENT_KEY));
+    dispatchEvent(new Event(ALERT_ID));
   }
   render() {
     return Array.from(this.alertStack.entries()).map(([options, isActive], i) =>
@@ -109,8 +108,8 @@ const tree = new UITree();
 function C() {
   const rerender = useRerender();
   useMount(() => {
-    addEventListener(CUSTOM_EVENT_KEY, rerender);
-    return () => removeEventListener(CUSTOM_EVENT_KEY, rerender);
+    addEventListener(ALERT_ID, rerender);
+    return () => removeEventListener(ALERT_ID, rerender);
   });
   return tree.render();
 }
