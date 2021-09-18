@@ -29,3 +29,18 @@
 .kit-snackbar-container {
   bottom: 10px;
 }
+
+.kit-snackbar-error,
+.kit-snackbar-success {
+  color: white;
+  --kit-background: white;
+  --kit-foreground: black;
+  --kit-border: var(--kit-foreground);
+}
+
+.kit-snackbar-error {
+  --kit-shade-1: var(--kit-error);
+}
+.kit-snackbar-success {
+  --kit-shade-1: var(--kit-success);
+}

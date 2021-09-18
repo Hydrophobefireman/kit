@@ -1,4 +1,5 @@
 import { ComplexComponent } from "@hydrophobefireman/kit";
+import { useLatestRef } from "@hydrophobefireman/kit/hooks";
 import {
   Path,
   Router as UIRouter,
@@ -55,8 +56,7 @@ export function TransitionManager({
 }: TransitionManagerProps) {
   const [transitionComplete, setTransitionComplete] = useState(false);
   const [childState, _setChildState] = useState<ComplexComponent | null>(null);
-  const latestChildRef = useRef(child);
-  latestChildRef.current = child;
+  const latestChildRef = useLatestRef(child);
   function endTransition() {
     setTransitionComplete(true);
   }

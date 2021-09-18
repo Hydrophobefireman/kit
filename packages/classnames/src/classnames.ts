@@ -120,3 +120,5 @@ export const snackbarContainer = "kit-snackbar-container";
 export const snackbarRoot = "kit-snackbar-root";
 export const snackbarLeave = "kit-snackbar-leave";
 export const snackbarButton = "kit-snackbar-button";
+export const snackbarError = "kit-snackbar-error";
+export const snackbarSuccess = "kit-snackbar-success";

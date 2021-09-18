@@ -10,14 +10,16 @@ import { ToastOptions } from "./types";
 const CUSTOM_EVENT_KEY = `KIT-ALERT-IMPL-${Math.random()
   .toString(32)
   .substring(2)}`;
-
+const alertTypeToClassnameMap = new Map([
+  ["error", classnames.snackbarError],
+  ["success", classnames.snackbarSuccess],
+]);
 class UITree {
   private alertStack: Map<ToastOptions, boolean> = new Map();
   private _rendered = false;
-  _renderOne(x: ToastOptions, isReady: boolean, i: number) {
+  _renderOne(x: ToastOptions, isActive: boolean, i: number) {
     const andClose = (fn: any, isCancel?: boolean) => {
-      console.log(isReady, x);
-      if (!isReady) return;
+      if (!isActive) return;
       return (e: JSX.TargetedMouseEvent<HTMLButtonElement>) => {
         fn();
         if (isCancel || !x.preventClose) this.pop(x);
@@ -25,14 +27,19 @@ class UITree {
     };
     return (
       <Transition
-        id={isReady ? i : ""}
+        id={isActive ? i : ""}
         role="alert"
         leaveClass={classnames.snackbarLeave}
         style={{ bottom: `${Math.max(0, 15 * (this.alertStack.size - i))}px` }}
-        class={[classnames.moveUp, classnames.snackbarRoot, classnames.flex]}
-        transitionHook={() => !isReady && this._remove(x)}
+        class={[
+          classnames.moveUp,
+          classnames.snackbarRoot,
+          classnames.flex,
+          alertTypeToClassnameMap.get(x.type || ""),
+        ]}
+        transitionHook={() => !isActive && this._remove(x)}
         render={
-          isReady ? (
+          isActive ? (
             <>
               <span>{x.content}</span>
               <Container horizontal="right" row vertical="center" flex={1}>

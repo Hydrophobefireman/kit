@@ -9,6 +9,11 @@ import { SwitchProps } from "./types";
 
 export * from "./types";
 
+const switchClassnameMap = new Map([
+  ["enabled", classnames.switchActive],
+  ["disabled", classnames.switchInactive],
+  ["intermediate", classnames.switchIntermediate],
+]);
 export function Switch({
   state,
   labelClass,
@@ -63,14 +68,7 @@ export function Switch({
         element="span"
         disabled={disabled}
         aria-hidden
-        class={[
-          classnames.switchIndicator,
-          {
-            [classnames.switchActive]: checked,
-            [classnames.switchInactive]: state === "disabled",
-            [classnames.switchIntermediate]: state === "intermediate",
-          },
-        ]}
+        class={[classnames.switchIndicator, switchClassnameMap.get(state)]}
       />
       <span class={classnames.srOnly}>{label}</span>
     </Container>

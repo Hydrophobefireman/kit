@@ -34,6 +34,7 @@ function A() {
       actionText: `Incr`,
       onCancelClick: console.log,
       content: "Hello world",
+      type: "success",
     });
   }, [a]);
   return null;
