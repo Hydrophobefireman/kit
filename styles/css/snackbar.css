@@ -7,7 +7,6 @@
   background: var(--kit-shade-1);
   border: 2px solid var(--kit-shade-2);
   position: fixed;
-  width: 100vw;
   right: 0;
   transition: var(--kit-transition);
   transform: none;
@@ -16,7 +15,12 @@
   z-index: 10000;
   flex-direction: column;
 }
-
+@media (max-width: 450px) {
+  .kit-snackbar-root {
+    max-width: 85vw;
+    margin: auto;
+  }
+}
 .kit-snackbar-root.kit-snackbar-leave {
   transform: translateY(50px);
   opacity: 0.001;
