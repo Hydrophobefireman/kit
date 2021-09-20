@@ -14,6 +14,7 @@
   opacity: 1;
   will-change: transform;
   z-index: 10000;
+  flex-direction: column;
 }
 
 .kit-snackbar-root.kit-snackbar-leave {

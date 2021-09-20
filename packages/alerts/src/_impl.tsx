@@ -42,7 +42,7 @@ class UITree {
             <>
               <span>{x.content}</span>
               <Container horizontal="right" row vertical="center" flex={1}>
-                {x.onActionClick && (
+                {(x.onActionClick || x.actionText) && (
                   <Button
                     class={classnames.snackbarButton}
                     variant="shadow"
@@ -54,7 +54,7 @@ class UITree {
                     {x.actionText || "okay"}
                   </Button>
                 )}
-                {x.onCancelClick && (
+                {(x.onCancelClick || x.cancelText) && (
                   <Button
                     onClick={andClose(x.onCancelClick, true)}
                     class={classnames.snackbarButton}
@@ -95,6 +95,7 @@ class UITree {
     this.dispatch();
   }
   pop(x: ToastOptions) {
+    if (!this.alertStack.has(x)) return;
     this.alertStack.set(x, false);
     this.dispatch();
   }

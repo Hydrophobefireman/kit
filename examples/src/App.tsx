@@ -26,7 +26,6 @@ import { RouterTest } from "./RouterTest";
 function A() {
   const { persist } = useAlerts();
   const [a, s] = useState(0);
-  console.log(a);
   useEffect(() => {
     persist({
       preventClose: true,

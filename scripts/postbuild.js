@@ -5,6 +5,7 @@ const root = join(__dirname, "..");
 const dist = join(root, "dist");
 const builtPackages = join(dist, "packages");
 const srcPackages = join(root, "packages");
+
 async function postbuild() {
   const { kitPackages } = await fromPackageJson();
   return await Promise.all(
