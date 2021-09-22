@@ -23,12 +23,23 @@ export function Switch({
   class: cls,
   className,
   depends,
+  labelStyle,
   disabled,
   label,
+  width,
+  height,
   ...rest
 }: BaseElement<SwitchProps>) {
+  _util.guardCss(labelStyle);
   const [inputId, labelId] = useLabelId(id);
   const checked = state === "enabled";
+  const _labelStyle = {};
+  if (width) {
+    _labelStyle["--kit-switch-width"] = width;
+  }
+  if (height) {
+    _labelStyle["--kit-switch-height"] = height;
+  }
   return (
     <Container
       row
@@ -45,6 +56,7 @@ export function Switch({
       for={inputId}
       id={labelId}
       depends={depends}
+      style={_util.extend(_labelStyle, labelStyle)}
     >
       {h(
         BaseDom,

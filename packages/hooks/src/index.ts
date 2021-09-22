@@ -17,4 +17,5 @@ export * from "./use-resize";
 export * from "./use-click-away";
 export * from "./use-latest-ref";
 export * from "./use-id";
+export * from "./use-media";
 export * from "./types";

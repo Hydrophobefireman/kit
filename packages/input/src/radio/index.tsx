@@ -76,13 +76,20 @@ function BaseRadioInput<T>({
   id,
   ctx,
   disabled,
+  size,
+  labelStyle,
   ...rest
 }: BaseRadioProps<T>) {
+  _util.guardCss(labelStyle);
   const { value: currentValue, setValue, name } = ctx;
   const [inputId, labelId] = useLabelId(id);
   const isSelected = currentValue === value;
   const label = useRef<HTMLLabelElement>();
   const update = () => setValue(value);
+  const _labelStyle = {};
+  if (size) {
+    labelStyle["--kit-checkbox-size"] = size;
+  }
   useKeyPress(
     " ",
     (e) => {
@@ -110,6 +117,7 @@ function BaseRadioInput<T>({
       tabIndex={0}
       for={inputId}
       id={labelId}
+      style={_util.extend(_labelStyle, labelStyle)}
       disabled={disabled}
     >
       {h(

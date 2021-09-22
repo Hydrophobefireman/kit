@@ -7,5 +7,6 @@ export interface CheckboxProps {
   errored?: boolean;
   inline?: boolean;
   depends?: boolean;
+  size?: string;
 }
 export {};

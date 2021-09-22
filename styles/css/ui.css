@@ -41,3 +41,11 @@
   border-radius: 0px;
   background-color: var(--kit-background);
 }
+
+a {
+  color: var(--kit-link-color, #0000ee);
+}
+
+a:visited {
+  color: var(--kit-link-color-visited, #551a8b);
+}

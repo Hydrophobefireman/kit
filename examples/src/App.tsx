@@ -60,6 +60,8 @@ function App(): VNode {
           state={currentState}
           onInput={toggleSwitch}
           depends
+          width="2rem"
+          height="1rem"
         />
         <RadioGroup value={value} setValue={setValue} label="Time">
           <RadioInput errored={value !== "Now"} value="Now">

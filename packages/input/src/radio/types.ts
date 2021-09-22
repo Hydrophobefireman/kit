@@ -3,5 +3,7 @@ export interface RadioInputProps<T> {
   errored?: boolean;
   labelClass?: string;
   inline?: boolean;
+  size?: string;
+  labelStyle?: any;
 }
 export {};

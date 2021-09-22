@@ -5,5 +5,8 @@ export interface SwitchProps {
   inline?: boolean;
   depends?: boolean;
   label: string;
+  labelStyle?: any;
+  width?: string;
+  height?: string;
 }
 export {};

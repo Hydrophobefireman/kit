@@ -19,10 +19,16 @@ export function Checkbox({
   class: cls,
   className,
   depends,
+  size,
   id,
   ...rest
 }: BaseElement<CheckboxProps>) {
+  _util.guardCss(boxStyle);
   const [inputId, labelId] = useLabelId(id);
+  const labelStyle = {};
+  if (size) {
+    labelStyle["--kit-checkbox-size"] = size;
+  }
   return (
     <Container
       inlineFlex={inline}
@@ -35,10 +41,9 @@ export function Checkbox({
         boxClass,
         { [classnames.checkboxIsInvalid]: errored },
       ]}
-      style={boxStyle}
+      style={_util.extend(labelStyle, boxStyle)}
       for={inputId}
       id={labelId}
-      tabIndex={0}
     >
       {h(
         BaseDom,

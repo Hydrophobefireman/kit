@@ -1,6 +1,6 @@
 {
    "name": "base-dom",
-   "version": "0.0.1-2021-09-20-18-33",
+   "version": "0.0.1-2021-09-20-19-07",
    "private": true,
    "main": "src/index.js",
    "module": "src/index.js",

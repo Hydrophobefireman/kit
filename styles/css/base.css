@@ -132,4 +132,8 @@ body {
   html {
     --kit-transition: 0.0001s !important;
   }
+  .kit-fade-in,
+  .kit-move-up {
+    animation-duration: 0.0001s !important;
+  }
 }
