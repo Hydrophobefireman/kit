@@ -11,3 +11,4 @@ export * from "./apply-ref";
 export * from "./raf";
 export * from "./extend";
 export * from "./_flatpollyfill";
+export * from "./toPx";

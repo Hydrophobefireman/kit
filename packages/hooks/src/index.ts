@@ -18,4 +18,6 @@ export * from "./use-click-away";
 export * from "./use-latest-ref";
 export * from "./use-id";
 export * from "./use-media";
+export * from "./use-toggle-state";
+export * from "./_use-hide-scrollbar";
 export * from "./types";

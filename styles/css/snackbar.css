@@ -12,7 +12,7 @@
   transform: none;
   opacity: 1;
   will-change: transform;
-  z-index: 10000;
+  z-index: var(--kit-z-index-major);
   flex-direction: column;
 }
 @media (max-width: 450px) {

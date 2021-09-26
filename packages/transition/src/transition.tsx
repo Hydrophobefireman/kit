@@ -1,4 +1,4 @@
-import { BaseElement, _util } from "@hydrophobefireman/kit";
+import { BaseElement, DOMElements, _util } from "@hydrophobefireman/kit";
 import { BaseDom } from "@hydrophobefireman/kit/base-dom";
 import * as classnames from "@hydrophobefireman/kit/classnames";
 import { useLatestRef } from "@hydrophobefireman/kit/hooks";
@@ -35,7 +35,7 @@ export function Transition({
   }
 
   function nextRenderState(e: TransitionEvent, mode: "DONE" | "CANCEL") {
-    if (e.target !== domRef.current) return;
+    if (e.currentTarget !== domRef.current) return;
     transitionHook && _util.raf(() => transitionHook(e, mode));
     switch (renderState) {
       case "INITIAL":

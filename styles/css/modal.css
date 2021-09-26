@@ -1,0 +1,56 @@
+.kit-modal-container {
+  z-index: var(--kit-z-index-major);
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.kit-modal {
+  transition: var(--kit-transition);
+  border-radius: var(--kit-modal-radius, 10px);
+  background: var(--kit-background);
+  padding: 0;
+  min-width: 40vw;
+  width: 95%;
+  opacity: 0.4;
+  transform: translateY(-75%);
+  max-width: 400px;
+}
+
+.kit-modal-head {
+  text-transform: uppercase;
+}
+
+.kit-modal-subtitle {
+  color: var(--kit-shade-5);
+}
+
+.kit-modal-actions {
+  border-bottom-right-radius: var(--kit-modal-radius, 10px);
+  border-bottom-left-radius: var(--kit-modal-radius, 10px);
+  display: flex;
+  bottom: 0;
+  width: 100%;
+  position: sticky;
+  overflow: hidden;
+}
+.kit-modal-action-button {
+  text-transform: uppercase;
+  flex: 1;
+  border-top: 1px solid var(--kit-shade-2);
+  padding: 1rem;
+  transition: var(--kit-transition);
+  color: var(--kit-shade-5);
+}
+.kit-modal-action-button:hover {
+  background-color: var(--kit-shade-2);
+  color: var(--kit-foreground);
+}
+.kit-modal-action-button:not(:only-child):not(:last-child) {
+  border-right: 1px solid var(--kit-shade-2);
+}

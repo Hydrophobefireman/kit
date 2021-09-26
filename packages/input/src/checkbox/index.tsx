@@ -2,7 +2,7 @@ import { BaseElement, _util } from "@hydrophobefireman/kit";
 import { BaseDom } from "@hydrophobefireman/kit/base-dom";
 import * as classnames from "@hydrophobefireman/kit/classnames";
 import { Container } from "@hydrophobefireman/kit/container";
-import { useLabelId } from "@hydrophobefireman/kit/hooks";
+import { useLabelId, useToggleState } from "@hydrophobefireman/kit/hooks";
 import { Text } from "@hydrophobefireman/kit/text";
 import { h, useState } from "@hydrophobefireman/ui-lib";
 
@@ -98,8 +98,12 @@ function Checkmark({ active }: { active: boolean }) {
 Checkbox.Label = Text;
 
 export function useCheckbox(initial?: boolean) {
-  const [checked, setChecked] = useState(!!initial);
-  return { checked, setChecked, toggle: () => setChecked(!checked) };
+  const { active, setActive, toggle } = useToggleState(initial);
+  return {
+    checked: active,
+    setChecked: setActive,
+    toggle,
+  };
 }
 
 export * from "./types";

@@ -122,3 +122,15 @@ export const snackbarLeave = "kit-snackbar-leave";
 export const snackbarButton = "kit-snackbar-button";
 export const snackbarError = "kit-snackbar-error";
 export const snackbarSuccess = "kit-snackbar-success";
+
+export const bottomSheet = "kit-bottom-sheet";
+export const bottomSheetActive = "kit-bottom-sheet-active";
+export const bottomSheetInactive = "kit-bottom-sheet-inactive";
+
+export const modalContainer = "kit-modal-container";
+export const modal = "kit-modal";
+export const modalIdle = "kit-modal-idle";
+export const modalHead = "kit-modal-head";
+export const modalSubtitle = "kit-modal-subtitle";
+export const modalActions = "kit-modal-actions";
+export const modalActionButton = "kit-modal-action-button";

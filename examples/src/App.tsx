@@ -8,6 +8,7 @@ import { css } from "catom";
 import { _util } from "@hydrophobefireman/kit";
 import { AlertRoot, useAlerts } from "@hydrophobefireman/kit/alerts";
 import { AutoComplete } from "@hydrophobefireman/kit/autocomplete";
+import { BottomSheet } from "@hydrophobefireman/kit/bottom-sheet";
 import { Button, ButtonProps } from "@hydrophobefireman/kit/button";
 import { Container, Resource } from "@hydrophobefireman/kit/container";
 import { Input, Switch, useSwitch } from "@hydrophobefireman/kit/input";
@@ -17,6 +18,7 @@ import {
   RadioInput,
   useCheckbox,
 } from "@hydrophobefireman/kit/input";
+import { Modal, useModal } from "@hydrophobefireman/kit/modal";
 import { Text } from "@hydrophobefireman/kit/text";
 import { useTheme } from "@hydrophobefireman/kit/theme";
 import { VNode, render, useEffect, useState } from "@hydrophobefireman/ui-lib";
@@ -49,8 +51,28 @@ function App(): VNode {
 
   const { currentTheme, toggle } = useTheme();
   const { currentState, toggle: toggleSwitch } = useSwitch("intermediate");
+  const { active, toggle: toggleModal } = useModal();
   return (
     <>
+      <Modal active={active}>
+        <Modal.Body>
+          <Modal.Title>Hello</Modal.Title>
+          <Modal.Subtitle>Hello World</Modal.Subtitle>
+        </Modal.Body>
+        <Modal.Actions>
+          <Modal.Action>ok</Modal.Action>
+          <Modal.Action onClick={toggleModal}>Close</Modal.Action>
+        </Modal.Actions>
+      </Modal>
+      <Button
+        onClick={toggleModal}
+        label="Toggle"
+        mode="secondary"
+        variant="shadow"
+      >
+        Toggle
+      </Button>
+      <BottomSheetDemo />
       <AlertRoot>
         <A />
       </AlertRoot>
@@ -271,6 +293,27 @@ function TestInput(props: any) {
   );
 }
 
+function BottomSheetDemo() {
+  const [s, setS] = useState(false);
+  return (
+    <div>
+      <Button
+        label="open"
+        variant="shadow"
+        mode="secondary"
+        onClick={() => setS(true)}
+      >
+        Open
+      </Button>
+      <BottomSheet active={s} onDismiss={() => setS(false)}>
+        <Container>
+          {" "}
+          <Text.h1>OK</Text.h1>
+        </Container>{" "}
+      </BottomSheet>
+    </div>
+  );
+}
 function TextButton({
   text,
   ...rest

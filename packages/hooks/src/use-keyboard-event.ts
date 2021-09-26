@@ -17,11 +17,10 @@ export function useKeyboard(
   const l = useLatestRef(listener);
   useEffect(() => {
     if (!target) return;
-
     function ev(e: JSX.TargetedKeyboardEvent<any>) {
       l.current(e);
     }
     target.addEventListener(keyboardMode, ev, { passive });
-    return () => target.removeEventListener(keyboardMode, ev);
-  }, [mode, target]);
+    return () => (target as any).removeEventListener(keyboardMode, ev);
+  }, [keyboardMode, target]);
 }

@@ -11,19 +11,20 @@ function BaseText({
   size,
   weight,
   transform,
-  align = "left",
+  align,
   color,
   children,
   style,
+  noMargin,
   ...rest
 }: BaseElement<TextProps>) {
-  const css: Properties = {
-    textAlign: align,
-  };
-  size && (css.fontSize = typeof size === "number" ? `${size}px` : size);
+  const css: Properties = {};
+  align && (css.textAlign = align);
+  size && (css.fontSize = _util.toPx(size));
   weight && (css.fontWeight = weight);
   color && (css.color = `var(--${color})`);
   transform && (css.textTransform = transform);
+  noMargin && (css.margin = 0);
   const C = as;
   return h(
     C,

@@ -32,7 +32,7 @@
 ::-webkit-scrollbar-thumb {
   background-color: var(--kit-scroll-thumb);
   border-radius: 5px;
-  z-index: 10;
+  z-index: var(--kit-z-index-2);
 }
 ::-webkit-scrollbar {
   width: 8px;

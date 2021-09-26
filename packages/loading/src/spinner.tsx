@@ -1,3 +1,4 @@
+import { _util } from "@hydrophobefireman/kit";
 import { h } from "@hydrophobefireman/ui-lib";
 
 export function Spinner({
@@ -7,7 +8,7 @@ export function Spinner({
   size?: number | string;
   color?: string;
 }) {
-  size = size ? (typeof size === "number" ? `${size}px` : size) : "2rem";
+  size = size ? _util.toPx(size) : "2rem";
   return h(
     "svg",
     {

@@ -47,5 +47,6 @@ export interface TextProps {
   weight?: FontWeight;
   transform?: TextTransform;
   color?: KitColors;
+  noMargin?: boolean;
 }
 export {};

@@ -88,6 +88,12 @@ html {
   --kit-secondary: var(--kit-shade-5);
   --kit-form-font-size: 0.87rem;
   --kit-input-height: 2.5rem;
+
+  --kit-z-index-base: 1;
+  --kit-z-index-2: 2;
+  --kit-z-index-100: 100;
+  --kit-z-index-major: 10000;
+
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
 }
