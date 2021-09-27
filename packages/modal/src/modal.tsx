@@ -6,7 +6,7 @@ import {
   useHideScrollbar,
   useId,
   useKeyPress,
-  useSelfClick,
+  useSelfEvent,
   useToggleState,
 } from "@hydrophobefireman/kit/hooks";
 import { Text, TextProps } from "@hydrophobefireman/kit/text";
@@ -26,7 +26,7 @@ function ModalImpl({
     setDom && setDom(ref.current);
   }, []);
   useHideScrollbar(active);
-  const handleOusideClick = useSelfClick(onClickOutside);
+  const handleOusideClick = useSelfEvent<MouseEvent>(onClickOutside);
   useKeyPress("Escape", () => onClickOutside && onClickOutside(), {
     target: window,
   });

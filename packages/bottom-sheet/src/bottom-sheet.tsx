@@ -4,10 +4,10 @@ import { bottomSheetInactive } from "@hydrophobefireman/kit/classnames";
 import {
   useHideScrollbar,
   useKeyPress,
-  useSelfClick,
+  useSelfEvent,
   useToggleState,
 } from "@hydrophobefireman/kit/hooks";
-import { useEffect, useRef } from "@hydrophobefireman/ui-lib";
+import { useRef } from "@hydrophobefireman/ui-lib";
 
 import { BottomSheetProps } from "./types";
 
@@ -24,7 +24,7 @@ export function BottomSheet({
     if (e.target !== e.currentTarget) return;
     onAnimationComplete && onAnimationComplete();
   }
-  const handleClose = useSelfClick(onDismiss);
+  const handleClose = useSelfEvent<MouseEvent>(onDismiss);
   useKeyPress("Escape", () => active && onDismiss && onDismiss(), {
     target: window,
   });
