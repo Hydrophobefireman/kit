@@ -23,11 +23,15 @@ import {
 } from "@hydrophobefireman/kit/input";
 import { Modal, useModal } from "@hydrophobefireman/kit/modal";
 import { Text } from "@hydrophobefireman/kit/text";
-import { useTheme } from "@hydrophobefireman/kit/theme";
+import {
+  installLocalStorageReflection,
+  useTheme,
+} from "@hydrophobefireman/kit/theme";
 import { VNode, render, useEffect, useState } from "@hydrophobefireman/ui-lib";
 
 import { RouterTest } from "./RouterTest";
 
+installLocalStorageReflection();
 function A() {
   const { persist } = useAlerts();
   const [a, s] = useState(0);

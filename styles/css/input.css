@@ -37,6 +37,7 @@
 .kit-input.kit-errored ~ label,
 .kit-input.kit-errored:focus {
   --kit-border: var(--kit-error) !important;
+  --kit-input-label: var(--kit-error);
 }
 
 .kit-input-material:focus ~ label,
@@ -44,7 +45,7 @@
   transform: translateY(var(--kit-label-jump, -90%));
   opacity: 1;
   background: var(--kit-background);
-  color: var(--kit-theme-fg);
+  color: var(--kit-input-label, var(--kit-theme-fg));
 }
 
 .kit-input-container-default {

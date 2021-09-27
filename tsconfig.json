@@ -19,5 +19,10 @@
   },
 
   "include": ["src/*", "packages"],
-  "exclude": ["node_modules", "dist/*", "examples/"]
+  "exclude": [
+    "node_modules",
+    "dist/*",
+    "examples/",
+    "localstorage-reflection.js"
+  ]
 }

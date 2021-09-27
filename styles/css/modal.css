@@ -46,9 +46,7 @@
   position: sticky;
   overflow: hidden;
 }
-.kit-modal-actions:focus {
-  outline: 1px solid #00000099;
-}
+
 .kit-modal-action-button {
   text-transform: uppercase;
   flex: 1;
