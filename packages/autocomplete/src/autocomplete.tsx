@@ -25,6 +25,8 @@ function BaseAutoComplete({
   id,
   ...props
 }: BaseElement<AutoCompleteProps>) {
+  const [query, setQuery] = useState(String(value || ""));
+  useEffect(() => setQuery(String(value || "")), [value]);
   const ref = useRef<HTMLInputElement>();
   const [dirty, setDirty] = useState(false);
   _util.applyRef(props.dom, ref.current);
@@ -35,7 +37,7 @@ function BaseAutoComplete({
     mode === "search" ? Input.Search : Input,
     _util.extend(props, {
       autoComplete: "off",
-      value,
+      value: value,
       onFocus: () => {
         setDirty(true);
       },
@@ -77,7 +79,7 @@ function BaseAutoComplete({
               <AutoCompleteOptions
                 noSuggestions={noSuggestions}
                 options={options}
-                query={value as string}
+                query={query}
                 select={select}
               />
             )
@@ -108,6 +110,6 @@ export function AutoComplete(props: BaseElement<AutoCompleteProps>) {
 }
 
 export function useAutoComplete(initial: string) {
-  const [value, setValue] = useState(initial);
+  const [value, setValue] = useState(initial || "");
   return { value, setValue };
 }
