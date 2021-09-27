@@ -36,7 +36,7 @@ export function Transition({
 
   function nextRenderState(e: TransitionEvent, mode: "DONE" | "CANCEL") {
     if (
-      e.target === e.currentTarget &&
+      e.target !== e.currentTarget &&
       !(transitionTargetRef.current || []).includes(e.target as HTMLElement)
     )
       return;

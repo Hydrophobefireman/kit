@@ -20,4 +20,6 @@ export * from "./use-id";
 export * from "./use-media";
 export * from "./use-toggle-state";
 export * from "./_use-hide-scrollbar";
+export * from "./_use-self-click";
+
 export * from "./types";

@@ -4,9 +4,8 @@ import { useLatestRef } from "./use-latest-ref";
 
 export function useClickAway(listener: () => void, target: EventTarget) {
   const ref = useLatestRef(listener);
-
   useEffect(() => {
-    if (!target) return;
+    if (!target || !ref.current) return;
     const cb = () => ref.current();
     const listener = (event: Event) => {
       const path = (event as any).path;

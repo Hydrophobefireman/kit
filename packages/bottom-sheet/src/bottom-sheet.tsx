@@ -4,6 +4,7 @@ import { bottomSheetInactive } from "@hydrophobefireman/kit/classnames";
 import {
   useHideScrollbar,
   useKeyPress,
+  useSelfClick,
   useToggleState,
 } from "@hydrophobefireman/kit/hooks";
 import { useEffect, useRef } from "@hydrophobefireman/ui-lib";
@@ -18,16 +19,12 @@ export function BottomSheet({
   children,
 }: BottomSheetProps) {
   const ref = useRef<HTMLDivElement>();
-  const maskRef = useRef<HTMLDivElement>();
   useHideScrollbar(active);
   function handleTransitionEnd(e: TransitionEvent) {
     if (e.target !== e.currentTarget) return;
     onAnimationComplete && onAnimationComplete();
   }
-  function handleClose(e: MouseEvent) {
-    if (e.target !== e.currentTarget) return;
-    onDismiss && onDismiss();
-  }
+  const handleClose = useSelfClick(onDismiss);
   useKeyPress("Escape", () => active && onDismiss && onDismiss(), {
     target: window,
   });
@@ -35,12 +32,7 @@ export function BottomSheet({
   return (
     <div>
       {active && (
-        <div
-          aria-hidden
-          className={classnames.mask}
-          ref={maskRef}
-          onClick={handleClose}
-        />
+        <div aria-hidden className={classnames.mask} onClick={handleClose} />
       )}
       <div
         tabIndex={active ? 0 : -1}

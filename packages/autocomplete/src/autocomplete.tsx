@@ -14,6 +14,7 @@ function BaseAutoComplete({
   mode,
   itemRender,
   onChange,
+  setValue,
   value,
   options,
   containerClass,
@@ -24,10 +25,6 @@ function BaseAutoComplete({
   id,
   ...props
 }: BaseElement<AutoCompleteProps>) {
-  const [query, setQuery] = useState(String(value) || "");
-  useEffect(() => {
-    setQuery(value as any);
-  }, [value]);
   const ref = useRef<HTMLInputElement>();
   const [dirty, setDirty] = useState(false);
   _util.applyRef(props.dom, ref.current);
@@ -38,13 +35,13 @@ function BaseAutoComplete({
     mode === "search" ? Input.Search : Input,
     _util.extend(props, {
       autoComplete: "off",
-      value: query,
+      value,
       onFocus: () => {
         setDirty(true);
       },
       setValue: (v: string) => {
         setDirty(true);
-        setQuery(v);
+        setValue(v);
       },
       dom: ref,
       depends,
@@ -54,7 +51,7 @@ function BaseAutoComplete({
   );
   function select(e: JSX.TargetedMouseEvent<any>) {
     const { currentTarget } = e;
-    setQuery(currentTarget.dataset.value);
+    setValue(currentTarget.dataset.value);
     setDirty(false);
   }
   const dropdownActive = expanded && options.length > 0;
@@ -80,7 +77,7 @@ function BaseAutoComplete({
               <AutoCompleteOptions
                 noSuggestions={noSuggestions}
                 options={options}
-                query={query}
+                query={value as string}
                 select={select}
               />
             )
@@ -108,4 +105,9 @@ function DependantAutoComplete(props: BaseElement<AutoCompleteProps>) {
 export function AutoComplete(props: BaseElement<AutoCompleteProps>) {
   if (props.depends) return h(DependantAutoComplete, props as any);
   return h(BaseAutoComplete, props as any);
+}
+
+export function useAutoComplete(initial: string) {
+  const [value, setValue] = useState(initial);
+  return { value, setValue };
 }

@@ -7,7 +7,10 @@ import { css } from "catom";
 
 import { _util } from "@hydrophobefireman/kit";
 import { AlertRoot, useAlerts } from "@hydrophobefireman/kit/alerts";
-import { AutoComplete } from "@hydrophobefireman/kit/autocomplete";
+import {
+  AutoComplete,
+  useAutoComplete,
+} from "@hydrophobefireman/kit/autocomplete";
 import { BottomSheet } from "@hydrophobefireman/kit/bottom-sheet";
 import { Button, ButtonProps } from "@hydrophobefireman/kit/button";
 import { Container, Resource } from "@hydrophobefireman/kit/container";
@@ -99,6 +102,7 @@ function App(): VNode {
       </Container>
       <Container horizontal="center" row>
         <AutoComplete
+          {...useAutoComplete("")}
           dropdownClass={css({
             maxHeight: "300px",
             overflow: "auto",

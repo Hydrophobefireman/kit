@@ -15,7 +15,8 @@ export interface AutoCompleteOptionsRendererProps {
 }
 
 export interface AutoCompleteProps extends Omit<InputProps, "value"> {
-  value?: AutoCompleteValue;
+  value: AutoCompleteValue;
+  setValue(n: AutoCompleteValue | any): void;
   onChange?(value: AutoCompleteProps): void;
   options: AutoCompleteOptions[];
   mode?: "search" | "normal";
