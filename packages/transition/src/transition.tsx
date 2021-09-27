@@ -17,17 +17,17 @@ export function Transition({
   children,
   className,
   style,
+  transitionTargets,
   transitionHook,
   dom,
   ...rest
 }: BaseElement<TransitionProps>) {
-  const domRef = useRef<any>();
-  dom && (dom.current = domRef.current);
   const isFirstRender = useRef(true);
   const [renderState, setRenderState] = useState<RenderState | null>(null);
   const [child, setChild] = useState(() => render);
   const nextChildRef = useLatestRef(render);
   const currentChildRef = useLatestRef(child);
+  const transitionTargetRef = useLatestRef(transitionTargets);
   function scheduleNextChild() {
     setRenderState(nextChildRef.current ? "INITIAL" : "UNMOUNT");
     currentChildRef.current = nextChildRef.current;
@@ -35,7 +35,11 @@ export function Transition({
   }
 
   function nextRenderState(e: TransitionEvent, mode: "DONE" | "CANCEL") {
-    if (e.currentTarget !== domRef.current) return;
+    if (
+      e.target === e.currentTarget &&
+      !(transitionTargetRef.current || []).includes(e.target as HTMLElement)
+    )
+      return;
     transitionHook && _util.raf(() => transitionHook(e, mode));
     switch (renderState) {
       case "INITIAL":
@@ -73,7 +77,7 @@ export function Transition({
     BaseDom,
     _util.extend(
       {
-        dom: domRef,
+        dom,
         style: css,
         id,
         element: as || "div",

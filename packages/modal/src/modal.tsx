@@ -2,39 +2,79 @@ import { BaseElement, _util } from "@hydrophobefireman/kit";
 import * as classnames from "@hydrophobefireman/kit/classnames";
 import { Container } from "@hydrophobefireman/kit/container";
 import {
+  useFocus,
   useHideScrollbar,
   useId,
+  useKeyPress,
   useToggleState,
 } from "@hydrophobefireman/kit/hooks";
 import { Text, TextProps } from "@hydrophobefireman/kit/text";
 import { Transition } from "@hydrophobefireman/kit/transition";
-import { h } from "@hydrophobefireman/ui-lib";
+import { h, useEffect, useRef, useState } from "@hydrophobefireman/ui-lib";
 
 import { ModalProps } from "./types";
 
-function ModalImpl({ active, children }: ModalProps) {
+function ModalImpl({
+  active,
+  children,
+  _setDom: setDom,
+  onClickOutside,
+}: ModalProps) {
+  const ref = useRef<HTMLDivElement>();
+  useEffect(() => {
+    setDom && setDom(ref.current);
+  }, []);
   useHideScrollbar(active);
-  return children;
-}
-export function Modal({ active, children }: ModalProps) {
-  const id = useId();
+  function handleOusideClick(e: MouseEvent) {
+    if (e.target !== e.currentTarget) return;
+    onClickOutside && onClickOutside();
+  }
+  useKeyPress("Escape", () => onClickOutside && onClickOutside(), {
+    target: window,
+  });
   return (
-    <>
-      {active && <div class={classnames.mask}></div>}
-      <div class={active ? classnames.modalContainer : ""}>
-        <Transition
-          id={active ? id : ""}
-          render={
-            active ? <ModalImpl active={active} children={children} /> : null
-          }
-          class={classnames.modal}
-        />
+    <div class={classnames.mask} onClick={onClickOutside && handleOusideClick}>
+      <div class={classnames.modal} ref={ref}>
+        {children}
       </div>
-    </>
+    </div>
+  );
+}
+export function Modal({
+  active,
+  children,
+  onClickOutside,
+  onAnimationComplete,
+}: ModalProps) {
+  const id = useId();
+  const [target, setTarget] = useState<HTMLDivElement>(null as any);
+  return (
+    <Transition
+      transitionTargets={[target]}
+      id={active ? id : ""}
+      transitionHook={onAnimationComplete}
+      render={
+        active ? (
+          <ModalImpl
+            onClickOutside={active && onClickOutside}
+            active={active}
+            children={children}
+            _setDom={setTarget}
+          />
+        ) : null
+      }
+      leaveClass={classnames.modalLeave}
+      enterClass={classnames._modalEnter}
+    />
   );
 }
 function Actions({ children }: { children?: any }) {
-  return <div class={classnames.modalActions}>{children}</div>;
+  const actionContainer = useFocus<HTMLDivElement>();
+  return (
+    <div tabIndex={0} ref={actionContainer} class={classnames.modalActions}>
+      {children}
+    </div>
+  );
 }
 function Action({ class: cls, className, ...props }: BaseElement<{}>) {
   const classProp = [cls, className, classnames.modalActionButton];

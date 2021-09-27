@@ -51,16 +51,20 @@ function App(): VNode {
 
   const { currentTheme, toggle } = useTheme();
   const { currentState, toggle: toggleSwitch } = useSwitch("intermediate");
-  const { active, toggle: toggleModal } = useModal();
+  const { active, toggle: toggleModal, setActive } = useModal();
   return (
     <>
-      <Modal active={active}>
+      <Modal
+        active={active}
+        onAnimationComplete={console.log}
+        onClickOutside={() => setActive(false)}
+      >
         <Modal.Body>
           <Modal.Title>Hello</Modal.Title>
           <Modal.Subtitle>Hello World</Modal.Subtitle>
         </Modal.Body>
         <Modal.Actions>
-          <Modal.Action>ok</Modal.Action>
+          <Modal.Action autofocus>ok</Modal.Action>
           <Modal.Action onClick={toggleModal}>Close</Modal.Action>
         </Modal.Actions>
       </Modal>

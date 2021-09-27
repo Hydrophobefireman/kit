@@ -21,11 +21,11 @@ export function BottomSheet({
   const maskRef = useRef<HTMLDivElement>();
   useHideScrollbar(active);
   function handleTransitionEnd(e: TransitionEvent) {
-    if (e.currentTarget !== ref.current) return;
+    if (e.target !== e.currentTarget) return;
     onAnimationComplete && onAnimationComplete();
   }
   function handleClose(e: MouseEvent) {
-    if (e.currentTarget !== maskRef.current) return;
+    if (e.target !== e.currentTarget) return;
     onDismiss && onDismiss();
   }
   useKeyPress("Escape", () => active && onDismiss && onDismiss(), {
