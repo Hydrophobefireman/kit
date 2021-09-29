@@ -12,3 +12,4 @@ import "./css/transition.css";
 import "./css/snackbar.css";
 import "./css/bottom-sheet.css";
 import "./css/modal.css";
+import "./css/collapse.css";

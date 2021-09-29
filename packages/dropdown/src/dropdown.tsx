@@ -2,31 +2,25 @@ import { _util } from "@hydrophobefireman/kit";
 import { BaseDom } from "@hydrophobefireman/kit/base-dom";
 import * as classnames from "@hydrophobefireman/kit/classnames";
 import {
-  useObserver,
+  defaultRect,
+  useMutationObserver,
+  useRect,
   useResize,
   useScroll,
 } from "@hydrophobefireman/kit/hooks";
-import {
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "@hydrophobefireman/ui-lib";
+import { useEffect, useRef } from "@hydrophobefireman/ui-lib";
 
-import { DropdownProps, OffsetRect } from "./types";
-import { defaultRect, getOffsetRect } from "./util";
+import { DropdownProps } from "./types";
 
 export function Dropdown(props: DropdownProps) {
   if (!props.parent) return null;
   const cls = [classnames.dropdown, props.class, props.className];
   const ref = useRef<HTMLDivElement>();
-  const [rect, setRect] = useState<OffsetRect>(defaultRect);
-  const sync = useCallback(function sync() {
-    setRect(getOffsetRect(props.parent, ref.current));
-  }, []);
+  const props__parent = useRef(props.parent);
+  const { rect, sync } = useRect(props__parent, ref);
   useResize(sync);
   useScroll(sync);
-  useObserver(props.parent, sync);
+  useMutationObserver(props.parent, sync);
 
   useEffect(sync, cls);
   _util.applyRef(props.dom, ref.current);

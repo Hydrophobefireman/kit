@@ -1,10 +1,19 @@
-import { useEffect } from "@hydrophobefireman/ui-lib";
+import {
+  RefType,
+  useEffect,
+  useRef,
+  useState,
+} from "@hydrophobefireman/ui-lib";
 
 import { useLatestRef } from "./use-latest-ref";
 
-const config = { attributes: false, childList: true, subtree: true };
+const defaultConfig = { attributes: false, childList: true, subtree: true };
 
-export function useObserver(current: HTMLElement, cb: MutationCallback) {
+export function useMutationObserver(
+  current: HTMLElement,
+  cb: MutationCallback,
+  config = defaultConfig
+) {
   const callback = useLatestRef(cb);
   useEffect(() => {
     if (!current) return;
@@ -14,10 +23,31 @@ export function useObserver(current: HTMLElement, cb: MutationCallback) {
       callback.current(mutations, obs);
     };
     const observer = new MutationObserver(cb);
-    observer.observe(current, config);
+    observer.observe(current, defaultConfig);
     return () => {
       unmount = true;
       observer.disconnect();
     };
   }, [current]);
+}
+
+export function useResizeObserver(
+  target: RefType<HTMLElement>,
+  cb: (rect: DOMRectReadOnly) => void
+) {
+  const cbRef = useLatestRef(cb);
+  const resizeObserver = useRef<ResizeObserver>(null as any);
+  useEffect(() => {
+    resizeObserver.current = new ResizeObserver(([entry]) => {
+      cbRef.current(entry.contentRect);
+    });
+    if (target.current) {
+      resizeObserver.current.observe(target.current);
+    }
+    return () => {
+      if (resizeObserver.current) {
+        resizeObserver.current.disconnect();
+      }
+    };
+  }, [target]);
 }

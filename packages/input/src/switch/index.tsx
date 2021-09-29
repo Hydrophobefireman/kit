@@ -90,11 +90,7 @@ export function Switch({
 export function useSwitch(state: SwitchProps["state"]) {
   const [currentState, setState] = useState<SwitchProps["state"]>(state);
   function toggle() {
-    setState(
-      currentState === "disabled" || currentState === "intermediate"
-        ? "enabled"
-        : "disabled"
-    );
+    setState(currentState !== "enabled" ? "enabled" : "disabled");
   }
   return { currentState, toggle, setState };
 }

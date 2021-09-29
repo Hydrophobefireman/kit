@@ -137,3 +137,5 @@ export const modalHead = "kit-modal-head";
 export const modalSubtitle = "kit-modal-subtitle";
 export const modalActions = "kit-modal-actions";
 export const modalActionButton = "kit-modal-action-button";
+
+export const collapse = "kit-collapse";

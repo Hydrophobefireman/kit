@@ -24,7 +24,7 @@ function ModalImpl({
   const ref = useRef<HTMLDivElement>();
   useEffect(() => {
     setDom && setDom(ref.current);
-  }, []);
+  }, [ref.current]);
   useHideScrollbar(active);
   const handleOusideClick = useSelfEvent<MouseEvent>(onClickOutside);
   useKeyPress("Escape", () => onClickOutside && onClickOutside(), {

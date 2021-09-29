@@ -13,6 +13,7 @@ import {
 } from "@hydrophobefireman/kit/autocomplete";
 import { BottomSheet } from "@hydrophobefireman/kit/bottom-sheet";
 import { Button, ButtonProps } from "@hydrophobefireman/kit/button";
+import { Collapse, useCollapse } from "@hydrophobefireman/kit/collapse";
 import { Container, Resource } from "@hydrophobefireman/kit/container";
 import { Input, Switch, useSwitch } from "@hydrophobefireman/kit/input";
 import {
@@ -47,6 +48,19 @@ function A() {
   }, [a]);
   return null;
 }
+function CollapseTest() {
+  const { active, setActive, toggle } = useCollapse(false);
+  return (
+    <div>
+      <Button mode="secondary" variant="shadow" label="toggle" onClick={toggle}>
+        Toggle Collapse
+      </Button>
+      <Collapse active={active}>
+        <div>{"Hello ".repeat(50)}</div>
+      </Collapse>
+    </div>
+  );
+}
 function App(): VNode {
   const [name, setName] = useState("");
   const [refetch, setRefetch] = useState({});
@@ -59,8 +73,10 @@ function App(): VNode {
   const { currentTheme, toggle } = useTheme();
   const { currentState, toggle: toggleSwitch } = useSwitch("intermediate");
   const { active, toggle: toggleModal, setActive } = useModal();
+
   return (
     <>
+      <CollapseTest />
       <Modal
         active={active}
         onAnimationComplete={console.log}

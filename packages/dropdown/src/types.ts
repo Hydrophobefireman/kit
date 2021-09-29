@@ -11,11 +11,4 @@ export interface DropdownProps {
   style?: BaseDomProps["style"] | null;
 }
 
-export interface OffsetRect {
-  right: number;
-  top: number;
-  left: number;
-  width: number;
-}
-
 export {};
