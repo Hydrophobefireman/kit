@@ -4,7 +4,6 @@ import {
   useFwdRef,
   useLatestRef,
   useRect,
-  useResizeObserver,
   useToggleState,
 } from "@hydrophobefireman/kit/hooks";
 import { h, useLayoutEffect, useRef } from "@hydrophobefireman/ui-lib";
@@ -28,12 +27,8 @@ export function Collapse({
   const rectRef = useLatestRef(rect);
   const firstRender = useRef(true);
   const isPendingTransition = useRef(false);
-  useResizeObserver(ref, () => !isPendingTransition.current && sync);
-  console.log("ok");
   useLayoutEffect(() => {
-    // referenceRect -> previous state
     let referenceRect = rectRef.current;
-    // latestRect -> state after the previous render
     const style = ref.current && ref.current.style;
     if (isPendingTransition.current) {
       style.height = "";
@@ -54,7 +49,17 @@ export function Collapse({
       _inactive(style);
     }
   }, [active]);
-  const onend = () => (isPendingTransition.current = false);
+  const onend = () => {
+    isPendingTransition.current = false;
+    const { current } = ref;
+    if (!active) return;
+
+    current.style.height = "auto";
+    _util.raf(
+      () =>
+        (current.style.height = `${current.getBoundingClientRect().height}px`)
+    );
+  };
   return h(
     "div",
     _util.extend(
