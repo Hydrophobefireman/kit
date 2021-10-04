@@ -11,9 +11,7 @@ const packageJsonTemplate = (name, version) => ({
   module: `src/index.js`,
   types: "src/index.d.ts",
   license: "MIT",
-  scripts: {
-    build: "microbundle --raw",
-  },
+  scripts: {},
 });
 
 function indexTemplate(name) {

@@ -6,9 +6,7 @@
    "module": "src/index.js",
    "types": "src/index.d.ts",
    "license": "MIT",
-   "scripts": {
-      "build": "microbundle --raw"
-   },
+   "scripts": {},
    "peerDependencies": {
       "@hydrophobefireman/flask-jwt-jskit": "^0.1.5",
       "@hydrophobefireman/ui-lib": "^1.10.3",
