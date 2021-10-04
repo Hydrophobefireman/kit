@@ -946,10 +946,12 @@
   resolved "https://registry.yarnpkg.com/@hydrophobefireman/j-utils/-/j-utils-2.1.7.tgz#a2f27827483d8b7a59e325acd85528f9204f4be4"
   integrity sha512-XEIl3/eQCUPPSPEdH8oy4AHoNhktOZ/hIF0+iBvlYrCHKmjZbrVEKUzRS/tiJ60kRdGEqlaaFd8dkOp48PQFkQ==
 
-"@hydrophobefireman/kit@^0.0.1-jul-23":
-  version "0.0.1-jul-23"
-  resolved "https://registry.yarnpkg.com/@hydrophobefireman/kit/-/kit-0.0.1-jul-23.tgz#769c1c673d8a353702649557dd2e83f2f8bde2d2"
-  integrity sha512-uCKFEme+RJXZW59/OMHs7SF4yujG+xPR1fE+pWn92yPdmUG5oY//is+fsL7kzOofNGhCYVWgMkI8sSK3r1doSw==
+"@hydrophobefireman/kit@^0.0.1-2021-09-29-23-53":
+  version "0.0.1-2021-09-29-23-53"
+  resolved "https://registry.yarnpkg.com/@hydrophobefireman/kit/-/kit-0.0.1-2021-09-29-23-53.tgz#e6086a052562feb2c493a1e8bfa8b0bd1c252880"
+  integrity sha512-LYgwylSuAnRaS4YiOpP7t5wZqBFIoi//KySU88jWYs3z2T5mEK5uISy3upukLPbqSVsWQ/v/7ME82uyuL+3siQ==
+  dependencies:
+    csstype "^3.0.9"
 
 "@hydrophobefireman/module-nomodule@^2.0.0":
   version "2.0.0"
@@ -1855,6 +1857,11 @@ csstype@^3.0.3:
   version "3.0.8"
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.0.8.tgz#d2266a792729fb227cd216fb572f43728e1ad340"
   integrity sha512-jXKhWqXPmlUeoQnF/EhTtTl4C9SnrxSH/jZUih3jmO6lBKr99rP3/+FmrMj4EFpOXzMtXHAZkd3x0E6h6Fgflw==
+
+csstype@^3.0.9:
+  version "3.0.9"
+  resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.0.9.tgz#6410af31b26bd0520933d02cbc64fce9ce3fbf0b"
+  integrity sha512-rpw6JPxK6Rfg1zLOYCSwle2GFOOsnjmDYDaBwEcwoOg4qlsIVCN789VkBZDJAGi4T07gI4YSutR43t9Zz4Lzuw==
 
 debug@2.6.9:
   version "2.6.9"
