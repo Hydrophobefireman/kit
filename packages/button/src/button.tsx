@@ -1,7 +1,7 @@
 import { BaseElement, _util, useIsPending } from "@hydrophobefireman/kit";
 import { BaseDom } from "@hydrophobefireman/kit/base-dom";
 import * as classnames from "@hydrophobefireman/kit/classnames";
-import { Spinner } from "@hydrophobefireman/kit/loading";
+import { SpinnerIcon } from "@hydrophobefireman/kit/icons";
 import { A, h } from "@hydrophobefireman/ui-lib";
 
 import { ButtonProps } from "./types";
@@ -106,7 +106,7 @@ function DependantButton(props: BaseElement<ButtonProps>) {
       BaseButton,
       _util.extend(
         {
-          prefix: <Spinner />,
+          prefix: <SpinnerIcon />,
           disabled: true,
           "aria-hidden": true,
           class: [cls, className, classnames.noEvents],

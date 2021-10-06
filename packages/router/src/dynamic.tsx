@@ -1,11 +1,11 @@
 import { ComplexComponent, _util } from "@hydrophobefireman/kit";
-import { Spinner } from "@hydrophobefireman/kit/loading";
+import { SpinnerIcon } from "@hydrophobefireman/kit/icons";
 import { h, useLayoutEffect, useState } from "@hydrophobefireman/ui-lib";
 
 import { DynamicComponentProps, Preloader } from "./types";
 
 function RouteSpinner() {
-  return <Spinner size="4rem" />;
+  return <SpinnerIcon size="4rem" />;
 }
 export function dynamic(
   loader: Preloader,

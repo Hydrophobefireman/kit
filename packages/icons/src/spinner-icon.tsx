@@ -1,7 +1,7 @@
 import { _util } from "@hydrophobefireman/kit";
 import { h } from "@hydrophobefireman/ui-lib";
 
-export function Spinner({
+export function SpinnerIcon({
   size,
   color,
 }: {
