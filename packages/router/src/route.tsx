@@ -1,3 +1,4 @@
+import { _util } from "@hydrophobefireman/kit";
 import { h } from "@hydrophobefireman/ui-lib";
 
 import { useTransitionRouter } from "./hooks";
@@ -9,7 +10,7 @@ export function Route({ render }: RouteComponentProps) {
 
   const css = { transition: "var(--kit-transition)" };
   if (pendingTransitionOut) {
-    Object.assign(css, transitionStyle || { opacity: 0.5 });
+    _util.extend(css, transitionStyle || { opacity: 0.5 });
   }
   return (
     <kit-route data-route={path}>
