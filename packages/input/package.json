@@ -1,6 +1,6 @@
 {
    "name": "input",
-   "version": "0.0.1-2021-10-06-13-26",
+   "version": "0.0.1-2021-10-06-18-26",
    "private": true,
    "main": "src/index.js",
    "module": "src/index.js",

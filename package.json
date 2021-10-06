@@ -1,98 +1,98 @@
 {
-  "name": "@hydrophobefireman/kit",
-  "description": "",
-  "types": "dist/src/index.d.ts",
-  "version": "0.0.1-2021-10-06-13-26",
-  "license": "MIT",
-  "homepage": "https://github.com/Hydrophobefireman/kit#readme",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Hydrophobefireman/kit.git"
-  },
-  "main": "dist/src/index.js",
-  "module": "dist/src/index.js",
-  "exports": {
-    ".": "./dist/src/index.js",
-    "./styles/css/": "./styles/css/",
-    "./styles/": "./styles/",
-    "./styles": "./styles/index.js",
-    "./package.json": "./package.json",
-    "./": "./",
-    "./alerts": "./alerts/src/index.js",
-    "./autocomplete": "./autocomplete/src/index.js",
-    "./base-dom": "./base-dom/src/index.js",
-    "./bottom-sheet": "./bottom-sheet/src/index.js",
-    "./button": "./button/src/index.js",
-    "./classnames": "./classnames/src/index.js",
-    "./collapse": "./collapse/src/index.js",
-    "./container": "./container/src/index.js",
-    "./dropdown": "./dropdown/src/index.js",
-    "./file-drop-target": "./file-drop-target/src/index.js",
-    "./hooks": "./hooks/src/index.js",
-    "./http": "./http/src/index.js",
-    "./icons": "./icons/src/index.js",
-    "./input": "./input/src/index.js",
-    "./modal": "./modal/src/index.js",
-    "./router": "./router/src/index.js",
-    "./skeleton": "./skeleton/src/index.js",
-    "./text": "./text/src/index.js",
-    "./theme": "./theme/src/index.js",
-    "./transition": "./transition/src/index.js"
-  },
-  "scripts": {
-    "_i": "for i in ./dist/packages/*; do echo \"$i\" && cp \"$i\" ./examples/node_modules/@hydrophobefireman/kit/ -r ;done && cp styles ./examples/node_modules/@hydrophobefireman/kit/ -r &&  cp dist ./examples/node_modules/@hydrophobefireman/kit/ -r && cp package.json ./examples/node_modules/@hydrophobefireman/kit/",
-    "_j": "for i in ./dist/packages/*; do echo \"$i\" && cp \"$i\" ./icon-www/node_modules/@hydrophobefireman/kit/ -r ;done && cp styles ./icon-www/node_modules/@hydrophobefireman/kit/ -r &&  cp dist ./icon-www/node_modules/@hydrophobefireman/kit/ -r && cp package.json ./icon-www/node_modules/@hydrophobefireman/kit/",
-    "_ij": "yarn _j&&yarn _i",
-    "prebuild": "node scripts/clean.js",
-    "prepublishOnly": "npm run build &&  node scripts/prepublishOnly.js",
-    "postpublish": "node scripts/postpublish.js",
-    "postbuild": "node scripts/postbuild.js",
-    "create-package": "node scripts/create-package.js",
-    "build": "tsc"
-  },
-  "sideEffects": false,
-  "peerDependencies": {
-    "@hydrophobefireman/flask-jwt-jskit": "^0.1.5",
-    "@hydrophobefireman/ui-lib": "^1.10.3",
-    "statedrive": "^0.0.13"
-  },
-  "dependencies": {
-    "csstype": "^3.0.9"
-  },
-  "devDependencies": {
-    "@types/node": "^16.10.1",
-    "typescript": "^4.4.3"
-  },
-  "kitBase": {
-    "exports": {
+   "name": "@hydrophobefireman/kit",
+   "description": "",
+   "types": "dist/src/index.d.ts",
+   "version": "0.0.1-2021-10-06-18-26",
+   "license": "MIT",
+   "homepage": "https://github.com/Hydrophobefireman/kit#readme",
+   "repository": {
+      "type": "git",
+      "url": "git+https://github.com/Hydrophobefireman/kit.git"
+   },
+   "main": "dist/src/index.js",
+   "module": "dist/src/index.js",
+   "exports": {
       ".": "./dist/src/index.js",
       "./styles/css/": "./styles/css/",
       "./styles/": "./styles/",
       "./styles": "./styles/index.js",
       "./package.json": "./package.json",
-      "./": "./"
-    }
-  },
-  "kitPackages": [
-    "alerts",
-    "autocomplete",
-    "base-dom",
-    "bottom-sheet",
-    "button",
-    "classnames",
-    "collapse",
-    "container",
-    "dropdown",
-    "file-drop-target",
-    "hooks",
-    "http",
-    "icons",
-    "input",
-    "modal",
-    "router",
-    "skeleton",
-    "text",
-    "theme",
-    "transition"
-  ]
+      "./": "./",
+      "./alerts": "./alerts/src/index.js",
+      "./autocomplete": "./autocomplete/src/index.js",
+      "./base-dom": "./base-dom/src/index.js",
+      "./bottom-sheet": "./bottom-sheet/src/index.js",
+      "./button": "./button/src/index.js",
+      "./classnames": "./classnames/src/index.js",
+      "./collapse": "./collapse/src/index.js",
+      "./container": "./container/src/index.js",
+      "./dropdown": "./dropdown/src/index.js",
+      "./file-drop-target": "./file-drop-target/src/index.js",
+      "./hooks": "./hooks/src/index.js",
+      "./http": "./http/src/index.js",
+      "./icons": "./icons/src/index.js",
+      "./input": "./input/src/index.js",
+      "./modal": "./modal/src/index.js",
+      "./router": "./router/src/index.js",
+      "./skeleton": "./skeleton/src/index.js",
+      "./text": "./text/src/index.js",
+      "./theme": "./theme/src/index.js",
+      "./transition": "./transition/src/index.js"
+   },
+   "scripts": {
+      "_i": "for i in ./dist/packages/*; do echo \"$i\" && cp \"$i\" ./examples/node_modules/@hydrophobefireman/kit/ -r ;done && cp styles ./examples/node_modules/@hydrophobefireman/kit/ -r &&  cp dist ./examples/node_modules/@hydrophobefireman/kit/ -r && cp package.json ./examples/node_modules/@hydrophobefireman/kit/",
+      "_j": "for i in ./dist/packages/*; do echo \"$i\" && cp \"$i\" ./icon-www/node_modules/@hydrophobefireman/kit/ -r ;done && cp styles ./icon-www/node_modules/@hydrophobefireman/kit/ -r &&  cp dist ./icon-www/node_modules/@hydrophobefireman/kit/ -r && cp package.json ./icon-www/node_modules/@hydrophobefireman/kit/",
+      "_ij": "yarn _j&&yarn _i",
+      "prebuild": "node scripts/clean.js",
+      "prepublishOnly": "npm run build &&  node scripts/prepublishOnly.js",
+      "postpublish": "node scripts/postpublish.js",
+      "postbuild": "node scripts/postbuild.js",
+      "create-package": "node scripts/create-package.js",
+      "build": "tsc"
+   },
+   "sideEffects": false,
+   "peerDependencies": {
+      "@hydrophobefireman/flask-jwt-jskit": "^0.1.5",
+      "@hydrophobefireman/ui-lib": "^1.10.3",
+      "statedrive": "^0.0.13"
+   },
+   "dependencies": {
+      "csstype": "^3.0.9"
+   },
+   "devDependencies": {
+      "@types/node": "^16.10.1",
+      "typescript": "^4.4.3"
+   },
+   "kitBase": {
+      "exports": {
+         ".": "./dist/src/index.js",
+         "./styles/css/": "./styles/css/",
+         "./styles/": "./styles/",
+         "./styles": "./styles/index.js",
+         "./package.json": "./package.json",
+         "./": "./"
+      }
+   },
+   "kitPackages": [
+      "alerts",
+      "autocomplete",
+      "base-dom",
+      "bottom-sheet",
+      "button",
+      "classnames",
+      "collapse",
+      "container",
+      "dropdown",
+      "file-drop-target",
+      "hooks",
+      "http",
+      "icons",
+      "input",
+      "modal",
+      "router",
+      "skeleton",
+      "text",
+      "theme",
+      "transition"
+   ]
 }
