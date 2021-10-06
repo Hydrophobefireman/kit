@@ -1,12 +1,8 @@
 import { ComplexComponent, _util } from "@hydrophobefireman/kit";
-import { SpinnerIcon } from "@hydrophobefireman/kit/icons";
 import { h, useLayoutEffect, useState } from "@hydrophobefireman/ui-lib";
 
 import { DynamicComponentProps, Preloader } from "./types";
 
-function RouteSpinner() {
-  return <SpinnerIcon size="4rem" />;
-}
 export function dynamic(
   loader: Preloader,
   { fallback, errorFallback, unsafe }: DynamicComponentProps = {}
@@ -14,7 +10,7 @@ export function dynamic(
   function Fallback({ error }: any) {
     return errorFallback ? errorFallback(error) : <div>An error occured</div>;
   }
-  const F = fallback || RouteSpinner;
+  const F = fallback;
   const dynamicComponent = function Dynamic(props: any) {
     const [Component, setComponent] = useState<ComplexComponent | null>(null);
     const [exception, setException] = useState<Error | null>(null);

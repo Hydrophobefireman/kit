@@ -5,7 +5,6 @@ import {
   Router as UIRouter,
   h,
   useEffect,
-  useRef,
   useState,
 } from "@hydrophobefireman/ui-lib";
 
@@ -24,11 +23,18 @@ export function Router(props: RouterProps) {
     <kit-router-root>
       <UIRouter
         paths={props.paths}
-        fallbackComponent={props.fallbackComponent}
+        fallbackComponent={props.NotFoundComponent}
         inMemoryRouter={props.inMemoryRouter}
       >
         {Object.keys(props.paths).map((x) => {
-          const val = props.paths[x];
+          let val = props.paths[x];
+          if (!("component" in val || "jsx" in val)) {
+            if (typeof val === "function") {
+              val = { component: val };
+            } else if (val.constructor === undefined) {
+              val = { jsx: val };
+            }
+          }
           return (
             <Path
               match={x}
@@ -36,6 +42,7 @@ export function Router(props: RouterProps) {
               child={val}
               path={x}
               transitionStyle={props.transitionStyle}
+              commonFallback={props.fallbackComponent}
             />
           );
         })}
@@ -53,10 +60,12 @@ export function TransitionManager({
   path,
   params,
   transitionStyle,
+  commonFallback,
 }: TransitionManagerProps) {
   const [transitionComplete, setTransitionComplete] = useState(false);
   const [childState, _setChildState] = useState<ComplexComponent | null>(null);
   const latestChildRef = useLatestRef(child);
+  const commonFallbackRef = useLatestRef(commonFallback);
   function endTransition() {
     setTransitionComplete(true);
   }
@@ -76,7 +85,8 @@ export function TransitionManager({
       let Fallback: ComplexComponent = fallback!;
 
       preloader = preloader || (component as any)._preload;
-      Fallback = Fallback || (component as any)._fallback;
+      Fallback =
+        Fallback || (component as any)._fallback || commonFallbackRef.current;
       if (preloader) {
         preloader()
           .then((res) => {

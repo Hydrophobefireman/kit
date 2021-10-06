@@ -1,5 +1,5 @@
 import { BaseDomProps, _util } from "@hydrophobefireman/kit";
-import { h, useRef } from "@hydrophobefireman/ui-lib";
+import { h } from "@hydrophobefireman/ui-lib";
 
 import { displayModeMap, displayProps, isSelfClosingElement } from "./util";
 
@@ -23,8 +23,7 @@ export function BaseDom(props: BaseDomProps) {
   }
   const displayMode =
     onlyOneProp(displayProps, props, "Multiple display props provided!") || "";
-  const ref = useRef<any>();
-  applyRef(dom, ref.current);
+
   const cls = createClassProp([
     displayModeMap.get(displayMode),
     klass,
@@ -49,7 +48,7 @@ export function BaseDom(props: BaseDomProps) {
       {
         class: cls,
         style: style as {},
-        ref,
+        ref: dom && ((r) => applyRef(dom, r)),
         disabled,
         children: isSelfClosingElement(el) ? null : children,
         "kit-disabled": disabled,

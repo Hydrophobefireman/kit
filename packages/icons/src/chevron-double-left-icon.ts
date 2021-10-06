@@ -1,26 +1,28 @@
 import { _util } from "@hydrophobefireman/kit";
+import { BaseDom } from "@hydrophobefireman/kit/base-dom";
 import { h } from "@hydrophobefireman/ui-lib";
 
 import { IconProps } from "./types";
 
 export function ChevronDoubleLeftIcon($props: IconProps) {
-  const { size, ...rest } = $props;
+  const { size, color, ...rest } = $props;
   const _size = size ? _util.toPx(size) : "24px";
   const props = _util.extend(rest, { height: _size, width: _size });
   return h(
-    "svg",
+    BaseDom,
     _util.extend(
       {
         fill: "none",
         viewBox: "0 0 24 24",
-        stroke: "currentColor",
+        element: "svg",
+        stroke: color || "var(--kit-theme-fg)",
       },
       props
     ),
     h("path", {
-      strokeLinecap: "round",
-      strokeLinejoin: "round",
-      strokeWidth: 2,
+      "stroke-linecap": "round",
+      "stroke-linejoin": "round",
+      "stroke-width": 2,
       d: "M11 19l-7-7 7-7m8 14l-7-7 7-7",
     })
   );

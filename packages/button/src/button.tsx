@@ -36,6 +36,9 @@ function BaseButton(props: BaseElement<ButtonProps>) {
     suffix,
     variant,
     preserveScroll,
+    innerContentClass,
+    prefixClass,
+    suffixClass,
     ...rest
   } = props;
   _util.guardCss(style);
@@ -54,15 +57,15 @@ function BaseButton(props: BaseElement<ButtonProps>) {
   const cVnodes = (
     <>
       {prefix && (
-        <BaseDom element="span" flex>
+        <BaseDom element="span" flex class={prefixClass}>
           {prefix}
         </BaseDom>
       )}
-      <BaseDom element="span" flex>
+      <BaseDom element="span" flex class={innerContentClass}>
         {children}
       </BaseDom>
       {suffix && (
-        <BaseDom element="span" flex>
+        <BaseDom element="span" flex class={suffixClass}>
           {suffix}
         </BaseDom>
       )}
