@@ -38,6 +38,7 @@ function A() {
   const [a, s] = useState(0);
   useEffect(() => {
     persist({
+      mask: true,
       preventClose: true,
       onActionClick: () => s((a: number) => a + 1),
       actionText: `Incr`,

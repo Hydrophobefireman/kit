@@ -5,7 +5,9 @@ import { ToastOptions } from "./types";
 
 const defaultAlertContext = {
   show(options: ToastOptions) {},
-  persist(options: ToastOptions) {},
+  persist(options: ToastOptions) {
+    return { hide() {} };
+  },
 };
 export type AlertContextType = typeof defaultAlertContext;
 export const AlertContext = createContext(defaultAlertContext);

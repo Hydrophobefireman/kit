@@ -28,10 +28,10 @@ export function Collapse({
   const rectRef = useLatestRef(rect);
   const firstRender = useRef(true);
   const isPendingTransition = useRef(false);
-  function update(isPendingResizeUpdate?: boolean) {
+  function update() {
     let referenceRect = rectRef.current;
     const style = ref.current && ref.current.style;
-    if (isPendingTransition.current || isPendingResizeUpdate) {
+    if (isPendingTransition.current) {
       style.height = "";
     }
     const latestRect = sync();
@@ -51,17 +51,29 @@ export function Collapse({
     }
   }
   useLayoutEffect(update, [active]);
-  useResize(() => update(true));
+  function latestHeight() {
+    const { current } = ref;
+    current.style.height = `${current.getBoundingClientRect().height}px`;
+  }
+  useResize(
+    () =>
+      active &&
+      ref.current &&
+      (ref.current.style.height = "auto") &&
+      _util.raf(
+        _util.buildRaf(() => {
+          sync();
+          latestHeight();
+        })
+      )
+  );
   const onend = () => {
     isPendingTransition.current = false;
     const { current } = ref;
     if (!active) return;
 
     current.style.height = "auto";
-    _util.raf(
-      () =>
-        (current.style.height = `${current.getBoundingClientRect().height}px`)
-    );
+    _util.raf(latestHeight);
   };
   return h(
     "div",
