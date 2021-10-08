@@ -1,10 +1,13 @@
 import { _util } from "@hydrophobefireman/kit";
 import { BaseDom } from "@hydrophobefireman/kit/base-dom";
-import { h } from "@hydrophobefireman/ui-lib";
+import { h, forwardRef } from "@hydrophobefireman/ui-lib";
 
 import { IconProps } from "./types";
 
-export function DotsHorizontalIcon($props: IconProps) {
+export const DotsHorizontalIcon = forwardRef(function DotsHorizontalIcon(
+  $props: IconProps,
+  ref
+) {
   const { size, color, ...rest } = $props;
   const _size = size ? _util.toPx(size) : "24px";
   const props = _util.extend(rest, { height: _size, width: _size });
@@ -13,6 +16,7 @@ export function DotsHorizontalIcon($props: IconProps) {
     _util.extend(
       {
         fill: "none",
+        ref: ref as any,
         viewBox: "0 0 24 24",
         element: "svg",
         stroke: color || "var(--kit-theme-fg)",
@@ -26,4 +30,4 @@ export function DotsHorizontalIcon($props: IconProps) {
       d: "M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z",
     })
   );
-}
+});

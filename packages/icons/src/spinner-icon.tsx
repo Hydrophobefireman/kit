@@ -1,17 +1,21 @@
 import { _util } from "@hydrophobefireman/kit";
-import { h } from "@hydrophobefireman/ui-lib";
+import { forwardRef, h } from "@hydrophobefireman/ui-lib";
 
-export function SpinnerIcon({
-  size,
-  color,
-}: {
-  size?: number | string;
-  color?: string;
-}) {
+export const SpinnerIcon = forwardRef(function SpinnerIcon(
+  {
+    size,
+    color,
+  }: {
+    size?: number | string;
+    color?: string;
+  },
+  ref
+) {
   size = size ? _util.toPx(size) : "2rem";
   return h(
     "svg",
     {
+      ref: ref as any,
       class: "kit-spinner-container",
       height: size,
       width: size,
@@ -259,4 +263,4 @@ export function SpinnerIcon({
       })
     )
   );
-}
+});

@@ -1,10 +1,10 @@
 import { _util } from "@hydrophobefireman/kit";
 import { BaseDom } from "@hydrophobefireman/kit/base-dom";
-import { h } from "@hydrophobefireman/ui-lib";
+import { h, forwardRef } from "@hydrophobefireman/ui-lib";
 
 import { IconProps } from "./types";
 
-export function CashIcon($props: IconProps) {
+export const CashIcon = forwardRef(function CashIcon($props: IconProps, ref) {
   const { size, color, ...rest } = $props;
   const _size = size ? _util.toPx(size) : "24px";
   const props = _util.extend(rest, { height: _size, width: _size });
@@ -13,6 +13,7 @@ export function CashIcon($props: IconProps) {
     _util.extend(
       {
         fill: "none",
+        ref: ref as any,
         viewBox: "0 0 24 24",
         element: "svg",
         stroke: color || "var(--kit-theme-fg)",
@@ -26,4 +27,4 @@ export function CashIcon($props: IconProps) {
       d: "M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z",
     })
   );
-}
+});

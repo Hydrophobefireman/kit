@@ -1,10 +1,13 @@
 import { _util } from "@hydrophobefireman/kit";
 import { BaseDom } from "@hydrophobefireman/kit/base-dom";
-import { h } from "@hydrophobefireman/ui-lib";
+import { h, forwardRef } from "@hydrophobefireman/ui-lib";
 
 import { IconProps } from "./types";
 
-export function LightningBoltIcon($props: IconProps) {
+export const LightningBoltIcon = forwardRef(function LightningBoltIcon(
+  $props: IconProps,
+  ref
+) {
   const { size, color, ...rest } = $props;
   const _size = size ? _util.toPx(size) : "24px";
   const props = _util.extend(rest, { height: _size, width: _size });
@@ -13,6 +16,7 @@ export function LightningBoltIcon($props: IconProps) {
     _util.extend(
       {
         fill: "none",
+        ref: ref as any,
         viewBox: "0 0 24 24",
         element: "svg",
         stroke: color || "var(--kit-theme-fg)",
@@ -26,4 +30,4 @@ export function LightningBoltIcon($props: IconProps) {
       d: "M13 10V3L4 14h7v7l9-11h-7z",
     })
   );
-}
+});

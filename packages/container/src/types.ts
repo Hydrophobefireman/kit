@@ -1,4 +1,5 @@
 import { BaseDomProps } from "@hydrophobefireman/kit";
+import { RefType } from "@hydrophobefireman/ui-lib";
 
 export interface GenericContainerProps {
   row?: boolean;
@@ -12,4 +13,5 @@ export type ContainerProps = Omit<
 > &
   GenericContainerProps;
 
+export type InternalContainerProps = ContainerProps & { __$ref: RefType<any> };
 export {};

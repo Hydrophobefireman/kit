@@ -1,10 +1,13 @@
 import { _util } from "@hydrophobefireman/kit";
 import { BaseDom } from "@hydrophobefireman/kit/base-dom";
-import { h } from "@hydrophobefireman/ui-lib";
+import { h, forwardRef } from "@hydrophobefireman/ui-lib";
 
 import { IconProps } from "./types";
 
-export function ExclamationIcon($props: IconProps) {
+export const ExclamationIcon = forwardRef(function ExclamationIcon(
+  $props: IconProps,
+  ref
+) {
   const { size, color, ...rest } = $props;
   const _size = size ? _util.toPx(size) : "24px";
   const props = _util.extend(rest, { height: _size, width: _size });
@@ -13,6 +16,7 @@ export function ExclamationIcon($props: IconProps) {
     _util.extend(
       {
         fill: "none",
+        ref: ref as any,
         viewBox: "0 0 24 24",
         element: "svg",
         stroke: color || "var(--kit-theme-fg)",
@@ -26,4 +30,4 @@ export function ExclamationIcon($props: IconProps) {
       d: "M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z",
     })
   );
-}
+});

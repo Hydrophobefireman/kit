@@ -1,10 +1,10 @@
 import { _util } from "@hydrophobefireman/kit";
 import { BaseDom } from "@hydrophobefireman/kit/base-dom";
-import { h } from "@hydrophobefireman/ui-lib";
+import { h, forwardRef } from "@hydrophobefireman/ui-lib";
 
 import { IconProps } from "./types";
 
-export function EyeIcon($props: IconProps) {
+export const EyeIcon = forwardRef(function EyeIcon($props: IconProps, ref) {
   const { size, color, ...rest } = $props;
   const _size = size ? _util.toPx(size) : "24px";
   const props = _util.extend(rest, { height: _size, width: _size });
@@ -13,6 +13,7 @@ export function EyeIcon($props: IconProps) {
     _util.extend(
       {
         fill: "none",
+        ref: ref as any,
         viewBox: "0 0 24 24",
         element: "svg",
         stroke: color || "var(--kit-theme-fg)",
@@ -32,4 +33,4 @@ export function EyeIcon($props: IconProps) {
       d: "M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z",
     })
   );
-}
+});

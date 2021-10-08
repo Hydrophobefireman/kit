@@ -1,10 +1,13 @@
 import { _util } from "@hydrophobefireman/kit";
 import { BaseDom } from "@hydrophobefireman/kit/base-dom";
-import { h } from "@hydrophobefireman/ui-lib";
+import { h, forwardRef } from "@hydrophobefireman/ui-lib";
 
 import { IconProps } from "./types";
 
-export function ArrowCircleRightIcon($props: IconProps) {
+export const ArrowCircleRightIcon = forwardRef(function ArrowCircleRightIcon(
+  $props: IconProps,
+  ref
+) {
   const { size, color, ...rest } = $props;
   const _size = size ? _util.toPx(size) : "24px";
   const props = _util.extend(rest, { height: _size, width: _size });
@@ -13,6 +16,7 @@ export function ArrowCircleRightIcon($props: IconProps) {
     _util.extend(
       {
         fill: "none",
+        ref: ref as any,
         viewBox: "0 0 24 24",
         element: "svg",
         stroke: color || "var(--kit-theme-fg)",
@@ -26,4 +30,4 @@ export function ArrowCircleRightIcon($props: IconProps) {
       d: "M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z",
     })
   );
-}
+});

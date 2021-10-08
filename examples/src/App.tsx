@@ -15,6 +15,7 @@ import { BottomSheet } from "@hydrophobefireman/kit/bottom-sheet";
 import { Button, ButtonProps } from "@hydrophobefireman/kit/button";
 import { Collapse, useCollapse } from "@hydrophobefireman/kit/collapse";
 import { Container, Resource } from "@hydrophobefireman/kit/container";
+import { FileDropTarget } from "@hydrophobefireman/kit/file-drop-target";
 import { Input, Switch, useSwitch } from "@hydrophobefireman/kit/input";
 import {
   Checkbox,
@@ -77,6 +78,7 @@ function App(): VNode {
 
   return (
     <>
+      <FileDropTarget onUpdate={console.log} />
       <CollapseTest />
       <Modal
         active={active}

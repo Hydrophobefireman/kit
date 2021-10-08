@@ -1,10 +1,13 @@
 import { _util } from "@hydrophobefireman/kit";
 import { BaseDom } from "@hydrophobefireman/kit/base-dom";
-import { h } from "@hydrophobefireman/ui-lib";
+import { h, forwardRef } from "@hydrophobefireman/ui-lib";
 
 import { IconProps } from "./types";
 
-export function ArrowSmUpIcon($props: IconProps) {
+export const ArrowSmUpIcon = forwardRef(function ArrowSmUpIcon(
+  $props: IconProps,
+  ref
+) {
   const { size, color, ...rest } = $props;
   const _size = size ? _util.toPx(size) : "24px";
   const props = _util.extend(rest, { height: _size, width: _size });
@@ -13,6 +16,7 @@ export function ArrowSmUpIcon($props: IconProps) {
     _util.extend(
       {
         fill: "none",
+        ref: ref as any,
         viewBox: "0 0 24 24",
         element: "svg",
         stroke: color || "var(--kit-theme-fg)",
@@ -26,4 +30,4 @@ export function ArrowSmUpIcon($props: IconProps) {
       d: "M7 11l5-5m0 0l5 5m-5-5v12",
     })
   );
-}
+});

@@ -1,17 +1,19 @@
 import { BaseDomProps, _util } from "@hydrophobefireman/kit";
-import { h } from "@hydrophobefireman/ui-lib";
+import { forwardRef, h } from "@hydrophobefireman/ui-lib";
 
 import { displayModeMap, displayProps, isSelfClosingElement } from "./util";
 
-const { createClassProp, onlyOneProp, applyRef } = _util;
+const { createClassProp, onlyOneProp } = _util;
 
-export function BaseDom(props: BaseDomProps) {
+export const BaseDom = forwardRef<BaseDomProps>(function BaseDom(
+  props: BaseDomProps,
+  ref
+) {
   const {
     element,
     class: klass,
     className,
     depends,
-    dom,
     disabled,
     ...rest
   } = props;
@@ -46,9 +48,9 @@ export function BaseDom(props: BaseDomProps) {
     el,
     _util.extend(
       {
+        ref,
         class: cls,
         style: style as {},
-        ref: dom && ((r) => applyRef(dom, r)),
         disabled,
         children: isSelfClosingElement(el) ? null : children,
         "kit-disabled": disabled,
@@ -56,4 +58,4 @@ export function BaseDom(props: BaseDomProps) {
       filteredProps
     )
   );
-}
+});

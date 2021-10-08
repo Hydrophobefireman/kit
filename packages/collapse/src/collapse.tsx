@@ -7,30 +7,37 @@ import {
   useResize,
   useToggleState,
 } from "@hydrophobefireman/kit/hooks";
-import { h, useLayoutEffect, useRef } from "@hydrophobefireman/ui-lib";
+import {
+  RefType,
+  forwardRef,
+  h,
+  useLayoutEffect,
+  useRef,
+} from "@hydrophobefireman/ui-lib";
 
 function _inactive(style: CSSStyleDeclaration) {
   style.height = "0px";
   style.overflow = "hidden";
 }
-export function Collapse({
-  children,
-  dom,
-  active,
-  class: cls,
-  className,
-  ...rest
-}: BaseElement<{ active?: boolean }>) {
+export const Collapse = forwardRef(function Collapse(
+  {
+    children,
+    active,
+    class: cls,
+    className,
+    ...rest
+  }: BaseElement<{ active?: boolean }>,
+  ref: RefType<any>
+) {
   const klass = [className, cls, classnames.collapse];
-  const ref = useRef<HTMLDivElement>();
-  useFwdRef(ref, dom);
-  const { rect, sync } = useRect(ref);
+  const $internalRef = useRef<HTMLDivElement>();
+  const { rect, sync } = useRect($internalRef);
   const rectRef = useLatestRef(rect);
   const firstRender = useRef(true);
   const isPendingTransition = useRef(false);
   function update() {
     let referenceRect = rectRef.current;
-    const style = ref.current && ref.current.style;
+    const style = $internalRef.current && $internalRef.current.style;
     if (isPendingTransition.current) {
       style.height = "";
     }
@@ -52,14 +59,14 @@ export function Collapse({
   }
   useLayoutEffect(update, [active]);
   function latestHeight() {
-    const { current } = ref;
+    const { current } = $internalRef;
     current.style.height = `${current.getBoundingClientRect().height}px`;
   }
   useResize(
     () =>
       active &&
-      ref.current &&
-      (ref.current.style.height = "auto") &&
+      $internalRef.current &&
+      ($internalRef.current.style.height = "auto") &&
       _util.raf(
         _util.buildRaf(() => {
           sync();
@@ -69,7 +76,7 @@ export function Collapse({
   );
   const onend = () => {
     isPendingTransition.current = false;
-    const { current } = ref;
+    const { current } = $internalRef;
     if (!active) return;
 
     current.style.height = "auto";
@@ -82,7 +89,7 @@ export function Collapse({
         ontransitionstart: () => (isPendingTransition.current = true),
         ontransitioncancel: onend,
         ontransitionend: onend,
-        ref,
+        ref: _util.applyForwardedRef(ref, $internalRef),
         children,
         class: klass,
         "data-is-active": `${active}`,
@@ -90,7 +97,7 @@ export function Collapse({
       rest
     ) as any
   );
-}
+});
 
 export function useCollapse(initial?: boolean) {
   return useToggleState(initial);

@@ -113,7 +113,7 @@ function BaseRadioInput<T>({
       ]}
       data-radio-value={value}
       inlineFlex={inline}
-      dom={label}
+      ref={label}
       tabIndex={0}
       for={inputId}
       id={labelId}

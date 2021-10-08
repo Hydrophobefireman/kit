@@ -2,9 +2,13 @@ import { _util, useIsPending } from "@hydrophobefireman/kit";
 import { BaseDom } from "@hydrophobefireman/kit/base-dom";
 import * as classnames from "@hydrophobefireman/kit/classnames";
 import { Skeleton } from "@hydrophobefireman/kit/skeleton";
-import { h } from "@hydrophobefireman/ui-lib";
+import { forwardRef, h } from "@hydrophobefireman/ui-lib";
 
-import { ContainerProps, GenericContainerProps } from "./types";
+import {
+  ContainerProps,
+  GenericContainerProps,
+  InternalContainerProps,
+} from "./types";
 
 const alignmentMap = new Map<
   GenericContainerProps["horizontal"] | GenericContainerProps["vertical"],
@@ -27,8 +31,9 @@ function BaseContainer({
   class: klass,
   className,
   inlineFlex,
+  __$ref,
   ...rest
-}: ContainerProps) {
+}: InternalContainerProps) {
   _util.guardCss(style);
   const verticalAlignment = alignmentMap.get(vertical);
   const horizontalAlignment = alignmentMap.get(horizontal);
@@ -45,6 +50,7 @@ function BaseContainer({
     BaseDom,
     _util.extend(
       {
+        ref: __$ref,
         element,
         flex: inlineFlex ? undefined : true,
         inlineFlex: inlineFlex || undefined,
@@ -56,7 +62,7 @@ function BaseContainer({
   );
 }
 
-function DependantContainer(props: ContainerProps) {
+function DependantContainer(props: InternalContainerProps) {
   const { isPending, resourceName } = useIsPending();
 
   if (isPending)
@@ -74,7 +80,11 @@ function DependantContainer(props: ContainerProps) {
   return h(BaseContainer, props as any);
 }
 
-export function Container({ depends, ...props }: ContainerProps) {
+export const Container = forwardRef<ContainerProps>(function Container(
+  { depends, ..._props }: ContainerProps,
+  ref
+) {
+  const props = _util.extend(_props, { __$ref: ref });
   if (depends) return h(DependantContainer, props as any);
   return h(BaseContainer, props as any);
-}
+});

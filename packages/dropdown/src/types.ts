@@ -7,7 +7,6 @@ export interface DropdownProps {
   children?: any;
   class?: any;
   className?: any;
-  dom?: RefType<HTMLDivElement>;
   style?: BaseDomProps["style"] | null;
 }
 

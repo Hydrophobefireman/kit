@@ -1,4 +1,7 @@
 import { Properties } from "csstype";
+
+import { RefType } from "@hydrophobefireman/ui-lib";
+
 /**
  * @see https://stackoverflow.com/questions/51465182/how-to-remove-index-signature-using-mapped-types/66252656#66252656
  */
@@ -28,7 +31,7 @@ type BaseDomDisplayProps =
   | "none";
 
 export type DOMClass = any;
-interface _BaseDomProps {
+export interface _BaseDomProps {
   element?: DOMElements | ComplexComponent;
   block?: boolean;
   inline?: boolean;
@@ -40,7 +43,6 @@ interface _BaseDomProps {
   class?: DOMClass;
   className?: DOMClass;
   depends?: boolean;
-  dom?: { current: any };
   skeleton?(resource: any): any;
   children?: any;
   style?: Properties & { [k: string]: any };

@@ -18,11 +18,11 @@ function OptionsValue({
   select(e: any): void;
   currentValue: AutoCompleteValue;
 }) {
-  const dom = useRef<HTMLLIElement>();
-  useKeyPress("Enter", select, { target: dom.current });
+  const ref = useRef<HTMLLIElement>();
+  useKeyPress("Enter", select, { target: ref.current });
   return (
     <li
-      ref={dom}
+      ref={ref}
       onClick={select}
       data-value={value}
       data-active={String(currentValue === value)}

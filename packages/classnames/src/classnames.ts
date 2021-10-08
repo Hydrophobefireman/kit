@@ -139,3 +139,6 @@ export const modalActions = "kit-modal-actions";
 export const modalActionButton = "kit-modal-action-button";
 
 export const collapse = "kit-collapse";
+
+export const fileDropTarget = "kit-file-drop-target";
+export const fileDropTargetAccepting = "kit-file-drop-target-accepting";

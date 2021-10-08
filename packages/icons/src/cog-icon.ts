@@ -1,10 +1,10 @@
 import { _util } from "@hydrophobefireman/kit";
 import { BaseDom } from "@hydrophobefireman/kit/base-dom";
-import { h } from "@hydrophobefireman/ui-lib";
+import { h, forwardRef } from "@hydrophobefireman/ui-lib";
 
 import { IconProps } from "./types";
 
-export function CogIcon($props: IconProps) {
+export const CogIcon = forwardRef(function CogIcon($props: IconProps, ref) {
   const { size, color, ...rest } = $props;
   const _size = size ? _util.toPx(size) : "24px";
   const props = _util.extend(rest, { height: _size, width: _size });
@@ -13,6 +13,7 @@ export function CogIcon($props: IconProps) {
     _util.extend(
       {
         fill: "none",
+        ref: ref as any,
         viewBox: "0 0 24 24",
         element: "svg",
         stroke: color || "var(--kit-theme-fg)",
@@ -32,4 +33,4 @@ export function CogIcon($props: IconProps) {
       d: "M15 12a3 3 0 11-6 0 3 3 0 016 0z",
     })
   );
-}
+});

@@ -29,7 +29,6 @@ function BaseAutoComplete({
   useEffect(() => setQuery(String(value || "")), [value]);
   const ref = useRef<HTMLInputElement>();
   const [dirty, setDirty] = useState(false);
-  _util.applyRef(props.dom, ref.current);
   const parentRef = useRef<HTMLElement>();
   const expanded = !isPending && dirty;
   const idx = useId(id);
@@ -45,7 +44,7 @@ function BaseAutoComplete({
         setDirty(true);
         setValue(v);
       },
-      dom: ref,
+      ref: ref,
       depends,
       "aria-autocomplete": "list",
       "aria-expanded": expanded,
@@ -62,7 +61,7 @@ function BaseAutoComplete({
     dropdownActive ? parentRef.current : (null as any)
   );
   return (
-    <Container class={containerClass} dom={parentRef}>
+    <Container class={containerClass} ref={parentRef}>
       {inputJsx}
       <Dropdown
         style={dropdownActive ? null : { overflow: "hidden" }}

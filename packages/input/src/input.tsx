@@ -2,7 +2,7 @@ import { BaseElement, _util, useIsPending } from "@hydrophobefireman/kit";
 import { BaseDom } from "@hydrophobefireman/kit/base-dom";
 import * as classnames from "@hydrophobefireman/kit/classnames";
 import { useKeyPress, useLabelId } from "@hydrophobefireman/kit/hooks";
-import { h, useRef } from "@hydrophobefireman/ui-lib";
+import { forwardRef, h, useRef } from "@hydrophobefireman/ui-lib";
 
 import { InputProps } from "./types";
 
@@ -24,11 +24,11 @@ function BaseInput({
   className,
   value,
   errored,
-  dom,
   setValue,
   helperText,
+  __$ref,
   ...props
-}: BaseElement<InputProps>) {
+}: BaseElement<InputProps> & { __$ref: any }) {
   const [idx, labelIdx] = useLabelId(id);
   const s = size || "default";
   const isMat = variant === "material";
@@ -56,7 +56,7 @@ function BaseInput({
             "data-kit-active": active,
             "aria-labelledby": labelIdx,
             inlineFlex: true,
-            dom: dom,
+            ref: __$ref,
             class: [
               classnames.input,
               cls,
@@ -94,8 +94,7 @@ function BaseInput({
     </BaseDom>
   );
 }
-
-function DependantInput(props: BaseElement<InputProps>) {
+function DependantInput(props: BaseElement<InputProps> & { __$ref: any }) {
   const { isPending } = useIsPending();
   return h(
     BaseInput,
@@ -107,25 +106,35 @@ function DependantInput(props: BaseElement<InputProps>) {
       : (props as any)
   );
 }
-export function Input({ depends, ...rest }: BaseElement<InputProps>) {
+function InputComponent({ depends, ..._rest }: BaseElement<InputProps>, ref) {
+  const rest = _util.extend(_rest, { __$ref: ref });
   if (depends) {
     return h(DependantInput, rest as any);
   }
   return h(BaseInput, rest as any);
 }
-export function SearchInput(props: BaseElement<InputProps>) {
-  const dom = useRef<HTMLInputElement>();
-  _util.applyRef(props.dom, dom.current);
+
+export const SearchInput = forwardRef(function SearchInput(
+  props: BaseElement<InputProps>,
+  ref
+) {
+  const $internalDom = useRef<HTMLInputElement>();
 
   useKeyPress("Escape", () => props.setValue && props.setValue(""), {
-    target: dom.current,
+    target: $internalDom.current,
   });
   useKeyPress(
     "/",
-    _util.buildRaf(() => dom.current && dom.current.focus()),
+    _util.buildRaf(() => $internalDom.current && $internalDom.current.focus()),
     { target: typeof window !== "undefined" ? window : undefined }
   );
-  return h(Input, _util.extend(props as any, { dom }));
-}
-
-Input.Search = SearchInput;
+  return h(
+    Input,
+    _util.extend(props as any, {
+      ref: _util.applyForwardedRef(ref, $internalDom),
+    })
+  );
+});
+export const Input: typeof InputComponent & { Search: typeof SearchInput } =
+  forwardRef(InputComponent) as any;
+(Input as any).Search = SearchInput;
