@@ -52,7 +52,7 @@ const Page2 = getDynamic(
 export function RouterTest() {
   return (
     <Router
-      transitionStyle={null}
+      // transitionStyle={{ }}
       paths={{
         "/": { component: Root },
         "/1": { component: Page1 },

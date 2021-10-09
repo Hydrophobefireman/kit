@@ -6,4 +6,6 @@ const listener = function () {
 };
 module.exports.listener = listener;
 
-module.exports.scriptTag = `<script>(${listener.toString()})()</script>`;
+module.exports.scriptTag = `<script>(${listener
+  .toString()
+  .replace("listener", "")})()</script>`;

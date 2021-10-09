@@ -20,34 +20,32 @@ import {
 
 export function Router(props: RouterProps) {
   return (
-    <kit-router-root>
-      <UIRouter
-        paths={props.paths}
-        fallbackComponent={props.NotFoundComponent}
-        inMemoryRouter={props.inMemoryRouter}
-      >
-        {Object.keys(props.paths).map((x) => {
-          let val = props.paths[x];
-          if (!("component" in val || "jsx" in val)) {
-            if (typeof val === "function") {
-              val = { component: val };
-            } else if (val.constructor === undefined) {
-              val = { jsx: val };
-            }
+    <UIRouter
+      paths={props.paths}
+      fallbackComponent={props.NotFoundComponent}
+      inMemoryRouter={props.inMemoryRouter}
+    >
+      {Object.keys(props.paths).map((x) => {
+        let val = props.paths[x];
+        if (!("component" in val || "jsx" in val)) {
+          if (typeof val === "function") {
+            val = { component: val };
+          } else if (val.constructor === undefined) {
+            val = { jsx: val };
           }
-          return (
-            <Path
-              match={x}
-              component={TransitionManager}
-              child={val}
-              path={x}
-              transitionStyle={props.transitionStyle}
-              commonFallback={props.fallbackComponent}
-            />
-          );
-        })}
-      </UIRouter>
-    </kit-router-root>
+        }
+        return (
+          <Path
+            match={x}
+            component={TransitionManager}
+            child={val}
+            path={x}
+            transitionStyle={props.transitionStyle}
+            commonFallback={props.fallbackComponent}
+          />
+        );
+      })}
+    </UIRouter>
   );
 }
 
