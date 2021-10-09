@@ -23,7 +23,7 @@ export function BaseSnackbar({
   const andClose = (fn: any, isCancelled?: boolean) => {
     if (!isActive) return;
     return () => {
-      fn();
+      fn && fn();
       if (isCancelled || !x.preventClose) pop(x);
     };
   };

@@ -1,5 +1,5 @@
 .kit-file-drop-target {
-  border: 2px dashed #1d1d1d;
+  border: 2px dashed var(--kit-shade-4);
   padding: 0.5rem;
   cursor: pointer;
   transition: var(--kit-transition);

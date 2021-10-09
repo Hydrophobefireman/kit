@@ -4,7 +4,9 @@ function preventDefault(e: Event) {
   e.preventDefault();
 }
 
-export function useFileDrop(el?: HTMLElement): [File[] | null, () => void] {
+export function useFileDrop(
+  el?: HTMLElement
+): [File[] | null, (f: File[]) => void, () => void] {
   // el = el || document.documentElement;
   const [files, setFiles] = useState<File[] | null>(null);
   useEffect(() => {
@@ -31,5 +33,5 @@ export function useFileDrop(el?: HTMLElement): [File[] | null, () => void] {
       el!.removeEventListener("dragover", preventDefault);
     };
   }, [el]);
-  return [files && files.length ? files : null, () => setFiles(null)];
+  return [files && files.length ? files : null, setFiles, () => setFiles(null)];
 }

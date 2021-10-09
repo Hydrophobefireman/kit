@@ -29,7 +29,13 @@ import {
   installLocalStorageReflection,
   useTheme,
 } from "@hydrophobefireman/kit/theme";
-import { VNode, render, useEffect, useState } from "@hydrophobefireman/ui-lib";
+import {
+  VNode,
+  render,
+  useEffect,
+  useRef,
+  useState,
+} from "@hydrophobefireman/ui-lib";
 
 import { RouterTest } from "./RouterTest";
 
@@ -71,14 +77,41 @@ function App(): VNode {
     setTimeout(() => setName("John"), 1000);
   }, [refetch]);
   const [value, setValue] = useState(null);
-
+  const { persist } = useAlerts();
   const { currentTheme, toggle } = useTheme();
   const { currentState, toggle: toggleSwitch } = useSwitch("intermediate");
   const { active, toggle: toggleModal, setActive } = useModal();
+  const [files, setFiles] = useState<File[]>(null);
+  const resetRef = useRef(null);
 
   return (
     <>
-      <FileDropTarget onUpdate={console.log} />
+      <FileDropTarget
+        multiple
+        onUpdate={(f, r) => {
+          console.log(f);
+          if (f[0].type.includes("html"))
+            return persist({
+              cancelText: "ok",
+              content: "Invalid Content type",
+              // actionText: "ok",
+              mask: true,
+              type: "error",
+            });
+          setFiles(f);
+          resetRef.current = r;
+        }}
+      />
+      {files && (
+        <span>
+          You uploaded:{" "}
+          <ol>
+            {files.map((x) => (
+              <li>{x.name}</li>
+            ))}
+          </ol>
+        </span>
+      )}
       <CollapseTest />
       <Modal
         active={active}
@@ -364,4 +397,9 @@ function TextButton({
   );
 }
 
-render(<App />, document.getElementById("app-mount"));
+render(
+  <AlertRoot>
+    <App />
+  </AlertRoot>,
+  document.getElementById("app-mount")
+);

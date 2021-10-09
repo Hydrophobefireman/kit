@@ -1,6 +1,6 @@
 {
    "name": "router",
-   "version": "0.0.1-2021-10-06-18-26",
+   "version": "0.0.1-2021-10-08-23-54",
    "private": true,
    "main": "src/index.js",
    "module": "src/index.js",
@@ -10,7 +10,7 @@
    "scripts": {},
    "peerDependencies": {
       "@hydrophobefireman/flask-jwt-jskit": "^0.1.5",
-      "@hydrophobefireman/ui-lib": "^1.10.3",
+      "@hydrophobefireman/ui-lib": "^1.11.3",
       "statedrive": "^0.0.13"
    }
 }
