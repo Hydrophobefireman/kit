@@ -6,6 +6,7 @@ import {
   useHideScrollbar,
   useId,
   useKeyPress,
+  useMount,
   useSelfEvent,
   useToggleState,
 } from "@hydrophobefireman/kit/hooks";
@@ -46,6 +47,12 @@ export function Modal({
 }: ModalProps) {
   const id = useId();
   const [target, setTarget] = useState<HTMLDivElement>(null as any);
+  const previouslyFocused = useRef<Element | null>();
+  useMount(() => {
+    previouslyFocused.current = document.activeElement;
+    return () =>
+      previouslyFocused.current && (previouslyFocused.current as any).focus();
+  });
   return (
     <Transition
       transitionTargets={[target]}
@@ -67,16 +74,19 @@ export function Modal({
   );
 }
 function Actions({ children }: { children?: any }) {
-  const actionContainer = useFocus<HTMLDivElement>();
-  return (
-    <div tabIndex={0} ref={actionContainer} class={classnames.modalActions}>
-      {children}
-    </div>
-  );
+  return <div class={classnames.modalActions}>{children}</div>;
 }
 function Action({ class: cls, className, ...props }: BaseElement<{}>) {
   const classProp = [cls, className, classnames.modalActionButton];
-  return <button class={classProp} {...props} />;
+  const ref = useRef<HTMLButtonElement>();
+  useMount(() => {
+    const { current } = ref;
+    if (
+      current === (current.parentNode && current.parentNode.firstElementChild)
+    )
+      current.focus();
+  });
+  return <button class={classProp} {...props} ref={ref} />;
 }
 function Title({
   class: cls,

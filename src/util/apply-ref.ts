@@ -21,7 +21,7 @@ export function applyForwardedRef<R = any>(
   internalRef: RefObj<R>
 ) {
   return function (value: R) {
-    if (!value) return;
+    if (!value) return console.trace(1);
     applyRef(externalRef, value);
     applyRef(internalRef, value);
   };

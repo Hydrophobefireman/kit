@@ -986,6 +986,13 @@
   resolved "https://registry.npmjs.org/@hydrophobefireman/j-utils/-/j-utils-2.1.7.tgz"
   integrity sha512-XEIl3/eQCUPPSPEdH8oy4AHoNhktOZ/hIF0+iBvlYrCHKmjZbrVEKUzRS/tiJ60kRdGEqlaaFd8dkOp48PQFkQ==
 
+"@hydrophobefireman/kit-icons@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@hydrophobefireman/kit-icons/-/kit-icons-0.0.2.tgz#21052bfe88684266c8b4302b111b7468f977b333"
+  integrity sha512-cOJCwyNIOUIDl1I1mZlg3P3tNvMH5Twf9H63wy/BD7CQcuO4/A8bKxvpTM66OYz9PXi2pZv0QUD4UlCm5cNCKA==
+  dependencies:
+    csstype "^3.0.9"
+
 "@hydrophobefireman/kit@^0.0.1-2021-10-06-18-26":
   version "0.0.1-2021-10-06-18-26"
   resolved "https://registry.npmjs.org/@hydrophobefireman/kit/-/kit-0.0.1-2021-10-06-18-26.tgz"
