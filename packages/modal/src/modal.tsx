@@ -1,8 +1,8 @@
 import { BaseElement, _util } from "@hydrophobefireman/kit";
+import { buildPortal } from "@hydrophobefireman/kit/build-portal";
 import * as classnames from "@hydrophobefireman/kit/classnames";
 import { Container } from "@hydrophobefireman/kit/container";
 import {
-  useFocus,
   useHideScrollbar,
   useId,
   useKeyPress,
@@ -14,6 +14,7 @@ import { Text, TextProps } from "@hydrophobefireman/kit/text";
 import { Transition } from "@hydrophobefireman/kit/transition";
 import { h, useEffect, useRef, useState } from "@hydrophobefireman/ui-lib";
 
+import { useRestoreFocus } from "../../hooks/src/use-restore-focus";
 import { ModalProps } from "./types";
 
 function ModalImpl({
@@ -39,7 +40,7 @@ function ModalImpl({
     </div>
   );
 }
-export function Modal({
+function _Modal({
   active,
   children,
   onClickOutside,
@@ -47,12 +48,7 @@ export function Modal({
 }: ModalProps) {
   const id = useId();
   const [target, setTarget] = useState<HTMLDivElement>(null as any);
-  const previouslyFocused = useRef<Element | null>();
-  useMount(() => {
-    previouslyFocused.current = document.activeElement;
-    return () =>
-      previouslyFocused.current && (previouslyFocused.current as any).focus();
-  });
+  useRestoreFocus();
   return (
     <Transition
       transitionTargets={[target]}
@@ -122,6 +118,14 @@ function Body({ children }: { children?: any }) {
     </Container>
   );
 }
+const ModalComponent = buildPortal<ModalProps, typeof _Modal>("Modal", _Modal);
+export const Modal: typeof ModalComponent & {
+  Actions: typeof Actions;
+  Title: typeof Title;
+  Subtitle: typeof Subtitle;
+  Action: typeof Action;
+  Body: typeof Body;
+} = ModalComponent as any;
 Modal.Actions = Actions;
 Modal.Title = Title;
 Modal.Subtitle = Subtitle;

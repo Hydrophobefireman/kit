@@ -136,6 +136,9 @@ function App(): VNode {
         Toggle
       </Button>
       <BottomSheetDemo />
+      <BottomSheetDemo />
+      <BottomSheetDemo />
+      <BottomSheetDemo />
       <AlertRoot>
         <A />
       </AlertRoot>

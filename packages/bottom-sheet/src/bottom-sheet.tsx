@@ -1,4 +1,5 @@
 import { _util } from "@hydrophobefireman/kit";
+import { buildPortal } from "@hydrophobefireman/kit/build-portal";
 import * as classnames from "@hydrophobefireman/kit/classnames";
 import { bottomSheetInactive } from "@hydrophobefireman/kit/classnames";
 import {
@@ -11,7 +12,7 @@ import { useRef } from "@hydrophobefireman/ui-lib";
 
 import { BottomSheetProps } from "./types";
 
-export function BottomSheet({
+function _BottomSheet({
   active,
   height,
   onAnimationComplete,
@@ -37,6 +38,7 @@ export function BottomSheet({
       <div
         tabIndex={active ? 0 : -1}
         role="dialog"
+        aria-hidden={!active}
         aria-modal
         onTransitionEnd={handleTransitionEnd}
         onTransitionEndCapture={handleTransitionEnd}
@@ -52,5 +54,9 @@ export function BottomSheet({
     </div>
   );
 }
+export const BottomSheet = buildPortal<BottomSheetProps, typeof _BottomSheet>(
+  "BottomSheet",
+  _BottomSheet
+);
 
 export { useToggleState as useBottomSheet };
