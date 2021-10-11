@@ -27,6 +27,7 @@ import { Modal, useModal } from "@hydrophobefireman/kit/modal";
 import { Text } from "@hydrophobefireman/kit/text";
 import {
   installLocalStorageReflection,
+  installPreferenceReflection,
   useTheme,
 } from "@hydrophobefireman/kit/theme";
 import {
@@ -40,6 +41,7 @@ import {
 import { RouterTest } from "./RouterTest";
 
 installLocalStorageReflection();
+installPreferenceReflection();
 function A() {
   const { persist } = useAlerts();
   const [a, s] = useState(0);
