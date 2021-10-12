@@ -68,19 +68,17 @@ function BaseInput({
           props
         ) as any
       )}
-      {helperText && (
-        <div
-          aria-hidden={!errored}
-          class={[
-            classnames.inputHelperText,
-            errored
-              ? classnames.inputHelperActive
-              : classnames.inputHelperInactive,
-          ]}
-        >
-          {helperText}
-        </div>
-      )}
+      <div
+        aria-hidden={!errored || !helperText}
+        class={[
+          classnames.inputHelperText,
+          errored && helperText
+            ? classnames.inputHelperActive
+            : classnames.inputHelperInactive,
+        ]}
+      >
+        {helperText}
+      </div>
       <label
         for={idx}
         id={labelIdx}

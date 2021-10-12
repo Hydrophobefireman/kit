@@ -12,9 +12,7 @@ export function getOffsetRect(
 ): OffsetRect {
   if (typeof window === "undefined" || !target) return defaultRect;
   const r = rect(target);
-  const previousSibling = rect(
-    reference && (reference.previousElementSibling as HTMLElement)
-  );
+  const previousSibling = rect(reference);
   return {
     right: r.right,
     top:

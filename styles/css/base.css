@@ -21,6 +21,9 @@ html:not([data-kit-theme="dark"]) {
   --kit-error-dark: #c50000;
   --kit-selection: var(--kit-cyan);
   --kit-scroll-thumb: rgba(22, 24, 35, 0.34);
+
+  --kit-link-color-visited: #551a8b;
+  --kit-link-color: #0000ee;
 }
 
 html[data-kit-theme="dark"] {
@@ -45,6 +48,9 @@ html[data-kit-theme="dark"] {
   --kit-code: var(--kit-cyan-light);
   --kit-selection: var(--kit-highlight-purple);
   --kit-scroll-thumb: rgba(214, 214, 214, 0.34);
+
+  --kit-link-color-visited: #bd74ff;
+  --kit-link-color: #6060ff;
 }
 
 /** common */
@@ -87,7 +93,7 @@ html {
   --kit-border: var(--kit-foreground);
   --kit-secondary: var(--kit-shade-5);
   --kit-form-font-size: 0.87rem;
-  --kit-input-height: 2.5rem;
+  --kit-input-height: 3rem;
 
   --kit-z-index-base: 1;
   --kit-z-index-2: 2;
@@ -142,4 +148,7 @@ body {
   .kit-move-up {
     animation-duration: 0.0001s !important;
   }
+}
+* {
+  box-sizing: border-box;
 }

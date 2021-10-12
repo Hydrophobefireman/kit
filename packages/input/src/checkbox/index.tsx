@@ -20,6 +20,7 @@ export function Checkbox({
   className,
   depends,
   size,
+  disabled,
   id,
   ...rest
 }: BaseElement<CheckboxProps>) {
@@ -33,6 +34,7 @@ export function Checkbox({
     <Container
       inlineFlex={inline}
       row
+      disabled={disabled}
       depends={depends}
       vertical="center"
       element="label"
@@ -52,7 +54,8 @@ export function Checkbox({
             element: "input",
             onInput: (e) =>
               onCheck((e.currentTarget as HTMLInputElement).checked),
-            checked: checked,
+            checked,
+            disabled,
             class: [classnames._checkboxInputHidden, cls, className],
             type: "checkbox",
             "aria-checked": checked,
@@ -62,27 +65,30 @@ export function Checkbox({
           rest
         )
       )}
-      <span class={classnames.checkboxIconContainer} aria-hidden>
-        <Checkmark active={checked} />
+      <span
+        class={[
+          classnames.checkboxIconContainer,
+          checked ? classnames.checkboxActive : "",
+        ]}
+        aria-hidden
+      >
+        <Checkmark />
       </span>
       {children}
     </Container>
   );
 }
 
-function Checkmark({ active }: { active: boolean }) {
+function Checkmark() {
   const D = BaseDom as any;
   return (
     <D
       aria-hidden
       role="img"
       element="svg"
-      class={[
-        classnames.checkboxIcon,
-        { [classnames.checkboxIconActive]: active },
-      ]}
+      class={classnames.checkboxIcon}
       fill="none"
-      stroke="var(--kit-foreground)"
+      stroke="var(--kit-background)"
       viewBox="0 0 24 24"
     >
       <path

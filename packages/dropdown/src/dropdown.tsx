@@ -1,5 +1,6 @@
 import { _util } from "@hydrophobefireman/kit";
 import { BaseDom } from "@hydrophobefireman/kit/base-dom";
+import { buildPortal } from "@hydrophobefireman/kit/build-portal";
 import * as classnames from "@hydrophobefireman/kit/classnames";
 import {
   defaultRect,
@@ -8,22 +9,20 @@ import {
   useResize,
   useScroll,
 } from "@hydrophobefireman/kit/hooks";
-import { forwardRef, useEffect, useRef } from "@hydrophobefireman/ui-lib";
+import { useEffect } from "@hydrophobefireman/ui-lib";
 
 import { DropdownProps } from "./types";
 
-export const Dropdown = function Dropdown(props: DropdownProps) {
-  if (!props.parent) return null;
+function _Dropdown(props: DropdownProps) {
+  if (!props.parent) return <></>;
   const cls = [classnames.dropdown, props.class, props.className];
-  const $internalRef = useRef<HTMLDivElement>();
-  const props__parent = useRef(props.parent);
-  const { rect, sync } = useRect(props__parent, $internalRef);
+  const { rect, sync } = useRect(props.parent, props.sibling);
   useResize(sync);
   useScroll(sync);
-  useMutationObserver(props.parent, sync);
+  useMutationObserver(props.parent.current, sync);
 
   useEffect(sync, cls);
-  if (rect === defaultRect) return null;
+  if (rect === defaultRect) return <></>;
   return (
     <BaseDom
       block
@@ -40,4 +39,9 @@ export const Dropdown = function Dropdown(props: DropdownProps) {
       {props.children}
     </BaseDom>
   );
-};
+}
+
+export const Dropdown = buildPortal<DropdownProps, typeof _Dropdown>(
+  "Dropdown",
+  _Dropdown
+);

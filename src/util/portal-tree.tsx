@@ -1,11 +1,13 @@
 import { h, render, useEffect, useState } from "@hydrophobefireman/ui-lib";
-
+let num = 0;
 export class PortalTree {
   protected portalKey: string;
 
   protected children: Map<string, JSX.Element> = new Map();
   constructor() {
-    this.portalKey = `UI-PORTAL:${Math.random().toString(36)}`;
+    this.portalKey = `UI-PORTAL:${Math.random()
+      .toString(36)
+      .substring(2)}:${++num}`;
   }
   protected _rendered = false;
   dispatch() {

@@ -98,14 +98,14 @@ export const relInputLabel = "kit-rel-input";
 
 export const _checkboxInputHidden = `kit-checkbox-input ${_hiddenInput}`;
 export const checkboxIcon = "kit-checkbox-icon";
-export const checkboxIconActive = "kit-checkbox-active";
+export const checkboxActive = "kit-checkbox-active";
 export const checkboxIconContainer = "kit-cb-icon-container";
 export const checkboxIsInvalid = "kit-checkbox-invalid";
 
 export const _radioInputHidden = `kit-radio-input ${_hiddenInput}`;
 export const radioSpan = "kit-radio-span";
 export const radioIndicator = "kit-radio-indicator";
-export const radioIndicatorActive = "kit-radio-indicator-active";
+export const radioActive = "kit-radio-active";
 export const radioIsInvalid = "kit-radio-invalid";
 
 export const _switchInputHidden = `kit-switch ${_hiddenInput}`;

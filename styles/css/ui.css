@@ -43,9 +43,9 @@
 }
 
 a {
-  color: var(--kit-link-color, #0000ee);
+  color: var(--kit-link-color);
 }
 
 a:visited {
-  color: var(--kit-link-color-visited, #551a8b);
+  color: var(--kit-link-color-visited);
 }

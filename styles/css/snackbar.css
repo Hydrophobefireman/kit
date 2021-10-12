@@ -47,5 +47,5 @@
   --kit-shade-1: var(--kit-error);
 }
 .kit-snackbar-success {
-  --kit-shade-1: var(--kit-success);
+  --kit-shade-1: var(--kit-theme-fg);
 }

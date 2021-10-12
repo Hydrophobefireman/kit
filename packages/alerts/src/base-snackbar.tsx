@@ -4,9 +4,9 @@ import { Container } from "@hydrophobefireman/kit/container";
 import { useHideScrollbar } from "@hydrophobefireman/kit/hooks";
 import { Transition } from "@hydrophobefireman/kit/transition";
 
-import { ALERT_ID } from "./constants";
-import { BaseSnackbarProps } from ".";
+import { BaseSnackbarProps } from "./types";
 
+const ALERT_ID = `kit-snackbar-${Math.random().toString(36).substring(2)}`;
 const alertTypeToClassnameMap = new Map([
   ["error", classnames.snackbarError],
   ["success", classnames.snackbarSuccess],

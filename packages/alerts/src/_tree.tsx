@@ -2,15 +2,11 @@ import { _util } from "@hydrophobefireman/kit";
 import * as classnames from "@hydrophobefireman/kit/classnames";
 
 import { BaseSnackbar } from "./base-snackbar";
-import { ALERT_ID } from "./constants";
 import { ToastOptions } from "./types";
 
 class UITree extends _util.PortalTree {
   private alertStack: Map<ToastOptions, boolean> = new Map();
-  constructor() {
-    super();
-    this.portalKey = ALERT_ID;
-  }
+
   _renderOne(x: ToastOptions, isActive: boolean, i: number) {
     return (
       <BaseSnackbar
@@ -24,7 +20,7 @@ class UITree extends _util.PortalTree {
     );
   }
   _getContainer() {
-    const div = document.createElement("div");
+    const div = super._getContainer();
     div.className = classnames.snackbarContainer;
     return div;
   }

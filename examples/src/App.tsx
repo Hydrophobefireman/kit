@@ -71,6 +71,16 @@ function CollapseTest() {
     </div>
   );
 }
+function ThemeSwitcher({ children }: any) {
+  const [value, setValue] = useState(null);
+
+  return (
+    <div style={value ? { "--kit-theme-fg": value } : null}>
+      <input type="color" onInput={(x) => setValue(x.currentTarget.value)} />
+      {children}
+    </div>
+  );
+}
 function App(): VNode {
   const [name, setName] = useState("");
   const [refetch, setRefetch] = useState({});
@@ -403,8 +413,10 @@ function TextButton({
 }
 
 render(
-  <AlertRoot>
-    <App />
-  </AlertRoot>,
+  <ThemeSwitcher>
+    <AlertRoot>
+      <App />
+    </AlertRoot>
+  </ThemeSwitcher>,
   document.getElementById("app-mount")
 );

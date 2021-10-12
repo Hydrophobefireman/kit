@@ -140,14 +140,11 @@ function BaseRadioInput<T>({
           rest
         )
       )}
-      <span class={classnames.radioSpan} aria-hidden>
-        <BaseDom
-          class={[
-            classnames.radioIndicator,
-            { [classnames.radioIndicatorActive]: isSelected },
-          ]}
-          element="span"
-        />
+      <span
+        class={[classnames.radioSpan, isSelected ? classnames.radioActive : ""]}
+        aria-hidden
+      >
+        <BaseDom class={classnames.radioIndicator} element="span" />
       </span>
       {children}
     </Container>

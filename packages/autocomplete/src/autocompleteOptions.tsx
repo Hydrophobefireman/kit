@@ -1,20 +1,28 @@
-import { h, useEffect, useRef, useState } from "@hydrophobefireman/ui-lib";
 import * as classnames from "@hydrophobefireman/kit/classnames";
+import { useKeyPress } from "@hydrophobefireman/kit/hooks";
 import {
-  AutoCompleteOptions,
+  RefType,
+  forwardRef,
+  h,
+  useEffect,
+  useRef,
+  useState,
+} from "@hydrophobefireman/ui-lib";
+
+import {
+  AutoCompleteOptionsProps,
   AutoCompleteOptionsRendererProps,
   AutoCompleteValue,
   OptionsRendererProps,
 } from "./types";
 import { clean, contains } from "./util";
-import { useKeyPress } from "@hydrophobefireman/kit/hooks";
 
 function OptionsValue({
   render,
   value,
   select,
   currentValue,
-}: AutoCompleteOptions & {
+}: AutoCompleteOptionsProps & {
   select(e: any): void;
   currentValue: AutoCompleteValue;
 }) {
@@ -55,19 +63,22 @@ function OptionsRenderer({
   );
 }
 
-export function AutoCompleteOptions({
-  options,
-  query,
-  select,
-  containsFunction,
-  noSuggestions,
-}: AutoCompleteOptionsRendererProps) {
+export const AutoCompleteOptions = forwardRef(function _AutoCompleteOptions(
+  {
+    options,
+    query,
+    select,
+    containsFunction,
+    noSuggestions,
+  }: AutoCompleteOptionsRendererProps,
+  ref: RefType<any>
+) {
   query = query || "";
   const funcRef = useRef<(a: AutoCompleteValue, b: string) => boolean>();
   funcRef.current = containsFunction || contains;
-  const [filteredOptions, setFilteredOptions] = useState<AutoCompleteOptions[]>(
-    []
-  );
+  const [filteredOptions, setFilteredOptions] = useState<
+    AutoCompleteOptionsProps[]
+  >([]);
   useEffect(() => {
     const { current } = funcRef;
     if (!options || !options.length) return setFilteredOptions([]);
@@ -78,7 +89,7 @@ export function AutoCompleteOptions({
   }, [query, options, containsFunction]);
 
   return filteredOptions.length ? (
-    <div class={classnames.autocompleteOptions}>
+    <div class={classnames.autocompleteOptions} ref={ref}>
       <OptionsRenderer
         options={filteredOptions}
         currentValue={query}
@@ -94,4 +105,4 @@ export function AutoCompleteOptions({
   ) : (
     <kit-no-suggestions />
   );
-}
+});
