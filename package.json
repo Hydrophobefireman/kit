@@ -58,7 +58,7 @@
       "statedrive": "^0.0.13"
    },
    "dependencies": {
-      "@hydrophobefireman/kit-icons": "^0.0.2",
+      "@hydrophobefireman/kit-icons": "^0.0.3",
       "csstype": "^3.0.9"
    },
    "devDependencies": {

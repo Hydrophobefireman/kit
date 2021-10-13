@@ -6,13 +6,18 @@ import "./App.css";
 import { css } from "catom";
 
 import { _util } from "@hydrophobefireman/kit";
+import { SpinnerIcon } from "@hydrophobefireman/kit-icons";
 import { AlertRoot, useAlerts } from "@hydrophobefireman/kit/alerts";
 import {
   AutoComplete,
   useAutoComplete,
 } from "@hydrophobefireman/kit/autocomplete";
 import { BottomSheet } from "@hydrophobefireman/kit/bottom-sheet";
-import { Button, ButtonProps } from "@hydrophobefireman/kit/button";
+import {
+  Button,
+  ButtonProps,
+  TextButton as TB,
+} from "@hydrophobefireman/kit/button";
 import { Collapse, useCollapse } from "@hydrophobefireman/kit/collapse";
 import { Container, Resource } from "@hydrophobefireman/kit/container";
 import { FileDropTarget } from "@hydrophobefireman/kit/file-drop-target";
@@ -44,26 +49,20 @@ installLocalStorageReflection();
 installPreferenceReflection();
 function A() {
   const { persist } = useAlerts();
-  const [a, s] = useState(0);
   const onClick = () => {
     persist({
       mask: true,
-      preventClose: true,
-      onActionClick: () => s((a: number) => a + 1),
-      actionText: `Incr`,
+      actionText: `Ok`,
       onCancelClick: console.log,
       content: "Hello world",
       type: "success",
     });
   };
-  return (
-    <Button label="Open Snackbar" onClick={onClick}>
-      Open Snackbar
-    </Button>
-  );
+  return <TB onClick={onClick}>Open Snackbar</TB>;
 }
+
 function CollapseTest() {
-  const { active, setActive, toggle } = useCollapse(false);
+  const { active, toggle } = useCollapse(false);
   return (
     <div>
       <Button mode="secondary" variant="shadow" label="toggle" onClick={toggle}>

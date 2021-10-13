@@ -2,9 +2,10 @@ import { BaseElement, _util, useIsPending } from "@hydrophobefireman/kit";
 import { BaseDom } from "@hydrophobefireman/kit/base-dom";
 import * as classnames from "@hydrophobefireman/kit/classnames";
 import { SpinnerIcon } from "@hydrophobefireman/kit/icons";
-import { A, h } from "@hydrophobefireman/ui-lib";
+import { A, forwardRef, h } from "@hydrophobefireman/ui-lib";
 
 import { ButtonProps } from "./types";
+import { InternalButtonProps } from ".";
 
 const variantClassMap = new Map<ButtonProps["variant"], string>([
   ["custom", classnames.buttonCustom],
@@ -21,7 +22,7 @@ const modeClassMap = new Map<ButtonProps["mode"], string>([
   ["warning", classnames.buttonWarning],
 ]);
 
-function BaseButton(props: BaseElement<ButtonProps>) {
+function BaseButton(props: BaseElement<InternalButtonProps>) {
   const {
     depends,
     class: cls,
@@ -39,6 +40,7 @@ function BaseButton(props: BaseElement<ButtonProps>) {
     innerContentClass,
     prefixClass,
     suffixClass,
+    __$ref,
     ...rest
   } = props;
   _util.guardCss(style);
@@ -77,6 +79,7 @@ function BaseButton(props: BaseElement<ButtonProps>) {
       {
         element,
         "aria-label": label,
+        ref: __$ref,
         class: [
           cls,
           className,
@@ -98,7 +101,7 @@ function BaseButton(props: BaseElement<ButtonProps>) {
 function getLinkElement(href: string) {
   return _util.isSameOrigin(href) ? A : "a";
 }
-function DependantButton(props: BaseElement<ButtonProps>) {
+function DependantButton(props: BaseElement<InternalButtonProps>) {
   const { isPending, resourceName } = useIsPending();
   if (isPending) {
     if (props.skeleton) {
@@ -121,17 +124,25 @@ function DependantButton(props: BaseElement<ButtonProps>) {
   return h(BaseButton, props as any);
 }
 
-export function Button(props: BaseElement<ButtonProps>) {
+export const Button = forwardRef<BaseElement<ButtonProps>>(function _Button(
+  props: BaseElement<ButtonProps>,
+  ref
+) {
   const { depends, ...rest } = props;
+  (rest as InternalButtonProps).__$ref = ref;
   if (depends) return h(DependantButton, rest as any);
   return h(BaseButton, rest as any);
-}
+});
 
-export function TextButton({
-  children,
-  ...rest
-}: Omit<BaseElement<ButtonProps>, "children" | "label"> & {
-  children?: string;
-}) {
-  return h(Button, _util.extend(rest, { children, label: children }) as any);
-}
+export const TextButton = forwardRef(function (
+  {
+    children,
+    ...rest
+  }: Omit<BaseElement<ButtonProps>, "children" | "label"> & {
+    children?: any;
+  },
+  ref
+) {
+  const text = [children].flat().join("");
+  return h(Button, _util.extend(rest, { children, label: text, ref }) as any);
+});

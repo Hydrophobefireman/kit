@@ -10,8 +10,9 @@ const listener = function () {
     window.localStorage.getItem("UI-KIT-THEME") || (dark ? "dark" : "light")
   );
 };
-module.exports.listener = listener;
 
-module.exports.scriptTag = `<script>(${listener
+export { listener };
+
+export const scriptTag = `<script>(${listener
   .toString()
   .replace("listener", "")})()</script>`;

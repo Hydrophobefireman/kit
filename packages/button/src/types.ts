@@ -1,3 +1,5 @@
+import { RefType } from "@hydrophobefireman/ui-lib";
+
 export interface ButtonProps {
   foreground?: string;
   background?: string;
@@ -11,6 +13,9 @@ export interface ButtonProps {
   innerContentClass?: any;
   prefixClass?: any;
   suffixClass?: any;
+}
+export interface InternalButtonProps extends ButtonProps {
+  __$ref: any;
 }
 
 export {};

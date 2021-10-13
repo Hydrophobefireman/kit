@@ -993,6 +993,13 @@
   dependencies:
     csstype "^3.0.9"
 
+"@hydrophobefireman/kit-icons@^0.0.3":
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/@hydrophobefireman/kit-icons/-/kit-icons-0.0.3.tgz#388c23bd215872793f498a69bdf92f8ce66a0d27"
+  integrity sha512-osRuwCnieXmn4vzMjA6uDgxQm/8P7wjhpn1w6Ke62cEza1o+wcNNbSrTldT7BROSwgPfQ6I0Ncp2/sQmm0tspg==
+  dependencies:
+    csstype "^3.0.9"
+
 "@hydrophobefireman/kit@^0.0.1-2021-10-08-23-54":
   version "0.0.1-2021-10-08-23-54"
   resolved "https://registry.yarnpkg.com/@hydrophobefireman/kit/-/kit-0.0.1-2021-10-08-23-54.tgz#8c6cda0bf0c01f7d5603993e27da5d870445583e"
@@ -1781,10 +1788,10 @@ core-js-pure@^3.16.0:
   resolved "https://registry.npmjs.org/core-js-pure/-/core-js-pure-3.17.3.tgz"
   integrity sha512-YusrqwiOTTn8058JDa0cv9unbXdIiIgcgI9gXso0ey4WgkFLd3lYlV9rp9n7nDCsYxXsMDTjA4m1h3T348mdlQ==
 
-core-js@^3.18.2:
-  version "3.18.2"
-  resolved "https://registry.npmjs.org/core-js/-/core-js-3.18.2.tgz"
-  integrity sha512-zNhPOUoSgoizoSQFdX1MeZO16ORRb9FFQLts8gSYbZU5FcgXhp24iMWMxnOQo5uIaIG7/6FA/IqJPwev1o9ZXQ==
+core-js@^3.18.3:
+  version "3.18.3"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.18.3.tgz#86a0bba2d8ec3df860fefcc07a8d119779f01509"
+  integrity sha512-tReEhtMReZaPFVw7dajMx0vlsz3oOb8ajgPoHVYGxr8ErnZ6PcYEvvmjGmXlfpnxpkYSdOQttjB+MvVbCGfvLw==
 
 core-util-is@~1.0.0:
   version "1.0.3"
@@ -4421,10 +4428,10 @@ type-is@~1.6.17, type-is@~1.6.18:
     media-typer "0.3.0"
     mime-types "~2.1.24"
 
-typescript@^4.4.3:
-  version "4.4.3"
-  resolved "https://registry.npmjs.org/typescript/-/typescript-4.4.3.tgz"
-  integrity sha512-4xfscpisVgqqDfPaJo5vkd+Qd/ItkoagnHpufr+i2QCHBsNYp+G7UAoyFl8aPtx879u38wPV65rZ8qbGZijalA==
+typescript@^4.4.4:
+  version "4.4.4"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.4.4.tgz#2cd01a1a1f160704d3101fd5a58ff0f9fcb8030c"
+  integrity sha512-DqGhF5IKoBl8WNf8C1gu8q0xZSInh9j1kJJMqT3a94w1JzVaBU4EXOSMrz9yDqMT0xt3selp83fuFMQ0uzv6qA==
 
 unicode-canonical-property-names-ecmascript@^1.0.4:
   version "1.0.4"

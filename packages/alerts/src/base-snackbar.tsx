@@ -2,7 +2,11 @@ import { _util } from "@hydrophobefireman/kit";
 import { Button } from "@hydrophobefireman/kit/button";
 import * as classnames from "@hydrophobefireman/kit/classnames";
 import { Container } from "@hydrophobefireman/kit/container";
-import { useHideScrollbar } from "@hydrophobefireman/kit/hooks";
+import {
+  useFocus,
+  useHideScrollbar,
+  useMount,
+} from "@hydrophobefireman/kit/hooks";
 import { Transition } from "@hydrophobefireman/kit/transition";
 
 import { BaseSnackbarProps } from "./types";
@@ -23,11 +27,13 @@ export function BaseSnackbar({
 }: BaseSnackbarProps) {
   const andClose = (fn: any, isCancelled?: boolean) => {
     if (!isActive) return;
-    return () => {
-      fn && fn();
+    return (e: JSX.TargetedMouseEvent<HTMLButtonElement>) => {
+      fn && fn(e);
       if (isCancelled || !x.preventClose) pop(x);
     };
   };
+  const { ref, restore } = useFocus();
+  useMount(() => restore);
   useHideScrollbar(!!x.mask);
   return (
     <>
@@ -53,6 +59,7 @@ export function BaseSnackbar({
               <Container horizontal="right" row vertical="center" flex={1}>
                 {(x.onActionClick || x.actionText) && (
                   <Button
+                    ref={ref}
                     class={classnames.snackbarButton}
                     variant="shadow"
                     onClick={andClose(x.onActionClick)}
