@@ -9,6 +9,7 @@ import {
   forwardRef,
   h,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from "@hydrophobefireman/ui-lib";
@@ -122,11 +123,13 @@ function BaseAutoComplete({
     // this is also good for perf since the input is never blocked
     // even if we have a thousand options, the input should
     // be snappier than a single state being shared across everwhere
-    __setInputValue.current(currentTarget.dataset.value);
+    __setInputValue.current &&
+      __setInputValue.current(currentTarget.dataset.value);
     setDirty(false);
   }
   const dropdownActive = expanded && options.length > 0;
-
+  const inputId = useMemo(() => `${idx + _util.random()}--input`, [idx]);
+  const labelId = useMemo(() => `${inputId}--label`, [inputId]);
   return (
     <Container class={containerClass} ref={parentRef}>
       {h(
@@ -142,6 +145,7 @@ function BaseAutoComplete({
             optionRef,
             depends,
             expanded,
+            id: inputId,
           },
           props
         ) as any
@@ -165,6 +169,7 @@ function BaseAutoComplete({
                 options={options}
                 query={value}
                 select={select}
+                labelledBy={labelId}
               />
             )
           }
@@ -193,7 +198,7 @@ export function AutoComplete(props: BaseElement<AutoCompleteProps>) {
   return h(BaseAutoComplete, props as any);
 }
 
-export function useAutoComplete(initial: string) {
+export function useAutoComplete(initial?: string) {
   const [value, setValue] = useState(initial || "");
   return { value, setValue };
 }

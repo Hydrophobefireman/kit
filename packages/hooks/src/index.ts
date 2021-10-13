@@ -20,7 +20,6 @@ export * from "./use-id";
 export * from "./use-media";
 export * from "./use-toggle-state";
 export * from "./use-rect";
-export * from "./use-restore-focus";
 export * from "./_use-hide-scrollbar";
 export * from "./_use-self-event";
 export * from "./_use-fwd-ref";

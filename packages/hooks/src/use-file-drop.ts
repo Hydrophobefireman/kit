@@ -5,12 +5,21 @@ function preventDefault(e: Event) {
 }
 
 export function useFileDrop(
-  el?: HTMLElement
+  el?: HTMLElement,
+  options?: { multiple?: boolean }
 ): [File[] | null, (f: File[]) => void, () => void] {
+  options = options || {};
   // el = el || document.documentElement;
-  const [files, setFiles] = useState<File[] | null>(null);
+  const [files, _setFiles] = useState<File[] | null>(null);
+
   useEffect(() => {
     if (!el) return;
+    const setFiles: typeof _setFiles = function (f) {
+      return _setFiles((old) => {
+        const t = typeof f === "function" ? f(old) : f;
+        return t ? (options!.multiple ? t : t[0]) : t;
+      });
+    };
     const onDrop = (e: DragEvent) => {
       e.stopPropagation();
       e.preventDefault();
@@ -32,6 +41,10 @@ export function useFileDrop(
       el!.removeEventListener("drop", onDrop);
       el!.removeEventListener("dragover", preventDefault);
     };
-  }, [el]);
-  return [files && files.length ? files : null, setFiles, () => setFiles(null)];
+  }, [el, options.multiple]);
+  return [
+    files && files.length ? files : null,
+    _setFiles,
+    () => _setFiles(null),
+  ];
 }

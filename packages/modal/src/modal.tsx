@@ -3,6 +3,7 @@ import { buildPortal } from "@hydrophobefireman/kit/build-portal";
 import * as classnames from "@hydrophobefireman/kit/classnames";
 import { Container } from "@hydrophobefireman/kit/container";
 import {
+  useFocus,
   useHideScrollbar,
   useId,
   useKeyPress,
@@ -14,7 +15,6 @@ import { Text, TextProps } from "@hydrophobefireman/kit/text";
 import { Transition } from "@hydrophobefireman/kit/transition";
 import { h, useEffect, useRef, useState } from "@hydrophobefireman/ui-lib";
 
-import { useRestoreFocus } from "../../hooks/src/use-restore-focus";
 import { ModalProps } from "./types";
 
 function ModalImpl({
@@ -32,6 +32,9 @@ function ModalImpl({
   useKeyPress("Escape", () => onClickOutside && onClickOutside(), {
     target: window,
   });
+  const { restore } = useFocus();
+  useMount(() => restore);
+
   return (
     <div class={classnames.mask} onClick={onClickOutside && handleOusideClick}>
       <div class={classnames.modal} ref={ref}>
@@ -48,7 +51,7 @@ function _Modal({
 }: ModalProps) {
   const id = useId();
   const [target, setTarget] = useState<HTMLDivElement>(null as any);
-  useRestoreFocus();
+
   return (
     <Transition
       transitionTargets={[target]}

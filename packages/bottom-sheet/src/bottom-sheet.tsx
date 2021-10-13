@@ -3,12 +3,14 @@ import { buildPortal } from "@hydrophobefireman/kit/build-portal";
 import * as classnames from "@hydrophobefireman/kit/classnames";
 import { bottomSheetInactive } from "@hydrophobefireman/kit/classnames";
 import {
+  useFocus,
   useHideScrollbar,
   useKeyPress,
+  useMount,
   useSelfEvent,
   useToggleState,
 } from "@hydrophobefireman/kit/hooks";
-import { useRef } from "@hydrophobefireman/ui-lib";
+import { useEffect, useRef } from "@hydrophobefireman/ui-lib";
 
 import { BottomSheetProps } from "./types";
 
@@ -25,6 +27,11 @@ function _BottomSheet({
     if (e.target !== e.currentTarget) return;
     onAnimationComplete && onAnimationComplete();
   }
+  const { restore, setPreviouslyFocused } = useFocus();
+  useEffect(() => {
+    if (active) setPreviouslyFocused();
+  }, [active]);
+  useMount(() => restore);
   const handleClose = useSelfEvent<MouseEvent>(onDismiss);
   useKeyPress("Escape", () => active && onDismiss && onDismiss(), {
     target: window,

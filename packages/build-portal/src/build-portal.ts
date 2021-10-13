@@ -1,5 +1,5 @@
 import { ComplexComponent, _util } from "@hydrophobefireman/kit";
-import { useId, useMount, useRestoreFocus } from "@hydrophobefireman/kit/hooks";
+import { useFocus, useId, useMount } from "@hydrophobefireman/kit/hooks";
 import { h, useEffect } from "@hydrophobefireman/ui-lib";
 
 const { PortalTree } = _util;
@@ -10,7 +10,7 @@ export function buildPortal<P extends {}, C extends ComplexComponent>(
   const p = new PortalTree();
 
   function Component(props: P) {
-    const restore = useRestoreFocus();
+    const { restore } = useFocus();
     useEffect(() => {
       if ("active" in props && !(props as any).active) restore();
     }, [(props as any).active]);

@@ -37,10 +37,16 @@ export const Transition = forwardRef<BaseElement<TransitionProps>>(
     const nextChildRef = useLatestRef(render);
     const currentChildRef = useLatestRef(child);
     const transitionTargetRef = useLatestRef(transitionTargets);
-    function scheduleNextChild() {
-      setRenderState(nextChildRef.current ? "INITIAL" : "UNMOUNT");
+    const timerRef = useRef<number>();
+
+    function __unmount() {
+      clearTimeout(timerRef.current);
       currentChildRef.current = nextChildRef.current;
       setChild(() => nextChildRef.current);
+    }
+    function scheduleNextChild() {
+      setRenderState(nextChildRef.current ? "INITIAL" : "UNMOUNT");
+      __unmount();
     }
 
     function nextRenderState(e: TransitionEvent, mode: "DONE" | "CANCEL") {
@@ -76,7 +82,18 @@ export const Transition = forwardRef<BaseElement<TransitionProps>>(
       if (!nextChildRef.current) return setRenderState("UNMOUNT");
       scheduleNextChild();
     }, [id]);
-
+    useEffect(() => {
+      if (renderState === "UNMOUNT") {
+        // this timeout is in case we
+        // hit a weird race condition where
+        // the component has not unmountede
+        // probably happens when you toggle between
+        // active states multiple times at once
+        // so we unmount the component ourselves as a measure
+        clearTimeout(timerRef.current);
+        timerRef.current = setTimeout(() => __unmount(), 2000) as any;
+      }
+    }, [renderState]);
     const css = _util.extend(
       {},
       style,

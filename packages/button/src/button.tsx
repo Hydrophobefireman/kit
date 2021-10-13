@@ -126,3 +126,12 @@ export function Button(props: BaseElement<ButtonProps>) {
   if (depends) return h(DependantButton, rest as any);
   return h(BaseButton, rest as any);
 }
+
+export function TextButton({
+  children,
+  ...rest
+}: Omit<BaseElement<ButtonProps>, "children" | "label"> & {
+  children?: string;
+}) {
+  return h(Button, _util.extend(rest, { children, label: children }) as any);
+}

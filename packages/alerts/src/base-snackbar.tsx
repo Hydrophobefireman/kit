@@ -1,3 +1,4 @@
+import { _util } from "@hydrophobefireman/kit";
 import { Button } from "@hydrophobefireman/kit/button";
 import * as classnames from "@hydrophobefireman/kit/classnames";
 import { Container } from "@hydrophobefireman/kit/container";
@@ -6,7 +7,7 @@ import { Transition } from "@hydrophobefireman/kit/transition";
 
 import { BaseSnackbarProps } from "./types";
 
-const ALERT_ID = `kit-snackbar-${Math.random().toString(36).substring(2)}`;
+const ALERT_ID = `kit-snackbar-${_util.random()}`;
 const alertTypeToClassnameMap = new Map([
   ["error", classnames.snackbarError],
   ["success", classnames.snackbarSuccess],

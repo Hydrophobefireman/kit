@@ -20,7 +20,7 @@ export function FileDropTarget({
   multiple?: boolean;
 }) {
   const ref = useRef<HTMLDivElement>();
-  const [files, setFiles, reset] = useFileDrop(ref.current);
+  const [files, setFiles, reset] = useFileDrop(ref.current, { multiple });
   const [accepting, setAccepting] = useState(false);
   const isAccepting = () => setAccepting(true);
   const disableAccepting = () => setAccepting(false);

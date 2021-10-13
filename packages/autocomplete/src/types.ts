@@ -9,10 +9,12 @@ export interface AutoCompleteOptionsProps {
 }
 export interface AutoCompleteOptionsRendererProps {
   options: AutoCompleteOptionsProps[];
-  query: string;
+  query: AutoCompleteValue;
   select(e: JSX.TargetedMouseEvent<any>): void;
   containsFunction?(a: AutoCompleteValue, b: string): boolean;
   noSuggestions?: JSX.Element | ComplexComponent;
+  labelledBy: string;
+  ref?: any;
 }
 export interface AutoCompleteInputProps extends AutoCompleteProps {
   expanded?: boolean;
@@ -37,5 +39,6 @@ export interface OptionsRendererProps {
   options: AutoCompleteOptionsProps[];
   currentValue: AutoCompleteValue;
   select: AutoCompleteOptionsRendererProps["select"];
+  labelledBy: string;
 }
 export {};

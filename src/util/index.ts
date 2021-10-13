@@ -13,3 +13,4 @@ export * from "./extend";
 export * from "./_flatpollyfill";
 export * from "./toPx";
 export * from "./portal-tree";
+export * from "./random";

@@ -45,7 +45,7 @@ installPreferenceReflection();
 function A() {
   const { persist } = useAlerts();
   const [a, s] = useState(0);
-  useEffect(() => {
+  const onClick = () => {
     persist({
       mask: true,
       preventClose: true,
@@ -55,8 +55,12 @@ function A() {
       content: "Hello world",
       type: "success",
     });
-  }, [a]);
-  return null;
+  };
+  return (
+    <Button label="Open Snackbar" onClick={onClick}>
+      Open Snackbar
+    </Button>
+  );
 }
 function CollapseTest() {
   const { active, setActive, toggle } = useCollapse(false);
@@ -127,7 +131,7 @@ function App(): VNode {
       <CollapseTest />
       <Modal
         active={active}
-        onAnimationComplete={console.log}
+        // onAnimationComplete={console.log}
         onClickOutside={() => setActive(false)}
       >
         <Modal.Body>
@@ -151,9 +155,7 @@ function App(): VNode {
       <BottomSheetDemo />
       <BottomSheetDemo />
       <BottomSheetDemo />
-      <AlertRoot>
-        <A />
-      </AlertRoot>
+      <A />
       <Container horizontal="center">
         <Switch
           label="OKAY"
@@ -163,13 +165,20 @@ function App(): VNode {
           width="2rem"
           height="1rem"
         />
-        <RadioGroup value={value} setValue={setValue} label="Time">
-          <RadioInput errored={value !== "Now"} value="Now">
-            OK
-          </RadioInput>
-          <RadioInput value="Tomorrow">Tmrw</RadioInput>
-          <RadioInput value="Never">Soon</RadioInput>
-        </RadioGroup>
+        <Container>
+          <RadioGroup
+            as="Fragment"
+            value={value}
+            setValue={setValue}
+            label="Time"
+          >
+            <RadioInput errored={value !== "Now"} value="Now">
+              OK
+            </RadioInput>
+            <RadioInput value="Tomorrow">Tmrw</RadioInput>
+            <RadioInput value="Never">Soon</RadioInput>
+          </RadioGroup>
+        </Container>
       </Container>
       <Container horizontal="center" row>
         <AutoComplete
