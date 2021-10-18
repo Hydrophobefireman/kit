@@ -3,8 +3,8 @@ import { Button } from "@hydrophobefireman/kit/button";
 import * as classnames from "@hydrophobefireman/kit/classnames";
 import { Container } from "@hydrophobefireman/kit/container";
 import {
+  _useHideScrollbar,
   useFocus,
-  useHideScrollbar,
   useMount,
 } from "@hydrophobefireman/kit/hooks";
 import { Transition } from "@hydrophobefireman/kit/transition";
@@ -34,11 +34,12 @@ export function BaseSnackbar({
   };
   const { ref, restore } = useFocus();
   useMount(() => restore);
-  useHideScrollbar(!!x.mask);
+  _useHideScrollbar(!!x.mask);
   return (
     <>
       {x.mask && <div class={classnames.mask} />}
       <Transition
+        visible={!!isActive}
         id={isActive ? ALERT_ID + i : ""}
         role="alert"
         leaveClass={classnames.snackbarLeave}
@@ -53,7 +54,7 @@ export function BaseSnackbar({
         ]}
         transitionHook={() => !isActive && remove(x)}
         render={
-          isActive ? (
+          isActive && (
             <>
               <span>{x.content}</span>
               <Container horizontal="right" row vertical="center" flex={1}>
@@ -85,7 +86,7 @@ export function BaseSnackbar({
                 )}
               </Container>
             </>
-          ) : null
+          )
         }
       />
     </>

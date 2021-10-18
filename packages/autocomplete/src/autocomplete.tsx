@@ -161,6 +161,7 @@ function BaseAutoComplete({
           leaveClass={classnames.autocompleteInactive}
           class={classnames.autocompleteDropdown}
           id={dropdownActive ? idx : ""}
+          visible={dropdownActive}
           render={
             dropdownActive && (
               <AutoCompleteOptions

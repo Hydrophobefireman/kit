@@ -1,6 +1,6 @@
 import { useEffect } from "@hydrophobefireman/ui-lib";
 
-export function useHideScrollbar(shouldHide: boolean) {
+export function _useHideScrollbar(shouldHide: boolean) {
   return useEffect(() => {
     if (!shouldHide) return;
     const body = document.body;

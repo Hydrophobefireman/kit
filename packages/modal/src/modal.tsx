@@ -2,13 +2,13 @@ import { BaseElement, _util } from "@hydrophobefireman/kit";
 import { buildPortal } from "@hydrophobefireman/kit/build-portal";
 import * as classnames from "@hydrophobefireman/kit/classnames";
 import { Container } from "@hydrophobefireman/kit/container";
+import { FocusTrap } from "@hydrophobefireman/kit/focus-trap";
 import {
-  useFocus,
-  useHideScrollbar,
+  _useHideScrollbar,
+  _useSelfEvent,
   useId,
   useKeyPress,
   useMount,
-  useSelfEvent,
   useToggleState,
 } from "@hydrophobefireman/kit/hooks";
 import { Text, TextProps } from "@hydrophobefireman/kit/text";
@@ -27,18 +27,16 @@ function ModalImpl({
   useEffect(() => {
     setDom && setDom(ref.current);
   }, [ref.current]);
-  useHideScrollbar(active);
-  const handleOusideClick = useSelfEvent<MouseEvent>(onClickOutside);
+  _useHideScrollbar(active);
+  const handleOusideClick = _useSelfEvent<MouseEvent>(onClickOutside);
   useKeyPress("Escape", () => onClickOutside && onClickOutside(), {
     target: window,
   });
-  const { restore } = useFocus();
-  useMount(() => restore);
 
   return (
     <div class={classnames.mask} onClick={onClickOutside && handleOusideClick}>
       <div class={classnames.modal} ref={ref}>
-        {children}
+        <FocusTrap shouldTrap={active}>{children}</FocusTrap>
       </div>
     </div>
   );
@@ -54,18 +52,19 @@ function _Modal({
 
   return (
     <Transition
+      visible={active}
       transitionTargets={[target]}
       id={active ? id : ""}
       transitionHook={onAnimationComplete}
       render={
-        active ? (
+        active && (
           <ModalImpl
-            onClickOutside={active && onClickOutside}
+            onClickOutside={active ? onClickOutside : (null as any)}
             active={active}
             children={children}
             _setDom={setTarget}
           />
-        ) : null
+        )
       }
       leaveClass={classnames.modalLeave}
       enterClass={classnames._modalEnter}

@@ -1,7 +1,6 @@
 import { BaseElement, _util } from "@hydrophobefireman/kit";
 import * as classnames from "@hydrophobefireman/kit/classnames";
 import {
-  useFwdRef,
   useLatestRef,
   useRect,
   useResize,

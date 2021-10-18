@@ -37,12 +37,19 @@ export const Transition = forwardRef<BaseElement<TransitionProps>>(
     const nextChildRef = useLatestRef(render);
     const currentChildRef = useLatestRef(child);
     const transitionTargetRef = useLatestRef(transitionTargets);
-    const timerRef = useRef<number>();
+
+    const unmountTimerRef = useRef<number>();
+    const initialMountTimerRef = useRef<number>();
 
     function __unmount() {
-      clearTimeout(timerRef.current);
+      clearTimeout(unmountTimerRef.current);
       currentChildRef.current = nextChildRef.current;
       setChild(() => nextChildRef.current);
+    }
+
+    function __mount() {
+      clearTimeout(initialMountTimerRef.current);
+      return setRenderState("IDLE");
     }
     function scheduleNextChild() {
       setRenderState(nextChildRef.current ? "INITIAL" : "UNMOUNT");
@@ -58,10 +65,9 @@ export const Transition = forwardRef<BaseElement<TransitionProps>>(
       transitionHook && _util.raf(() => transitionHook(e, mode));
       switch (renderState) {
         case "INITIAL":
-          return setRenderState("IDLE");
+          return __mount();
         case "UNMOUNT":
-          scheduleNextChild();
-          return;
+          return scheduleNextChild();
         case "IDLE":
         default:
           return;
@@ -90,8 +96,18 @@ export const Transition = forwardRef<BaseElement<TransitionProps>>(
         // probably happens when you toggle between
         // active states multiple times at once
         // so we unmount the component ourselves as a measure
-        clearTimeout(timerRef.current);
-        timerRef.current = setTimeout(() => __unmount(), 2000) as any;
+        clearTimeout(unmountTimerRef.current);
+        unmountTimerRef.current = setTimeout(() => __unmount(), 2000) as any;
+      } else if (renderState === "INITIAL" || renderState === null) {
+        clearTimeout(initialMountTimerRef.current);
+        if (nextChildRef.current) {
+          initialMountTimerRef.current = setTimeout(
+            () => __mount(),
+            1000
+          ) as any;
+        } else {
+          scheduleNextChild();
+        }
       }
     }, [renderState]);
     const css = _util.extend(

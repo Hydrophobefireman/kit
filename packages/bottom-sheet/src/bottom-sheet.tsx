@@ -3,11 +3,11 @@ import { buildPortal } from "@hydrophobefireman/kit/build-portal";
 import * as classnames from "@hydrophobefireman/kit/classnames";
 import { bottomSheetInactive } from "@hydrophobefireman/kit/classnames";
 import {
+  _useHideScrollbar,
+  _useSelfEvent,
   useFocus,
-  useHideScrollbar,
   useKeyPress,
   useMount,
-  useSelfEvent,
   useToggleState,
 } from "@hydrophobefireman/kit/hooks";
 import { useEffect, useRef } from "@hydrophobefireman/ui-lib";
@@ -22,17 +22,19 @@ function _BottomSheet({
   children,
 }: BottomSheetProps) {
   const ref = useRef<HTMLDivElement>();
-  useHideScrollbar(active);
+  _useHideScrollbar(active);
   function handleTransitionEnd(e: TransitionEvent) {
     if (e.target !== e.currentTarget) return;
     onAnimationComplete && onAnimationComplete();
   }
-  const { restore, setPreviouslyFocused } = useFocus();
+  const { restore, setPreviouslyFocused: setPreviouslyFocused } = useFocus();
+
   useEffect(() => {
     if (active) setPreviouslyFocused();
   }, [active]);
+
   useMount(() => restore);
-  const handleClose = useSelfEvent<MouseEvent>(onDismiss);
+  const handleClose = _useSelfEvent<MouseEvent>(onDismiss);
   useKeyPress("Escape", () => active && onDismiss && onDismiss(), {
     target: window,
   });
@@ -48,7 +50,8 @@ function _BottomSheet({
         aria-hidden={!active}
         aria-modal
         onTransitionEnd={handleTransitionEnd}
-        onTransitionEndCapture={handleTransitionEnd}
+        //@ts-ignore
+        onTransitionCancel={handleTransitionEnd}
         ref={ref}
         style={style}
         class={[

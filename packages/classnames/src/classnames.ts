@@ -142,3 +142,5 @@ export const collapse = "kit-collapse";
 
 export const fileDropTarget = "kit-file-drop-target";
 export const fileDropTargetAccepting = "kit-file-drop-target-accepting";
+
+export const _focusTrap = "_kit-focus-trap";
