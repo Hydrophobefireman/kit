@@ -91,16 +91,28 @@ function BaseAutoComplete({
   depends,
   dropdownClass,
   noSuggestions,
+  preserveOpenOnClick,
   id,
   ...props
 }: BaseElement<AutoCompleteProps>) {
-  const ref = useRef<HTMLInputElement>();
+  const inputRef = useRef<HTMLInputElement>();
   const [dirty, setDirty] = useState(false);
   const parentRef = useRef<HTMLElement>();
   const expanded = !isPending && dirty;
   const idx = useId(id);
   const optionRef = useRef<HTMLElement>();
+  const naturallyEnteredInputRef = useRef<string>();
   const __setInputValue = useRef<(v: any) => void>();
+
+  function $setValue(t: string) {
+    __setInputValue.current && __setInputValue.current(t);
+    if (!preserveOpenOnClick) {
+      setDirty(false);
+      const { activeElement } = document;
+      activeElement && (activeElement as any).blur();
+    }
+  }
+
   function select(e: JSX.TargetedMouseEvent<any>) {
     const { currentTarget } = e;
     // the only component that syncs and ties everything else
@@ -110,7 +122,7 @@ function BaseAutoComplete({
     // so in case someone selects the input,
     // that's where the value should be updated to
     // and from there we have a use effect that will sync it
-    // upwards
+    // upwards.
     // we do this because we dont want
     // the different layers of components going out of sync
     // and having a sad useEffect call to tie the states together
@@ -122,24 +134,27 @@ function BaseAutoComplete({
     // option elements get the latest value in the next frame
     // this is also good for perf since the input is never blocked
     // even if we have a thousand options, the input should
-    // be snappier than a single state being shared across everwhere
-    __setInputValue.current &&
-      __setInputValue.current(currentTarget.dataset.value);
-    setDirty(false);
+    // be snappier than a single state being shared across everwhere.
+    $setValue(currentTarget.dataset.value);
   }
+
   const dropdownActive = expanded && options.length > 0;
   const inputId = useMemo(() => `${idx + _util.random()}--input`, [idx]);
   const labelId = useMemo(() => `${inputId}--label`, [inputId]);
+
   return (
     <Container class={containerClass} ref={parentRef}>
       {h(
         AutoCompleteInput,
         _util.extend(
           {
-            ref,
+            ref: inputRef,
             value,
             setValueRef: __setInputValue,
-            setQuery: setValue,
+            setQuery: (q: string) => {
+              setValue(q);
+              naturallyEnteredInputRef.current = q;
+            },
             mode,
             setDirty,
             optionRef,
@@ -153,7 +168,7 @@ function BaseAutoComplete({
       <Dropdown
         style={dropdownActive ? null : { overflow: "hidden" }}
         parent={parentRef}
-        sibling={ref}
+        sibling={inputRef}
         class={dropdownClass}
       >
         <Transition
@@ -169,6 +184,7 @@ function BaseAutoComplete({
                 noSuggestions={noSuggestions}
                 options={options}
                 query={value}
+                setQuery={$setValue}
                 select={select}
                 labelledBy={labelId}
               />

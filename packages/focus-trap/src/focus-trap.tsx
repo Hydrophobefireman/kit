@@ -53,7 +53,9 @@ export function FocusTrap({
   return (
     <>
       <div tabIndex={0} ref={divStart} class={classnames._focusTrap} />
-      <div ref={contentRef}> {children}</div>
+      <div ref={contentRef} style={{ display: "contents" }}>
+        {children}
+      </div>
       <div tabIndex={0} ref={divEnd} class={classnames._focusTrap} />
     </>
   );

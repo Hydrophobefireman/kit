@@ -6,7 +6,6 @@ import "./App.css";
 import { css } from "catom";
 
 import { _util } from "@hydrophobefireman/kit";
-import { SpinnerIcon } from "@hydrophobefireman/kit-icons";
 import { AlertRoot, useAlerts } from "@hydrophobefireman/kit/alerts";
 import {
   AutoComplete,
@@ -45,6 +44,9 @@ import {
 
 import { RouterTest } from "./RouterTest";
 
+const sanitizeRegExp = /([^\w]|_)/g;
+const clean = (x: any) => (x + "").replace(sanitizeRegExp, "").toLowerCase();
+const contains = (b: any, a: any) => clean(b).includes(clean(a));
 installLocalStorageReflection();
 installPreferenceReflection();
 function A() {
@@ -98,7 +100,60 @@ function App(): VNode {
   const { active, toggle: toggleModal, setActive } = useModal();
   const [files, setFiles] = useState<File[]>(null);
   const resetRef = useRef(null);
+  const { setValue: setAcValue, value: acValue } = useAutoComplete("");
 
+  const options = [
+    { value: "Things Fall Apart" },
+    { value: "Fairy tales" },
+    { value: "The Divine Comedy" },
+    { value: "The Epic Of Gilgamesh" },
+    { value: "The Book Of Job" },
+    { value: "One Thousand and One Nights" },
+    { value: "Njál's Saga" },
+    { value: "Pride and Prejudice" },
+    { value: "Le Père Goriot" },
+    { value: "Molloy, Malone Dies, The Unnamable, the trilogy" },
+    { value: "The Decameron" },
+    { value: "Ficciones" },
+    { value: "Wuthering Heights" },
+    { value: "The Stranger" },
+    { value: "Poems" },
+    { value: "Journey to the End of the Night" },
+    { value: "Don Quijote De La Mancha" },
+    { value: "The Canterbury Tales" },
+    { value: "Stories" },
+    { value: "Nostromo" },
+    { value: "Great Expectations" },
+    { value: "Jacques the Fatalist" },
+    { value: "Berlin Alexanderplatz" },
+    { value: "Crime and Punishment" },
+    { value: "The Idiot" },
+    { value: "The Possessed" },
+    { value: "The Brothers Karamazov" },
+    { value: "Middlemarch" },
+    { value: "Invisible Man" },
+    { value: "Medea" },
+    { value: "Absalom, Absalom!" },
+    { value: "The Sound and the Fury" },
+    { value: "Madame Bovary" },
+    { value: "Sentimental Education" },
+    { value: "Gypsy Ballads" },
+    { value: "One Hundred Years of Solitude" },
+    { value: "Love in the Time of Cholera" },
+    { value: "Faust" },
+    { value: "Dead Souls" },
+    { value: "The Tin Drum" },
+    { value: "The Devil to Pay in the Backlands" },
+    { value: "Hunger" },
+    { value: "The Old Man and the Sea" },
+    { value: "Iliad" },
+    { value: "Odyssey" },
+    { value: "A Doll's House" },
+    { value: "Ulysses" },
+    { value: "The Trial" },
+    { value: "The Castle" },
+  ];
+  const noResult = acValue && options.every((x) => !contains(x.value, acValue));
   return (
     <>
       <FileDropTarget
@@ -181,7 +236,10 @@ function App(): VNode {
       </Container>
       <Container horizontal="center" row>
         <AutoComplete
-          {...useAutoComplete("")}
+          helperText="No results found"
+          errored={noResult}
+          value={acValue}
+          setValue={setAcValue}
           dropdownClass={css({
             maxHeight: "300px",
             overflow: "auto",
@@ -189,57 +247,7 @@ function App(): VNode {
           label="Search"
           mode="search"
           variant="material"
-          options={[
-            { value: "Things Fall Apart" },
-            { value: "Fairy tales" },
-            { value: "The Divine Comedy" },
-            { value: "The Epic Of Gilgamesh" },
-            { value: "The Book Of Job" },
-            { value: "One Thousand and One Nights" },
-            { value: "Njál's Saga" },
-            { value: "Pride and Prejudice" },
-            { value: "Le Père Goriot" },
-            { value: "Molloy, Malone Dies, The Unnamable, the trilogy" },
-            { value: "The Decameron" },
-            { value: "Ficciones" },
-            { value: "Wuthering Heights" },
-            { value: "The Stranger" },
-            { value: "Poems" },
-            { value: "Journey to the End of the Night" },
-            { value: "Don Quijote De La Mancha" },
-            { value: "The Canterbury Tales" },
-            { value: "Stories" },
-            { value: "Nostromo" },
-            { value: "Great Expectations" },
-            { value: "Jacques the Fatalist" },
-            { value: "Berlin Alexanderplatz" },
-            { value: "Crime and Punishment" },
-            { value: "The Idiot" },
-            { value: "The Possessed" },
-            { value: "The Brothers Karamazov" },
-            { value: "Middlemarch" },
-            { value: "Invisible Man" },
-            { value: "Medea" },
-            { value: "Absalom, Absalom!" },
-            { value: "The Sound and the Fury" },
-            { value: "Madame Bovary" },
-            { value: "Sentimental Education" },
-            { value: "Gypsy Ballads" },
-            { value: "One Hundred Years of Solitude" },
-            { value: "Love in the Time of Cholera" },
-            { value: "Faust" },
-            { value: "Dead Souls" },
-            { value: "The Tin Drum" },
-            { value: "The Devil to Pay in the Backlands" },
-            { value: "Hunger" },
-            { value: "The Old Man and the Sea" },
-            { value: "Iliad" },
-            { value: "Odyssey" },
-            { value: "A Doll's House" },
-            { value: "Ulysses" },
-            { value: "The Trial" },
-            { value: "The Castle" },
-          ]}
+          options={options}
         />
       </Container>
 

@@ -6,10 +6,12 @@ export type AutoCompleteValue = string | number | null;
 export interface AutoCompleteOptionsProps {
   value: AutoCompleteValue;
   render?(value: AutoCompleteValue): JSX.Element;
+  highlightedValue: string | null;
 }
 export interface AutoCompleteOptionsRendererProps {
   options: AutoCompleteOptionsProps[];
   query: AutoCompleteValue;
+  setQuery(q: AutoCompleteValue): void;
   select(e: JSX.TargetedMouseEvent<any>): void;
   containsFunction?(a: AutoCompleteValue, b: string): boolean;
   noSuggestions?: JSX.Element | ComplexComponent;
@@ -34,10 +36,12 @@ export interface AutoCompleteProps extends Omit<InputProps, "value"> {
   isPending?: boolean;
   noSuggestions?: JSX.Element | ComplexComponent;
   dropdownClass?: string;
+  preserveOpenOnClick?: boolean;
 }
 export interface OptionsRendererProps {
   options: AutoCompleteOptionsProps[];
   currentValue: AutoCompleteValue;
+  setCurrentValue(q:AutoCompleteValue):void
   select: AutoCompleteOptionsRendererProps["select"];
   labelledBy: string;
 }

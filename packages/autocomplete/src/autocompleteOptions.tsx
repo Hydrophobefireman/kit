@@ -1,3 +1,4 @@
+import { _util } from "@hydrophobefireman/kit";
 import * as classnames from "@hydrophobefireman/kit/classnames";
 import { useKeyPress } from "@hydrophobefireman/kit/hooks";
 import {
@@ -17,17 +18,20 @@ import {
 } from "./types";
 import { clean, contains } from "./util";
 
+const win = typeof window !== "undefined" ? window : (null as any);
+const opts = { target: win };
+_util.scrollIntoViewIfNeededPolyfill();
 function OptionsValue({
   render,
   value,
   select,
   currentValue,
+  highlightedValue,
 }: AutoCompleteOptionsProps & {
   select(e: any): void;
   currentValue: AutoCompleteValue;
 }) {
   const ref = useRef<HTMLLIElement>();
-  useKeyPress("Enter", select, { target: ref.current });
   return (
     <li
       role="option"
@@ -35,7 +39,7 @@ function OptionsValue({
       ref={ref}
       onClick={select}
       data-value={value}
-      data-active={String(currentValue === value)}
+      data-active={String(currentValue === value || highlightedValue === value)}
       class={[
         classnames.autocompleteOption,
         currentValue === value ? classnames.autocompleteCurrentValue : "",
@@ -49,16 +53,90 @@ function OptionsRenderer({
   options,
   currentValue,
   select,
+  setCurrentValue,
   labelledBy,
 }: OptionsRendererProps) {
+  const [highlightedValue, _setHighlightedValue] = useState<string | null>(
+    null
+  );
+  useEffect(() => {
+    setHighlightedValue(null);
+  }, [currentValue]);
+  function setHighlightedValue(e: HTMLElement | null) {
+    if (!e) return _setHighlightedValue(null);
+    (e as any).scrollIntoViewIfNeeded();
+    _setHighlightedValue(e.dataset.value!);
+  }
+  function _arrow() {
+    const listParent = ulRef.current;
+
+    const children: HTMLLIElement[] = Array.from(listParent.children) as any;
+    let $curr: number = 0;
+    const activeChild = children.find((x, i) => {
+      // store the index in $curr
+      // so that we don't have to do an indexOf
+      $curr = i;
+      return x.dataset.value === highlightedValue;
+    });
+    return { children, activeChild, $curr };
+  }
+  function handleArrowUp() {
+    const { activeChild, children, $curr } = _arrow();
+    if (!activeChild) {
+      const lastChild = children[children.length - 1];
+
+      return setHighlightedValue(lastChild);
+    }
+    const firstChild = children[0];
+    if (activeChild === firstChild) {
+      return setHighlightedValue(null);
+    }
+    setHighlightedValue(children[$curr - 1]);
+  }
+  function handleArrowDown() {
+    const { $curr, activeChild, children } = _arrow();
+    if (!activeChild) {
+      const firstChild = children[0];
+      return setHighlightedValue(firstChild);
+    }
+    const lastChild = children[children.length - 1];
+    if (activeChild === lastChild) {
+      return setHighlightedValue(null);
+    }
+    setHighlightedValue(children[$curr + 1]);
+  }
+  const ulRef = useRef<HTMLUListElement>();
+  useKeyPress("ArrowUp", handleArrowUp, opts);
+  useKeyPress("ArrowDown", handleArrowDown, opts);
+  useKeyPress(
+    "Enter",
+    () => {
+      const children = Array.from(ulRef.current.children);
+      const e =
+        children.find(
+          (x: HTMLElement) => x.dataset.value === highlightedValue
+        ) ||
+        (children.find(
+          (x: HTMLElement) => x.dataset.value === currentValue
+        ) as any);
+      if (!e) return;
+      setCurrentValue(e.dataset.value);
+    },
+    opts
+  );
   return (
-    <ul class={classnames._autoCompleteInlineList} aria-labelledBy={labelledBy}>
+    <ul
+      ref={ulRef}
+      class={classnames._autoCompleteInlineList}
+      aria-labelledBy={labelledBy}
+    >
       {options.map(({ render, value }) => (
         <OptionsValue
           render={render}
           value={value}
           select={select}
           currentValue={currentValue}
+          highlightedValue={highlightedValue}
         />
       ))}
     </ul>
@@ -74,6 +152,7 @@ export const AutoCompleteOptions = forwardRef<
     query,
     select,
     containsFunction,
+    setQuery,
     noSuggestions,
     labelledBy,
   }: AutoCompleteOptionsRendererProps,
@@ -100,6 +179,7 @@ export const AutoCompleteOptions = forwardRef<
         labelledBy={labelledBy}
         options={filteredOptions}
         currentValue={query}
+        setCurrentValue={setQuery}
         select={select}
       />
     </div>

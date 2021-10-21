@@ -25,7 +25,8 @@
 }
 .kit-ac-selected,
 .kit-ac-option:hover,
-.kit-ac-option:focus {
+.kit-ac-option:focus,
+.kit-ac-option[data-active="true"] {
   outline: none;
   background-color: var(--kit-shade-2);
 }
