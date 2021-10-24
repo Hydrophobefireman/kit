@@ -1,7 +1,11 @@
 import { BaseElement, _util, useIsPending } from "@hydrophobefireman/kit";
 import { BaseDom } from "@hydrophobefireman/kit/base-dom";
 import * as classnames from "@hydrophobefireman/kit/classnames";
-import { useKeyPress, useLabelId } from "@hydrophobefireman/kit/hooks";
+import {
+  _useSelfEvent,
+  useKeyPress,
+  useLabelId,
+} from "@hydrophobefireman/kit/hooks";
 import { forwardRef, h, useRef } from "@hydrophobefireman/ui-lib";
 
 import { InputProps } from "./types";
@@ -121,10 +125,13 @@ export const SearchInput = forwardRef(function SearchInput(
   useKeyPress("Escape", () => props.setValue && props.setValue(""), {
     target: $internalDom.current,
   });
+
   useKeyPress(
     "/",
-    _util.buildRaf(() => $internalDom.current && $internalDom.current.focus()),
-    { target: typeof window !== "undefined" ? window : undefined }
+    _useSelfEvent(
+      _util.buildRaf(() => $internalDom.current && $internalDom.current.focus())
+    ),
+    { target: typeof document !== "undefined" ? document.body : undefined }
   );
   return h(
     Input,

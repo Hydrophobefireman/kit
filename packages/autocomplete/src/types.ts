@@ -6,7 +6,6 @@ export type AutoCompleteValue = string | number | null;
 export interface AutoCompleteOptionsProps {
   value: AutoCompleteValue;
   render?(value: AutoCompleteValue): JSX.Element;
-  highlightedValue: string | null;
 }
 export interface AutoCompleteOptionsRendererProps {
   options: AutoCompleteOptionsProps[];
@@ -41,7 +40,7 @@ export interface AutoCompleteProps extends Omit<InputProps, "value"> {
 export interface OptionsRendererProps {
   options: AutoCompleteOptionsProps[];
   currentValue: AutoCompleteValue;
-  setCurrentValue(q:AutoCompleteValue):void
+  setCurrentValue(q: AutoCompleteValue): void;
   select: AutoCompleteOptionsRendererProps["select"];
   labelledBy: string;
 }

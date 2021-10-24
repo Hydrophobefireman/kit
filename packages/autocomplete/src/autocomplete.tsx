@@ -101,7 +101,6 @@ function BaseAutoComplete({
   const expanded = !isPending && dirty;
   const idx = useId(id);
   const optionRef = useRef<HTMLElement>();
-  const naturallyEnteredInputRef = useRef<string>();
   const __setInputValue = useRef<(v: any) => void>();
 
   function $setValue(t: string) {
@@ -153,7 +152,6 @@ function BaseAutoComplete({
             setValueRef: __setInputValue,
             setQuery: (q: string) => {
               setValue(q);
-              naturallyEnteredInputRef.current = q;
             },
             mode,
             setDirty,

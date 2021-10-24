@@ -30,6 +30,7 @@ function OptionsValue({
 }: AutoCompleteOptionsProps & {
   select(e: any): void;
   currentValue: AutoCompleteValue;
+  highlightedValue: string | null;
 }) {
   const ref = useRef<HTMLLIElement>();
   return (
