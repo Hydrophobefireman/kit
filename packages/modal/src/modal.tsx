@@ -1,7 +1,7 @@
 import { BaseElement, _util } from "@hydrophobefireman/kit";
 import { buildPortal } from "@hydrophobefireman/kit/build-portal";
 import * as classnames from "@hydrophobefireman/kit/classnames";
-import { Container } from "@hydrophobefireman/kit/container";
+import { Box } from "@hydrophobefireman/kit/container";
 import { FocusTrap } from "@hydrophobefireman/kit/focus-trap";
 import {
   _useHideScrollbar,
@@ -115,9 +115,9 @@ function Subtitle({
 }
 function Body({ children }: { children?: any }) {
   return (
-    <Container horizontal="center" style={{ padding: "2rem" }}>
+    <Box horizontal="center" style={{ padding: "2rem" }}>
       {children}
-    </Container>
+    </Box>
   );
 }
 const ModalComponent = buildPortal<ModalProps, typeof _Modal>("Modal", _Modal);

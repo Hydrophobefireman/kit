@@ -1,7 +1,7 @@
 import { BaseElement, _util } from "@hydrophobefireman/kit";
 import { BaseDom } from "@hydrophobefireman/kit/base-dom";
 import * as classnames from "@hydrophobefireman/kit/classnames";
-import { Container } from "@hydrophobefireman/kit/container";
+import { Box } from "@hydrophobefireman/kit/container";
 import { useLabelId } from "@hydrophobefireman/kit/hooks";
 import { h, useState } from "@hydrophobefireman/ui-lib";
 
@@ -41,7 +41,7 @@ export function Switch({
     _labelStyle["--kit-switch-height"] = height;
   }
   return (
-    <Container
+    <Box
       row
       vertical="center"
       element="label"
@@ -83,7 +83,7 @@ export function Switch({
         class={[classnames.switchIndicator, switchClassnameMap.get(state)]}
       />
       <span class={classnames.srOnly}>{label}</span>
-    </Container>
+    </Box>
   );
 }
 

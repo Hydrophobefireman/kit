@@ -1,7 +1,7 @@
 import { BaseElement, _util, useIsPending } from "@hydrophobefireman/kit";
 import { BaseDom } from "@hydrophobefireman/kit/base-dom";
 import * as classnames from "@hydrophobefireman/kit/classnames";
-import { Container } from "@hydrophobefireman/kit/container";
+import { Box } from "@hydrophobefireman/kit/container";
 import { useId, useKeyPress, useLabelId } from "@hydrophobefireman/kit/hooks";
 import {
   Fragment,
@@ -102,7 +102,7 @@ function BaseRadioInput<T>({
     }
   );
   return (
-    <Container
+    <Box
       row
       vertical="center"
       element="label"
@@ -147,7 +147,7 @@ function BaseRadioInput<T>({
         <BaseDom class={classnames.radioIndicator} element="span" />
       </span>
       {children}
-    </Container>
+    </Box>
   );
 }
 function DependantRadioInput<T>(props: BaseRadioProps<T>) {

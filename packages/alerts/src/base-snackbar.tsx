@@ -1,7 +1,7 @@
 import { _util } from "@hydrophobefireman/kit";
 import { Button } from "@hydrophobefireman/kit/button";
 import * as classnames from "@hydrophobefireman/kit/classnames";
-import { Container } from "@hydrophobefireman/kit/container";
+import { Box } from "@hydrophobefireman/kit/container";
 import {
   _useHideScrollbar,
   useFocus,
@@ -57,7 +57,7 @@ export function BaseSnackbar({
           isActive && (
             <>
               <span>{x.content}</span>
-              <Container horizontal="right" row vertical="center" flex={1}>
+              <Box horizontal="right" row vertical="center" flex={1}>
                 {(x.onActionClick || x.actionText) && (
                   <Button
                     ref={ref}
@@ -84,7 +84,7 @@ export function BaseSnackbar({
                     {x.cancelText || "cancel"}
                   </Button>
                 )}
-              </Container>
+              </Box>
             </>
           )
         }

@@ -18,7 +18,7 @@ import {
   TextButton as TB,
 } from "@hydrophobefireman/kit/button";
 import { Collapse, useCollapse } from "@hydrophobefireman/kit/collapse";
-import { Container, Resource } from "@hydrophobefireman/kit/container";
+import { Box, Resource } from "@hydrophobefireman/kit/container";
 import { FileDropTarget } from "@hydrophobefireman/kit/file-drop-target";
 import { Input, Switch, useSwitch } from "@hydrophobefireman/kit/input";
 import {
@@ -210,7 +210,7 @@ function App(): VNode {
       <BottomSheetDemo />
       <BottomSheetDemo />
       <A />
-      <Container horizontal="center">
+      <Box horizontal="center">
         <Switch
           label="OKAY"
           state={currentState}
@@ -219,7 +219,7 @@ function App(): VNode {
           width="2rem"
           height="1rem"
         />
-        <Container>
+        <Box horizontal="left">
           <RadioGroup
             as="Fragment"
             value={value}
@@ -232,9 +232,9 @@ function App(): VNode {
             <RadioInput value="Tomorrow">Tmrw</RadioInput>
             <RadioInput value="Never">Soon</RadioInput>
           </RadioGroup>
-        </Container>
-      </Container>
-      <Container horizontal="center" row>
+        </Box>
+      </Box>
+      <Box horizontal="center" row>
         <AutoComplete
           helperText="No results found"
           errored={noResult}
@@ -249,10 +249,10 @@ function App(): VNode {
           variant="material"
           options={options}
         />
-      </Container>
+      </Box>
 
       <Resource resourceName="name" isPending={!name}>
-        <Container
+        <Box
           element="main"
           class={[
             css({
@@ -266,11 +266,11 @@ function App(): VNode {
           horizontal="center"
           vertical="center"
         >
-          <Container element="div" style={{ width: "100%" }}>
+          <Box element="div" style={{ width: "100%" }}>
             <div>
               Hello <Text.strong depends>{name}</Text.strong>
             </div>
-          </Container>
+          </Box>
           <Button
             mode="secondary"
             depends
@@ -283,7 +283,7 @@ function App(): VNode {
             Refetch
           </Button>
 
-          <Container element="div" horizontal="center">
+          <Box element="div" horizontal="center">
             <div>Current Theme is {currentTheme} </div>
             <Button
               label="Toggle"
@@ -293,10 +293,10 @@ function App(): VNode {
             >
               Toggle
             </Button>
-          </Container>
-        </Container>
+          </Box>
+        </Box>
       </Resource>
-      <Container style={{ marginTop: "2rem", flexWrap: "wrap" }} row>
+      <Box style={{ marginTop: "2rem", flexWrap: "wrap" }} row>
         <TextButton
           class={css({ margin: ".5rem" })}
           text="Normal"
@@ -345,25 +345,25 @@ function App(): VNode {
           text="Warning"
           mode="warning"
         />
-      </Container>
-      <Container horizontal="center">
+      </Box>
+      <Box horizontal="center">
         <RouterTest />
-      </Container>
-      <Container horizontal="center" row>
+      </Box>
+      <Box horizontal="center" row>
         <TestInput variant="material" placeholder="hello" />
         <TestInput variant="material" placeholder="hello" size="large" />
         <TestInput errored placeholder="hello" size="small" />
-      </Container>
+      </Box>
       <Resource isPending={true} resourceName="ok">
-        <Container horizontal="center">
+        <Box horizontal="center">
           <Text size={16} color="kit-highlight-pink">
             Hello World
           </Text>
-        </Container>
+        </Box>
       </Resource>
-      <Container horizontal="center">
+      <Box horizontal="center">
         <CheckboxTest />
-      </Container>
+      </Box>
     </>
   );
 }
@@ -401,10 +401,10 @@ function BottomSheetDemo() {
         Open
       </Button>
       <BottomSheet active={s} onDismiss={() => setS(false)}>
-        <Container>
+        <Box>
           {" "}
           <Text.h1>OK</Text.h1>
-        </Container>{" "}
+        </Box>{" "}
       </BottomSheet>
     </div>
   );

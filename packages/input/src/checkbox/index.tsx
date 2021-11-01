@@ -1,10 +1,10 @@
 import { BaseElement, _util } from "@hydrophobefireman/kit";
 import { BaseDom } from "@hydrophobefireman/kit/base-dom";
 import * as classnames from "@hydrophobefireman/kit/classnames";
-import { Container } from "@hydrophobefireman/kit/container";
+import { Box } from "@hydrophobefireman/kit/container";
 import { useLabelId, useToggleState } from "@hydrophobefireman/kit/hooks";
 import { Text } from "@hydrophobefireman/kit/text";
-import { h, useState } from "@hydrophobefireman/ui-lib";
+import { h } from "@hydrophobefireman/ui-lib";
 
 import { CheckboxProps } from "./types";
 
@@ -31,7 +31,7 @@ export function Checkbox({
     labelStyle["--kit-checkbox-size"] = size;
   }
   return (
-    <Container
+    <Box
       inlineFlex={inline}
       row
       disabled={disabled}
@@ -75,7 +75,7 @@ export function Checkbox({
         <Checkmark />
       </span>
       {children}
-    </Container>
+    </Box>
   );
 }
 

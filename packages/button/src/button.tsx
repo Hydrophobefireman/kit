@@ -134,13 +134,14 @@ export const Button = forwardRef<BaseElement<ButtonProps>>(function _Button(
   return h(BaseButton, rest as any);
 });
 
-export const TextButton = forwardRef(function (
-  {
-    children,
-    ...rest
-  }: Omit<BaseElement<ButtonProps>, "children" | "label"> & {
-    children?: any;
-  },
+export type TextButtonProps = Omit<
+  BaseElement<ButtonProps>,
+  "children" | "label"
+> & {
+  children?: any;
+};
+export const TextButton = forwardRef<TextButtonProps>(function (
+  { children, ...rest }: TextButtonProps,
   ref
 ) {
   const text = [children].flat().join("");

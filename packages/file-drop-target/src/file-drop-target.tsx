@@ -1,6 +1,6 @@
 import { _util } from "@hydrophobefireman/kit";
 import * as classnames from "@hydrophobefireman/kit/classnames";
-import { Container, ContainerProps } from "@hydrophobefireman/kit/container";
+import { Box, ContainerProps } from "@hydrophobefireman/kit/container";
 import { useFileDrop, useLatestRef } from "@hydrophobefireman/kit/hooks";
 import { PaperClipIcon } from "@hydrophobefireman/kit/icons";
 import { Text } from "@hydrophobefireman/kit/text";
@@ -28,7 +28,7 @@ export function FileDropTarget({
 
   useEffect(() => files && onUpdateRef.current(files, reset), [files]);
   return (
-    <Container
+    <Box
       ref={ref}
       onClick={() => {
         const input = document.createElement("input");
@@ -60,6 +60,6 @@ export function FileDropTarget({
       <PaperClipIcon />
       <Text>{message || "Drag and drop files here"}</Text>
       {children}
-    </Container>
+    </Box>
   );
 }

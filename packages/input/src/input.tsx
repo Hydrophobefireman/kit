@@ -116,30 +116,31 @@ function InputComponent({ depends, ..._rest }: BaseElement<InputProps>, ref) {
   return h(BaseInput, rest as any);
 }
 
-export const SearchInput = forwardRef(function SearchInput(
-  props: BaseElement<InputProps>,
-  ref
-) {
-  const $internalDom = useRef<HTMLInputElement>();
+export const SearchInput = forwardRef<BaseElement<InputProps>>(
+  function SearchInput(props: BaseElement<InputProps>, ref) {
+    const $internalDom = useRef<HTMLInputElement>();
 
-  useKeyPress("Escape", () => props.setValue && props.setValue(""), {
-    target: $internalDom.current,
-  });
+    useKeyPress("Escape", () => props.setValue && props.setValue(""), {
+      target: $internalDom.current,
+    });
 
-  useKeyPress(
-    "/",
-    _useSelfEvent(
-      _util.buildRaf(() => $internalDom.current && $internalDom.current.focus())
-    ),
-    { target: typeof document !== "undefined" ? document.body : undefined }
-  );
-  return h(
-    Input,
-    _util.extend(props as any, {
-      ref: _util.applyForwardedRef(ref, $internalDom),
-    })
-  );
-});
+    useKeyPress(
+      "/",
+      _useSelfEvent(
+        _util.buildRaf(
+          () => $internalDom.current && $internalDom.current.focus()
+        )
+      ),
+      { target: typeof document !== "undefined" ? document.body : undefined }
+    );
+    return h(
+      Input,
+      _util.extend(props as any, {
+        ref: _util.applyForwardedRef(ref, $internalDom),
+      })
+    );
+  }
+);
 export const Input: typeof InputComponent & { Search: typeof SearchInput } =
-  forwardRef(InputComponent) as any;
+  forwardRef<BaseElement<InputProps>>(InputComponent) as any;
 (Input as any).Search = SearchInput;

@@ -80,7 +80,7 @@ function DependantContainer(props: InternalContainerProps) {
   return h(BaseContainer, props as any);
 }
 
-export const Container = forwardRef<ContainerProps>(function Container(
+export const Box = forwardRef<ContainerProps>(function Box(
   { depends, ..._props }: ContainerProps,
   ref
 ) {
