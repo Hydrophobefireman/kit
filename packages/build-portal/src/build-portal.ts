@@ -1,8 +1,8 @@
-import { ComplexComponent, _util } from "@hydrophobefireman/kit";
-import { useFocus, useId, useMount } from "@hydrophobefireman/kit/hooks";
-import { h, useEffect } from "@hydrophobefireman/ui-lib";
+import {ComplexComponent, _util} from "@hydrophobefireman/kit";
+import {useFocus, useId, useMount} from "@hydrophobefireman/kit/hooks";
+import {h, useEffect} from "@hydrophobefireman/ui-lib";
 
-const { PortalTree } = _util;
+const {PortalTree} = _util;
 export function buildPortal<P extends {}, C extends ComplexComponent>(
   name: string,
   rootContainer: C
@@ -10,7 +10,7 @@ export function buildPortal<P extends {}, C extends ComplexComponent>(
   const p = new PortalTree();
 
   function Component(props: P) {
-    const { restore } = useFocus();
+    const {restore} = useFocus();
     useEffect(() => {
       if ("active" in props && !(props as any).active) restore();
     }, [(props as any).active]);
@@ -27,6 +27,6 @@ export function buildPortal<P extends {}, C extends ComplexComponent>(
     });
     return null;
   }
-  Object.defineProperty(Component, "name", { value: name });
+  Object.defineProperty(Component, "name", {value: name});
   return Component;
 }

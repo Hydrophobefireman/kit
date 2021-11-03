@@ -1,4 +1,4 @@
-import { RefType, useCallback, useState } from "@hydrophobefireman/ui-lib";
+import {RefType, useCallback, useState} from "@hydrophobefireman/ui-lib";
 
 // logic with optimisations and changes from
 // https://github.com/geist-org/react/blob/master/components/shared/dropdown.tsx
@@ -51,5 +51,5 @@ export function useRect(
     setRect(r);
     return r;
   };
-  return { rect, sync };
+  return {rect, sync};
 }

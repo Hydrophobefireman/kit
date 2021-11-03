@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from "@hydrophobefireman/ui-lib";
+import {useEffect, useRef, useState} from "@hydrophobefireman/ui-lib";
 
-import { useMount } from "./use-mount";
+import {useMount} from "./use-mount";
 
 export function useFocus<T extends HTMLElement>() {
   const ref = useRef<T>();
@@ -26,7 +26,7 @@ export function useImperativeFocus() {
   const [lastFocused, setLastFocus] = useState<Element | null>(null);
   const onUnmount = useRef<() => void>();
   useMount(() => {
-    const { activeElement } = document;
+    const {activeElement} = document;
     setInitiallyFocused(activeElement);
     setLastFocus(activeElement);
     return () => {
@@ -36,7 +36,7 @@ export function useImperativeFocus() {
   function update() {
     setLastFocus(document.activeElement);
   }
-  function restore({ to }: { to?: "initial" | "custom" } = {}) {
+  function restoreOnUnmount({to}: {to?: "initial" | "custom"} = {}) {
     to = to || "initial";
     onUnmount.current = function () {
       to === "custom"
@@ -45,5 +45,5 @@ export function useImperativeFocus() {
     };
   }
 
-  return { initiallyFocused, lastFocus: lastFocused, update, restore };
+  return {initiallyFocused, lastFocus: lastFocused, update, restoreOnUnmount};
 }

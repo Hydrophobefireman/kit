@@ -1,4 +1,4 @@
-import { BaseElement, _util } from "@hydrophobefireman/kit";
+import {BaseElement, _util} from "@hydrophobefireman/kit";
 import * as classnames from "@hydrophobefireman/kit/classnames";
 import {
   useLatestRef,
@@ -18,7 +18,7 @@ function _inactive(style: CSSStyleDeclaration) {
   style.height = "0px";
   style.overflow = "hidden";
 }
-export const Collapse = forwardRef<BaseElement<{ active?: boolean }>>(
+export const Collapse = forwardRef<BaseElement<{active?: boolean}>>(
   function Collapse(
     {
       children,
@@ -26,12 +26,12 @@ export const Collapse = forwardRef<BaseElement<{ active?: boolean }>>(
       class: cls,
       className,
       ...rest
-    }: BaseElement<{ active?: boolean }>,
+    }: BaseElement<{active?: boolean}>,
     ref: RefType<any>
   ) {
     const klass = [className, cls, classnames.collapse];
     const $internalRef = useRef<HTMLDivElement>();
-    const { rect, sync } = useRect($internalRef);
+    const {rect, sync} = useRect($internalRef);
     const rectRef = useLatestRef(rect);
     const firstRender = useRef(true);
     const isPendingTransition = useRef(false);
@@ -59,7 +59,7 @@ export const Collapse = forwardRef<BaseElement<{ active?: boolean }>>(
     }
     useLayoutEffect(update, [active]);
     function latestHeight() {
-      const { current } = $internalRef;
+      const {current} = $internalRef;
       current.style.height = `${current.getBoundingClientRect().height}px`;
     }
     useResize(
@@ -76,7 +76,7 @@ export const Collapse = forwardRef<BaseElement<{ active?: boolean }>>(
     );
     const onend = () => {
       isPendingTransition.current = false;
-      const { current } = $internalRef;
+      const {current} = $internalRef;
       if (!active) return;
 
       current.style.height = "auto";

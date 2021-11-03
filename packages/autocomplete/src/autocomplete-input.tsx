@@ -1,8 +1,8 @@
-import { BaseElement, _util } from "@hydrophobefireman/kit";
-import { Input } from "@hydrophobefireman/kit/input";
-import { forwardRef, h, useEffect, useState } from "@hydrophobefireman/ui-lib";
+import {BaseElement, _util} from "@hydrophobefireman/kit";
+import {Input} from "@hydrophobefireman/kit/input";
+import {forwardRef, h, useEffect, useState} from "@hydrophobefireman/ui-lib";
 
-import { AutoCompleteInputProps } from "./types";
+import {AutoCompleteInputProps} from "./types";
 
 export const AutoCompleteInput = forwardRef<
   BaseElement<AutoCompleteInputProps>

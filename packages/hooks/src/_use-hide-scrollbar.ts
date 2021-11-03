@@ -1,4 +1,4 @@
-import { useEffect } from "@hydrophobefireman/ui-lib";
+import {useEffect} from "@hydrophobefireman/ui-lib";
 
 export function _useHideScrollbar(shouldHide: boolean) {
   return useEffect(() => {

@@ -1,4 +1,4 @@
-import { createContext, useContext } from "@hydrophobefireman/ui-lib";
+import {createContext, useContext} from "@hydrophobefireman/ui-lib";
 
 export const PendingDataContext = createContext({
   resourceName: null,

@@ -1,6 +1,6 @@
-import { RefType } from "@hydrophobefireman/ui-lib";
+import {RefType} from "@hydrophobefireman/ui-lib";
 
-import { warnOnce } from "./warn";
+import {warnOnce} from "./warn";
 
 const refWarning = warnOnce();
 export function applyRef(ref: any, value: any) {

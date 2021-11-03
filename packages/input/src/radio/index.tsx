@@ -1,8 +1,8 @@
-import { BaseElement, _util, useIsPending } from "@hydrophobefireman/kit";
-import { BaseDom } from "@hydrophobefireman/kit/base-dom";
+import {BaseElement, _util, useIsPending} from "@hydrophobefireman/kit";
+import {BaseDom} from "@hydrophobefireman/kit/base-dom";
 import * as classnames from "@hydrophobefireman/kit/classnames";
-import { Box } from "@hydrophobefireman/kit/container";
-import { useId, useKeyPress, useLabelId } from "@hydrophobefireman/kit/hooks";
+import {Box} from "@hydrophobefireman/kit/container";
+import {useId, useKeyPress, useLabelId} from "@hydrophobefireman/kit/hooks";
 import {
   Fragment,
   createContext,
@@ -11,7 +11,7 @@ import {
   useRef,
 } from "@hydrophobefireman/ui-lib";
 
-import { RadioInputProps } from "./types";
+import {RadioInputProps} from "./types";
 
 export * from "./types";
 const RadioContext = createContext({
@@ -49,7 +49,7 @@ export function RadioGroup<T>({
           "data-current-value": value,
         }),
     <RadioContext.Provider
-      value={{ value, setValue, name: radioGroupName, depends } as any}
+      value={{value, setValue, name: radioGroupName, depends} as any}
     >
       {children}
     </RadioContext.Provider>
@@ -65,7 +65,7 @@ export function useRadio<T>(): {
   return useContext(RadioContext);
 }
 type BaseRadioProps<T> = BaseElement<
-  RadioInputProps<T> & { ctx: ReturnType<typeof useRadio> }
+  RadioInputProps<T> & {ctx: ReturnType<typeof useRadio>}
 >;
 function BaseRadioInput<T>({
   value,
@@ -81,7 +81,7 @@ function BaseRadioInput<T>({
   ...rest
 }: BaseRadioProps<T>) {
   _util.guardCss(labelStyle);
-  const { value: currentValue, setValue, name } = ctx;
+  const {value: currentValue, setValue, name} = ctx;
   const [inputId, labelId] = useLabelId(id);
   const isSelected = currentValue === value;
   const label = useRef<HTMLLabelElement>();
@@ -151,7 +151,7 @@ function BaseRadioInput<T>({
   );
 }
 function DependantRadioInput<T>(props: BaseRadioProps<T>) {
-  const { isPending } = useIsPending();
+  const {isPending} = useIsPending();
   if (!isPending) return h(BaseRadioInput, props as any);
   return h(
     BaseRadioInput,
@@ -162,10 +162,10 @@ function DependantRadioInput<T>(props: BaseRadioProps<T>) {
   );
 }
 export function RadioInput<T>(props: BaseElement<RadioInputProps<T>>) {
-  const { value: currentValue, setValue, name, depends } = useRadio<T>();
+  const {value: currentValue, setValue, name, depends} = useRadio<T>();
 
   const childProps: any = _util.extend(
-    { ctx: { value: currentValue, setValue, name } },
+    {ctx: {value: currentValue, setValue, name}},
     props
   );
   if (depends) {

@@ -1,6 +1,6 @@
-import { Properties } from "csstype";
+import {Properties} from "csstype";
 
-import { ComplexComponent } from "@hydrophobefireman/kit";
+import {ComplexComponent} from "@hydrophobefireman/kit";
 
 export interface RouteComponentProps {
   render: ComplexComponent;
@@ -22,8 +22,8 @@ export interface TransitionRouterContext extends RouterContext {
   transitionStyle: Properties;
 }
 export type TransitionPath = (
-  | { component: ComplexComponent }
-  | { jsx: JSX.Element }
+  | {component: ComplexComponent}
+  | {jsx: JSX.Element}
 ) & {
   preload?(): Promise<any>;
   fallback?: ComplexComponent;
@@ -51,5 +51,5 @@ export type RouterPaths = Record<
 >;
 
 export interface Preloader {
-  (): Promise<ComplexComponent | { default: ComplexComponent }>;
+  (): Promise<ComplexComponent | {default: ComplexComponent}>;
 }

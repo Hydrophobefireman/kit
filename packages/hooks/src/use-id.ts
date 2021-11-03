@@ -1,5 +1,5 @@
-import { _util } from "@hydrophobefireman/kit";
-import { useMemo } from "@hydrophobefireman/ui-lib";
+import {_util} from "@hydrophobefireman/kit";
+import {useMemo} from "@hydrophobefireman/ui-lib";
 let _id = 0;
 const kitAutoIdPrefix = _util.ID_PREFIX + _util.random();
 const nextId = () => ++_id;

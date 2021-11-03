@@ -1,4 +1,4 @@
-import { useCallback, useState } from "@hydrophobefireman/ui-lib";
+import {useCallback, useState} from "@hydrophobefireman/ui-lib";
 
 export function useRerender() {
   const [, setState] = useState<any>(null);

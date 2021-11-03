@@ -1,15 +1,15 @@
 {
-   "name": "text",
-   "version": "0.0.1-2021-10-29-18-55",
-   "private": true,
-   "main": "src/index.js",
-   "module": "src/index.js",
-   "types": "src/index.d.ts",
-   "license": "MIT",
-   "scripts": {},
-   "peerDependencies": {
-      "@hydrophobefireman/flask-jwt-jskit": "^0.1.5",
-      "@hydrophobefireman/ui-lib": "^1.11.3",
-      "statedrive": "^0.0.13"
-   }
+  "name": "text",
+  "version": "0.0.1-2021-10-29-18-55",
+  "private": true,
+  "main": "src/index.js",
+  "module": "src/index.js",
+  "types": "src/index.d.ts",
+  "license": "MIT",
+  "scripts": {},
+  "peerDependencies": {
+    "@hydrophobefireman/flask-jwt-jskit": "^0.1.5",
+    "@hydrophobefireman/ui-lib": "^1.11.3",
+    "statedrive": "^0.0.13"
+  }
 }

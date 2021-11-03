@@ -1,10 +1,10 @@
-import { _util } from "@hydrophobefireman/kit";
+import {_util} from "@hydrophobefireman/kit";
 import * as classnames from "@hydrophobefireman/kit/classnames";
-import { Box, ContainerProps } from "@hydrophobefireman/kit/container";
-import { useFileDrop, useLatestRef } from "@hydrophobefireman/kit/hooks";
-import { PaperClipIcon } from "@hydrophobefireman/kit/icons";
-import { Text } from "@hydrophobefireman/kit/text";
-import { useEffect, useRef, useState } from "@hydrophobefireman/ui-lib";
+import {Box, ContainerProps} from "@hydrophobefireman/kit/container";
+import {useFileDrop, useLatestRef} from "@hydrophobefireman/kit/hooks";
+import {PaperClipIcon} from "@hydrophobefireman/kit/icons";
+import {Text} from "@hydrophobefireman/kit/text";
+import {useEffect, useRef, useState} from "@hydrophobefireman/ui-lib";
 export function FileDropTarget({
   message,
   children,
@@ -20,7 +20,7 @@ export function FileDropTarget({
   multiple?: boolean;
 }) {
   const ref = useRef<HTMLDivElement>();
-  const [files, setFiles, reset] = useFileDrop(ref.current, { multiple });
+  const [files, setFiles, reset] = useFileDrop(ref.current, {multiple});
   const [accepting, setAccepting] = useState(false);
   const isAccepting = () => setAccepting(true);
   const disableAccepting = () => setAccepting(false);

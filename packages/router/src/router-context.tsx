@@ -1,6 +1,6 @@
-import { createContext } from "@hydrophobefireman/ui-lib";
+import {createContext} from "@hydrophobefireman/ui-lib";
 
-import { TransitionRouterContext } from "./types";
+import {TransitionRouterContext} from "./types";
 
 export const Ctx = createContext<TransitionRouterContext>({
   params: {},
@@ -10,8 +10,8 @@ export const Ctx = createContext<TransitionRouterContext>({
   transitionStyle: null,
 } as any);
 export function RouterContext(
-  props: TransitionRouterContext & { children?: any }
+  props: TransitionRouterContext & {children?: any}
 ) {
-  const { children, ...rest } = props;
+  const {children, ...rest} = props;
   return <Ctx.Provider value={rest as any} children={children} />;
 }

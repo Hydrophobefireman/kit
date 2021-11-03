@@ -1,11 +1,11 @@
-import { BaseElement, _util } from "@hydrophobefireman/kit";
-import { BaseDom } from "@hydrophobefireman/kit/base-dom";
+import {BaseElement, _util} from "@hydrophobefireman/kit";
+import {BaseDom} from "@hydrophobefireman/kit/base-dom";
 import * as classnames from "@hydrophobefireman/kit/classnames";
-import { Box } from "@hydrophobefireman/kit/container";
-import { useLabelId } from "@hydrophobefireman/kit/hooks";
-import { h, useState } from "@hydrophobefireman/ui-lib";
+import {Box} from "@hydrophobefireman/kit/container";
+import {useLabelId} from "@hydrophobefireman/kit/hooks";
+import {h, useState} from "@hydrophobefireman/ui-lib";
 
-import { SwitchProps } from "./types";
+import {SwitchProps} from "./types";
 
 export * from "./types";
 
@@ -92,5 +92,5 @@ export function useSwitch(state: SwitchProps["state"]) {
   function toggle() {
     setState(currentState !== "enabled" ? "enabled" : "disabled");
   }
-  return { currentState, toggle, setState };
+  return {currentState, toggle, setState};
 }

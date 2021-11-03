@@ -1,11 +1,11 @@
-import { BaseElement, _util, useIsPending } from "@hydrophobefireman/kit";
-import { h, useState } from "@hydrophobefireman/ui-lib";
+import {BaseElement, _util, useIsPending} from "@hydrophobefireman/kit";
+import {h, useState} from "@hydrophobefireman/ui-lib";
 
-import { BaseAutoComplete } from "./base-autocomplete";
-import { AutoCompleteProps } from "./types";
+import {BaseAutoComplete} from "./base-autocomplete";
+import {AutoCompleteProps} from "./types";
 
 function DependantAutoComplete(props: BaseElement<AutoCompleteProps>) {
-  const { isPending } = useIsPending();
+  const {isPending} = useIsPending();
   if (isPending)
     return h(
       BaseAutoComplete,
@@ -25,5 +25,5 @@ export function AutoComplete(props: BaseElement<AutoCompleteProps>) {
 
 export function useAutoComplete(initial?: string) {
   const [value, setValue] = useState(initial || "");
-  return { value, setValue };
+  return {value, setValue};
 }

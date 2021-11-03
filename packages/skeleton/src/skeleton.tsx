@@ -1,5 +1,5 @@
-import { BaseDomProps, OptionalPick, _util } from "@hydrophobefireman/kit";
-import { BaseDom } from "@hydrophobefireman/kit/base-dom";
+import {BaseDomProps, OptionalPick, _util} from "@hydrophobefireman/kit";
+import {BaseDom} from "@hydrophobefireman/kit/base-dom";
 import * as classnames from "@hydrophobefireman/kit/classnames";
 
 export function Skeleton({
@@ -14,7 +14,7 @@ export function Skeleton({
       aria-hidden
       inlineBlock
       className={[className, cls, classnames.noEvents]}
-      style={_util.extend({ position: "relative" }, style)}
+      style={_util.extend({position: "relative"}, style)}
     >
       <span class={classnames.skeletonWrapper}>{children}</span>
     </BaseDom>

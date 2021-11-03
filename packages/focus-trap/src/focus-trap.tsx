@@ -1,6 +1,6 @@
 import * as classnames from "@hydrophobefireman/kit/classnames";
-import { useImperativeFocus, useKeyPress } from "@hydrophobefireman/kit/hooks";
-import { useEffect, useRef } from "@hydrophobefireman/ui-lib";
+import {useImperativeFocus, useKeyPress} from "@hydrophobefireman/kit/hooks";
+import {useEffect, useRef} from "@hydrophobefireman/ui-lib";
 export function FocusTrap({
   children,
   shouldTrap,
@@ -11,14 +11,14 @@ export function FocusTrap({
   const divStart = useRef<HTMLDivElement>();
   const divEnd = useRef<HTMLDivElement>();
   const contentRef = useRef<HTMLDivElement>();
-  const { restore } = useImperativeFocus();
-  restore();
+  const {restoreOnUnmount} = useImperativeFocus();
+  restoreOnUnmount();
   useKeyPress(
     "Tab",
     (e) => {
       if (!shouldTrap) return;
-      const { shiftKey } = e;
-      const { activeElement } = document;
+      const {shiftKey} = e;
+      const {activeElement} = document;
       if (shiftKey) {
         if (activeElement === divStart.current) {
           divEnd.current.focus();
@@ -34,7 +34,7 @@ export function FocusTrap({
   );
   useEffect(() => {
     if (shouldTrap) {
-      const { activeElement } = document;
+      const {activeElement} = document;
       const contentWrapper = contentRef.current;
       const start = divStart.current;
       const end = divEnd.current;
@@ -53,7 +53,7 @@ export function FocusTrap({
   return (
     <>
       <div tabIndex={0} ref={divStart} class={classnames._focusTrap} />
-      <div ref={contentRef} style={{ display: "contents" }}>
+      <div ref={contentRef} style={{display: "contents"}}>
         {children}
       </div>
       <div tabIndex={0} ref={divEnd} class={classnames._focusTrap} />

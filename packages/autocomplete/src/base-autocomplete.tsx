@@ -1,14 +1,14 @@
-import { BaseElement, _util } from "@hydrophobefireman/kit";
+import {BaseElement, _util} from "@hydrophobefireman/kit";
+import {AutoCompleteOptions} from "@hydrophobefireman/kit/_autocomplete-options";
 import * as classnames from "@hydrophobefireman/kit/classnames";
-import { Box } from "@hydrophobefireman/kit/container";
-import { Dropdown } from "@hydrophobefireman/kit/dropdown";
-import { useId } from "@hydrophobefireman/kit/hooks";
-import { Transition } from "@hydrophobefireman/kit/transition";
-import { h, useMemo, useRef, useState } from "@hydrophobefireman/ui-lib";
+import {Box} from "@hydrophobefireman/kit/container";
+import {Dropdown} from "@hydrophobefireman/kit/dropdown";
+import {useId} from "@hydrophobefireman/kit/hooks";
+import {Transition} from "@hydrophobefireman/kit/transition";
+import {h, useMemo, useRef, useState} from "@hydrophobefireman/ui-lib";
 
-import { AutoCompleteInput } from "./autocomplete-input";
-import { AutoCompleteOptions } from "./autocompleteOptions";
-import { AutoCompleteProps } from "./types";
+import {AutoCompleteInput} from "./autocomplete-input";
+import {AutoCompleteProps} from "./types";
 
 export function BaseAutoComplete({
   mode,
@@ -38,13 +38,13 @@ export function BaseAutoComplete({
     __setInputValue.current && __setInputValue.current(t);
     if (!preserveOpenOnClick) {
       setDirty(false);
-      const { activeElement } = document;
+      const {activeElement} = document;
       activeElement && (activeElement as any).blur();
     }
   }
 
   function select(e: JSX.TargetedMouseEvent<any>) {
-    const { currentTarget } = e;
+    const {currentTarget} = e;
     // the only component that syncs and ties everything else
     // should be the autocompleteInput
     // that is our ONLY source of truth
@@ -95,7 +95,7 @@ export function BaseAutoComplete({
         ) as any
       )}
       <Dropdown
-        style={dropdownActive ? null : { overflow: "hidden" }}
+        style={dropdownActive ? null : {overflow: "hidden"}}
         parent={parentRef}
         sibling={inputRef}
         class={dropdownClass}

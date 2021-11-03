@@ -1,8 +1,8 @@
-import { useIsPending } from "@hydrophobefireman/kit";
-import { useEffect, useState } from "@hydrophobefireman/ui-lib";
+import {useIsPending} from "@hydrophobefireman/kit";
+import {useEffect, useState} from "@hydrophobefireman/ui-lib";
 
 export interface AbortableFetchResponse<T> {
-  result: Promise<{ data: T; error?: string }>;
+  result: Promise<{data: T; error?: string}>;
   controller: AbortController;
   headers: Promise<Headers>;
 }
@@ -24,7 +24,7 @@ function buildUseResource(independant: boolean) {
     function clearError() {
       setError(null);
     }
-    const { isPending } = useIsPending();
+    const {isPending} = useIsPending();
     const _dep: Array<any> = args || [];
     const dependencies = independant ? _dep : _dep.concat(isPending);
 
@@ -33,9 +33,9 @@ function buildUseResource(independant: boolean) {
       if (shouldWait) return;
 
       if (resp) setResp(null);
-      const { controller, result } = func(...(args as any));
+      const {controller, result} = func(...(args as any));
       const prom = result.then((x) => {
-        const { data, error } = x;
+        const {data, error} = x;
         if (error) {
           setResp(null);
           return setError(error);
@@ -48,7 +48,7 @@ function buildUseResource(independant: boolean) {
       >;
     }
     useEffect(fetchResource, dependencies);
-    return { resp, fetchResource, error, setResp, clearError };
+    return {resp, fetchResource, error, setResp, clearError};
   };
 }
 

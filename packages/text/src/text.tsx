@@ -1,10 +1,10 @@
-import { Properties } from "csstype";
+import {Properties} from "csstype";
 
-import { BaseElement, _util, useIsPending } from "@hydrophobefireman/kit";
-import { Skeleton } from "@hydrophobefireman/kit/skeleton";
-import { h } from "@hydrophobefireman/ui-lib";
+import {BaseElement, _util, useIsPending} from "@hydrophobefireman/kit";
+import {Skeleton} from "@hydrophobefireman/kit/skeleton";
+import {h} from "@hydrophobefireman/ui-lib";
 
-import { TextAs, TextProps } from "./types";
+import {TextAs, TextProps} from "./types";
 
 function BaseText({
   as = "p",
@@ -26,13 +26,10 @@ function BaseText({
   transform && (css.textTransform = transform);
   noMargin && (css.margin = 0);
   const C = as;
-  return h(
-    C,
-    _util.extend({ style: _util.extend(css, style), children }, rest)
-  );
+  return h(C, _util.extend({style: _util.extend(css, style), children}, rest));
 }
 function DependantText(props: BaseElement<TextProps>) {
-  const { isPending } = useIsPending();
+  const {isPending} = useIsPending();
   if (isPending)
     return (
       <Skeleton>
@@ -47,14 +44,14 @@ function DependantText(props: BaseElement<TextProps>) {
   return h(BaseText, props as any);
 }
 
-export function Text({ depends, ...props }: BaseElement<TextProps>) {
+export function Text({depends, ...props}: BaseElement<TextProps>) {
   if (depends) return h(DependantText, props as any);
   return h(BaseText, props as any);
 }
 
 function createTextComponent<T extends TextAs>(x: T) {
   return function (props: Omit<BaseElement<TextProps>, "as">) {
-    return h(Text, _util.extend({}, props, { as: x }) as any);
+    return h(Text, _util.extend({}, props, {as: x}) as any);
   };
 }
 

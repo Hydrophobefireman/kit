@@ -1,8 +1,8 @@
-import { _util, useIsPending } from "@hydrophobefireman/kit";
-import { BaseDom } from "@hydrophobefireman/kit/base-dom";
+import {_util, useIsPending} from "@hydrophobefireman/kit";
+import {BaseDom} from "@hydrophobefireman/kit/base-dom";
 import * as classnames from "@hydrophobefireman/kit/classnames";
-import { Skeleton } from "@hydrophobefireman/kit/skeleton";
-import { forwardRef, h } from "@hydrophobefireman/ui-lib";
+import {Skeleton} from "@hydrophobefireman/kit/skeleton";
+import {forwardRef, h} from "@hydrophobefireman/ui-lib";
 
 import {
   ContainerProps,
@@ -63,7 +63,7 @@ function BaseContainer({
 }
 
 function DependantContainer(props: InternalContainerProps) {
-  const { isPending, resourceName } = useIsPending();
+  const {isPending, resourceName} = useIsPending();
 
   if (isPending)
     return props.skeleton ? (
@@ -81,10 +81,10 @@ function DependantContainer(props: InternalContainerProps) {
 }
 
 export const Box = forwardRef<ContainerProps>(function Box(
-  { depends, ..._props }: ContainerProps,
+  {depends, ..._props}: ContainerProps,
   ref
 ) {
-  const props = _util.extend(_props, { __$ref: ref });
+  const props = _util.extend(_props, {__$ref: ref});
   if (depends) return h(DependantContainer, props as any);
   return h(BaseContainer, props as any);
 });

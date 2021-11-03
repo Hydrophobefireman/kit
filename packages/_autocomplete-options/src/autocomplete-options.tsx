@@ -1,6 +1,6 @@
-import { _util } from "@hydrophobefireman/kit";
+import {_util} from "@hydrophobefireman/kit";
 import * as classnames from "@hydrophobefireman/kit/classnames";
-import { useKeyPress } from "@hydrophobefireman/kit/hooks";
+import {useKeyPress} from "@hydrophobefireman/kit/hooks";
 import {
   RefType,
   forwardRef,
@@ -16,10 +16,10 @@ import {
   AutoCompleteValue,
   OptionsRendererProps,
 } from "./types";
-import { clean, contains } from "./util";
+import {clean, contains} from "./util";
 
 const win = typeof window !== "undefined" ? window : (null as any);
-const opts = { target: win };
+const opts = {target: win};
 _util.scrollIntoViewIfNeededPolyfill();
 function OptionsValue({
   render,
@@ -50,7 +50,7 @@ function OptionsValue({
     </li>
   );
 }
-function OptionsRenderer({
+export function OptionsRenderer({
   options,
   currentValue,
   select,
@@ -79,10 +79,10 @@ function OptionsRenderer({
       $curr = i;
       return x.dataset.value === highlightedValue;
     });
-    return { children, activeChild, $curr };
+    return {children, activeChild, $curr};
   }
   function handleArrowUp() {
-    const { activeChild, children, $curr } = _arrow();
+    const {activeChild, children, $curr} = _arrow();
     if (!activeChild) {
       const lastChild = children[children.length - 1];
 
@@ -95,7 +95,7 @@ function OptionsRenderer({
     setHighlightedValue(children[$curr - 1]);
   }
   function handleArrowDown() {
-    const { $curr, activeChild, children } = _arrow();
+    const {$curr, activeChild, children} = _arrow();
     if (!activeChild) {
       const firstChild = children[0];
       return setHighlightedValue(firstChild);
@@ -121,7 +121,7 @@ function OptionsRenderer({
           (x: HTMLElement) => x.dataset.value === currentValue
         ) as any);
       if (!e) return;
-      setCurrentValue(e.dataset.value);
+      setCurrentValue && setCurrentValue(e.dataset.value);
     },
     opts
   );
@@ -131,7 +131,7 @@ function OptionsRenderer({
       class={classnames._autoCompleteInlineList}
       aria-labelledBy={labelledBy}
     >
-      {options.map(({ render, value }) => (
+      {options.map(({render, value}) => (
         <OptionsValue
           render={render}
           value={value}
@@ -166,7 +166,7 @@ export const AutoCompleteOptions = forwardRef<
     AutoCompleteOptionsProps[]
   >([]);
   useEffect(() => {
-    const { current } = funcRef;
+    const {current} = funcRef;
     if (!options || !options.length) return setFilteredOptions([]);
     if (current === contains && !clean(query))
       return setFilteredOptions(options);

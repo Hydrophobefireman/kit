@@ -1,7 +1,7 @@
-import { _util } from "@hydrophobefireman/kit";
-import { buildPortal } from "@hydrophobefireman/kit/build-portal";
+import {_util} from "@hydrophobefireman/kit";
+import {buildPortal} from "@hydrophobefireman/kit/build-portal";
 import * as classnames from "@hydrophobefireman/kit/classnames";
-import { bottomSheetInactive } from "@hydrophobefireman/kit/classnames";
+import {bottomSheetInactive} from "@hydrophobefireman/kit/classnames";
 import {
   _useHideScrollbar,
   _useSelfEvent,
@@ -10,9 +10,9 @@ import {
   useMount,
   useToggleState,
 } from "@hydrophobefireman/kit/hooks";
-import { useEffect, useRef } from "@hydrophobefireman/ui-lib";
+import {useEffect, useRef} from "@hydrophobefireman/ui-lib";
 
-import { BottomSheetProps } from "./types";
+import {BottomSheetProps} from "./types";
 
 function _BottomSheet({
   active,
@@ -27,7 +27,7 @@ function _BottomSheet({
     if (e.target !== e.currentTarget) return;
     onAnimationComplete && onAnimationComplete();
   }
-  const { restore, setPreviouslyFocused: setPreviouslyFocused } = useFocus();
+  const {restore, setPreviouslyFocused: setPreviouslyFocused} = useFocus();
 
   useEffect(() => {
     if (active) setPreviouslyFocused();
@@ -38,7 +38,7 @@ function _BottomSheet({
   useKeyPress("Escape", () => active && onDismiss && onDismiss(), {
     target: window,
   });
-  const style: any = height ? { height: _util.toPx(height) } : null;
+  const style: any = height ? {height: _util.toPx(height)} : null;
   return (
     <div>
       {active && (
@@ -69,4 +69,4 @@ export const BottomSheet = buildPortal<BottomSheetProps, typeof _BottomSheet>(
   _BottomSheet
 );
 
-export { useToggleState as useBottomSheet };
+export {useToggleState as useBottomSheet};

@@ -1,6 +1,6 @@
-import type { Property } from "csstype";
+import type {Property} from "csstype";
 
-import { KitColors } from "@hydrophobefireman/kit";
+import {KitColors} from "@hydrophobefireman/kit";
 
 export type TextAs =
   | "h1"

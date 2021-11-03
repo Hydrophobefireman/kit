@@ -1,11 +1,11 @@
-import { BaseElement, _util, useIsPending } from "@hydrophobefireman/kit";
-import { BaseDom } from "@hydrophobefireman/kit/base-dom";
+import {BaseElement, _util, useIsPending} from "@hydrophobefireman/kit";
+import {BaseDom} from "@hydrophobefireman/kit/base-dom";
 import * as classnames from "@hydrophobefireman/kit/classnames";
-import { SpinnerIcon } from "@hydrophobefireman/kit/icons";
-import { A, forwardRef, h } from "@hydrophobefireman/ui-lib";
+import {SpinnerIcon} from "@hydrophobefireman/kit/icons";
+import {A, forwardRef, h} from "@hydrophobefireman/ui-lib";
 
-import { ButtonProps } from "./types";
-import { InternalButtonProps } from ".";
+import {ButtonProps} from "./types";
+import {InternalButtonProps} from ".";
 
 const variantClassMap = new Map<ButtonProps["variant"], string>([
   ["custom", classnames.buttonCustom],
@@ -45,7 +45,7 @@ function BaseButton(props: BaseElement<InternalButtonProps>) {
   } = props;
   _util.guardCss(style);
   _util.guardExists(label, "Provide a label for your buttons");
-  const styleObject: any = _util.extend({ alignItems: "center" }, style);
+  const styleObject: any = _util.extend({alignItems: "center"}, style);
 
   if (foreground) {
     styleObject["--kit-foreground"] = foreground;
@@ -91,7 +91,7 @@ function BaseButton(props: BaseElement<InternalButtonProps>) {
         style: styleObject,
         flex: true,
       },
-      element === A ? { preserveScroll } : null,
+      element === A ? {preserveScroll} : null,
       rest
     ) as any,
     cVnodes
@@ -102,12 +102,12 @@ function getLinkElement(href: string) {
   return _util.isSameOrigin(href) ? A : "a";
 }
 function DependantButton(props: BaseElement<InternalButtonProps>) {
-  const { isPending, resourceName } = useIsPending();
+  const {isPending, resourceName} = useIsPending();
   if (isPending) {
     if (props.skeleton) {
       return props.skeleton(resourceName);
     }
-    const { class: cls, className, prefix: _, ...rest } = props;
+    const {class: cls, className, prefix: _, ...rest} = props;
     return h(
       BaseButton,
       _util.extend(
@@ -128,7 +128,7 @@ export const Button = forwardRef<BaseElement<ButtonProps>>(function _Button(
   props: BaseElement<ButtonProps>,
   ref
 ) {
-  const { depends, ...rest } = props;
+  const {depends, ...rest} = props;
   (rest as InternalButtonProps).__$ref = ref;
   if (depends) return h(DependantButton, rest as any);
   return h(BaseButton, rest as any);
@@ -141,9 +141,9 @@ export type TextButtonProps = Omit<
   children?: any;
 };
 export const TextButton = forwardRef<TextButtonProps>(function (
-  { children, ...rest }: TextButtonProps,
+  {children, ...rest}: TextButtonProps,
   ref
 ) {
   const text = [children].flat().join("");
-  return h(Button, _util.extend(rest, { children, label: text, ref }) as any);
+  return h(Button, _util.extend(rest, {children, label: text, ref}) as any);
 });

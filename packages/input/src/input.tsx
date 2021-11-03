@@ -1,14 +1,14 @@
-import { BaseElement, _util, useIsPending } from "@hydrophobefireman/kit";
-import { BaseDom } from "@hydrophobefireman/kit/base-dom";
+import {BaseElement, _util, useIsPending} from "@hydrophobefireman/kit";
+import {BaseDom} from "@hydrophobefireman/kit/base-dom";
 import * as classnames from "@hydrophobefireman/kit/classnames";
 import {
   _useSelfEvent,
   useKeyPress,
   useLabelId,
 } from "@hydrophobefireman/kit/hooks";
-import { forwardRef, h, useRef } from "@hydrophobefireman/ui-lib";
+import {forwardRef, h, useRef} from "@hydrophobefireman/ui-lib";
 
-import { InputProps } from "./types";
+import {InputProps} from "./types";
 
 const sizeToClassNameMap = new Map<InputProps["size"], string>([
   ["default", classnames.inputDefault],
@@ -32,7 +32,7 @@ function BaseInput({
   helperText,
   __$ref,
   ...props
-}: BaseElement<InputProps> & { __$ref: any }) {
+}: BaseElement<InputProps> & {__$ref: any}) {
   const [idx, labelIdx] = useLabelId(id);
   const s = size || "default";
   const isMat = variant === "material";
@@ -96,20 +96,20 @@ function BaseInput({
     </BaseDom>
   );
 }
-function DependantInput(props: BaseElement<InputProps> & { __$ref: any }) {
-  const { isPending } = useIsPending();
+function DependantInput(props: BaseElement<InputProps> & {__$ref: any}) {
+  const {isPending} = useIsPending();
   return h(
     BaseInput,
     isPending
       ? _util.extend(
-          { disabled: true } as any,
+          {disabled: true} as any,
           _util.removeEventsFromProps(props)
         )
       : (props as any)
   );
 }
-function InputComponent({ depends, ..._rest }: BaseElement<InputProps>, ref) {
-  const rest = _util.extend(_rest, { __$ref: ref });
+function InputComponent({depends, ..._rest}: BaseElement<InputProps>, ref) {
+  const rest = _util.extend(_rest, {__$ref: ref});
   if (depends) {
     return h(DependantInput, rest as any);
   }
@@ -131,7 +131,7 @@ export const SearchInput = forwardRef<BaseElement<InputProps>>(
           () => $internalDom.current && $internalDom.current.focus()
         )
       ),
-      { target: typeof document !== "undefined" ? document.body : undefined }
+      {target: typeof document !== "undefined" ? document.body : undefined}
     );
     return h(
       Input,
@@ -141,6 +141,6 @@ export const SearchInput = forwardRef<BaseElement<InputProps>>(
     );
   }
 );
-export const Input: typeof InputComponent & { Search: typeof SearchInput } =
+export const Input: typeof InputComponent & {Search: typeof SearchInput} =
   forwardRef<BaseElement<InputProps>>(InputComponent) as any;
 (Input as any).Search = SearchInput;

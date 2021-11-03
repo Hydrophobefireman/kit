@@ -1,22 +1,11 @@
-import { ComplexComponent } from "@hydrophobefireman/kit";
-import { InputProps } from "@hydrophobefireman/kit/input";
-import { RefType } from "@hydrophobefireman/ui-lib";
+import {ComplexComponent} from "@hydrophobefireman/kit";
+import {
+  AutoCompleteOptionsProps,
+  AutoCompleteValue,
+} from "@hydrophobefireman/kit/_autocomplete-options";
+import {InputProps} from "@hydrophobefireman/kit/input";
+import {RefType} from "@hydrophobefireman/ui-lib";
 
-export type AutoCompleteValue = string | number | null;
-export interface AutoCompleteOptionsProps {
-  value: AutoCompleteValue;
-  render?(value: AutoCompleteValue): JSX.Element;
-}
-export interface AutoCompleteOptionsRendererProps {
-  options: AutoCompleteOptionsProps[];
-  query: AutoCompleteValue;
-  setQuery(q: AutoCompleteValue): void;
-  select(e: JSX.TargetedMouseEvent<any>): void;
-  containsFunction?(a: AutoCompleteValue, b: string): boolean;
-  noSuggestions?: JSX.Element | ComplexComponent;
-  labelledBy: string;
-  ref?: any;
-}
 export interface AutoCompleteInputProps extends AutoCompleteProps {
   expanded?: boolean;
   setDirty(d: boolean): void;
@@ -37,11 +26,5 @@ export interface AutoCompleteProps extends Omit<InputProps, "value"> {
   dropdownClass?: string;
   preserveOpenOnClick?: boolean;
 }
-export interface OptionsRendererProps {
-  options: AutoCompleteOptionsProps[];
-  currentValue: AutoCompleteValue;
-  setCurrentValue(q: AutoCompleteValue): void;
-  select: AutoCompleteOptionsRendererProps["select"];
-  labelledBy: string;
-}
+
 export {};

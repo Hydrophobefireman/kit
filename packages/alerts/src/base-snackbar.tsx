@@ -1,15 +1,17 @@
-import { _util } from "@hydrophobefireman/kit";
-import { Button } from "@hydrophobefireman/kit/button";
+import {_util} from "@hydrophobefireman/kit";
+import {Button} from "@hydrophobefireman/kit/button";
 import * as classnames from "@hydrophobefireman/kit/classnames";
-import { Box } from "@hydrophobefireman/kit/container";
+import {Box} from "@hydrophobefireman/kit/container";
+import {FocusTrap} from "@hydrophobefireman/kit/focus-trap";
 import {
   _useHideScrollbar,
   useFocus,
   useMount,
 } from "@hydrophobefireman/kit/hooks";
-import { Transition } from "@hydrophobefireman/kit/transition";
+import {Transition} from "@hydrophobefireman/kit/transition";
+import {Fragment} from "@hydrophobefireman/ui-lib";
 
-import { BaseSnackbarProps } from "./types";
+import {BaseSnackbarProps} from "./types";
 
 const ALERT_ID = `kit-snackbar-${_util.random()}`;
 const alertTypeToClassnameMap = new Map([
@@ -32,9 +34,10 @@ export function BaseSnackbar({
       if (isCancelled || !x.preventClose) pop(x);
     };
   };
-  const { ref, restore } = useFocus();
+  const {ref, restore} = useFocus();
   useMount(() => restore);
   _useHideScrollbar(!!x.mask);
+  const C = x.mask ? FocusTrap : Fragment;
   return (
     <>
       {x.mask && <div class={classnames.mask} />}
@@ -55,7 +58,7 @@ export function BaseSnackbar({
         transitionHook={() => !isActive && remove(x)}
         render={
           isActive && (
-            <>
+            <C shouldTrap>
               <span>{x.content}</span>
               <Box horizontal="right" row vertical="center" flex={1}>
                 {(x.onActionClick || x.actionText) && (
@@ -85,7 +88,7 @@ export function BaseSnackbar({
                   </Button>
                 )}
               </Box>
-            </>
+            </C>
           )
         }
       />

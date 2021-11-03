@@ -1,13 +1,8 @@
-import {
-  RefType,
-  useEffect,
-  useRef,
-  useState,
-} from "@hydrophobefireman/ui-lib";
+import {RefType, useEffect, useRef, useState} from "@hydrophobefireman/ui-lib";
 
-import { useLatestRef } from "./use-latest-ref";
+import {useLatestRef} from "./use-latest-ref";
 
-const defaultConfig = { attributes: false, childList: true, subtree: true };
+const defaultConfig = {attributes: false, childList: true, subtree: true};
 
 export function useMutationObserver(
   current: HTMLElement,

@@ -1,6 +1,6 @@
-import { h, render, useEffect, useState } from "@hydrophobefireman/ui-lib";
+import {h, render, useEffect, useState} from "@hydrophobefireman/ui-lib";
 
-import { ID_PREFIX } from "./random";
+import {ID_PREFIX} from "./random";
 
 let num = 0;
 export class PortalTree {

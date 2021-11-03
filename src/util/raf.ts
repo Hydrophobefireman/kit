@@ -1,4 +1,4 @@
-import { warn } from "./warn";
+import {warn} from "./warn";
 
 if (typeof requestAnimationFrame !== "function") {
   (window as any).requestAnimationFrame = warn(

@@ -1,8 +1,8 @@
-import { _util } from "@hydrophobefireman/kit";
+import {_util} from "@hydrophobefireman/kit";
 import * as classnames from "@hydrophobefireman/kit/classnames";
 
-import { BaseSnackbar } from "./base-snackbar";
-import { ToastOptions } from "./types";
+import {BaseSnackbar} from "./base-snackbar";
+import {ToastOptions} from "./types";
 
 class UITree extends _util.PortalTree {
   private alertStack: Map<ToastOptions, boolean> = new Map();
@@ -59,5 +59,5 @@ export function show(options: ToastOptions) {
 }
 
 export function persist(options: ToastOptions) {
-  return { hide: buildAlert(options) };
+  return {hide: buildAlert(options)};
 }

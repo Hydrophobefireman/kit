@@ -1,22 +1,15 @@
-import { BaseDomProps, _util } from "@hydrophobefireman/kit";
-import { forwardRef, h } from "@hydrophobefireman/ui-lib";
+import {BaseDomProps, _util} from "@hydrophobefireman/kit";
+import {forwardRef, h} from "@hydrophobefireman/ui-lib";
 
-import { displayModeMap, displayProps, isSelfClosingElement } from "./util";
+import {displayModeMap, displayProps, isSelfClosingElement} from "./util";
 
-const { createClassProp, onlyOneProp } = _util;
+const {createClassProp, onlyOneProp} = _util;
 
 export const BaseDom = forwardRef<BaseDomProps>(function BaseDom(
   props: BaseDomProps,
   ref
 ) {
-  const {
-    element,
-    class: klass,
-    className,
-    depends,
-    disabled,
-    ...rest
-  } = props;
+  const {element, class: klass, className, depends, disabled, ...rest} = props;
   if (depends !== undefined) {
     throw new TypeError(
       "This component does not know how to render skeleton views! " +

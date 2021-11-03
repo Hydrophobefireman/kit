@@ -1,6 +1,6 @@
-import { useEffect } from "@hydrophobefireman/ui-lib";
+import {useEffect} from "@hydrophobefireman/ui-lib";
 
-import { useLatestRef } from "./use-latest-ref";
+import {useLatestRef} from "./use-latest-ref";
 
 export function useClickAway(listener: () => void, target: EventTarget) {
   const ref = useLatestRef(listener);

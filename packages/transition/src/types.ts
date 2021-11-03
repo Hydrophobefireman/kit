@@ -1,4 +1,4 @@
-import { DOMElements } from "@hydrophobefireman/kit";
+import {DOMElements} from "@hydrophobefireman/kit";
 export interface TransitionProps {
   enterClass?: string;
   idleClass?: string;

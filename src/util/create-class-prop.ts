@@ -1,5 +1,5 @@
-import { DOMClass } from "../types";
-import { flat } from "./flat";
+import {DOMClass} from "../types";
+import {flat} from "./flat";
 
 export function createClassProp(c: DOMClass): string {
   return flat([c], (obj: any) => {

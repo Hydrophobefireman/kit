@@ -1,6 +1,6 @@
-import { State, subscribe, unsubscribe } from "statedrive";
+import {State, subscribe, unsubscribe} from "statedrive";
 
-import { useEffect } from "@hydrophobefireman/ui-lib";
+import {useEffect} from "@hydrophobefireman/ui-lib";
 
 interface Listener<T> {
   (oldValue: T, newValue: T): void;

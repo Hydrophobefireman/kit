@@ -1,8 +1,8 @@
 import type {} from "statedrive";
 
-import { Bridge } from "@hydrophobefireman/flask-jwt-jskit";
-import { _util } from "@hydrophobefireman/kit";
-import { redirect } from "@hydrophobefireman/ui-lib";
+import {Bridge} from "@hydrophobefireman/flask-jwt-jskit";
+import {_util} from "@hydrophobefireman/kit";
+import {redirect} from "@hydrophobefireman/ui-lib";
 
 export function buildHttpClient({
   loginEndPoint,
@@ -32,9 +32,9 @@ export function buildHttpClient({
     redirect(loginRoute || _util.warn("/login", "Using default Login Page"))
   );
 
-  const { useAuthState, useIsLoggedIn } = client.getHooks();
+  const {useAuthState, useIsLoggedIn} = client.getHooks();
 
   const requests = client.getHttpClient();
 
-  return { useAuthState, useIsLoggedIn, requests, client };
+  return {useAuthState, useIsLoggedIn, requests, client};
 }

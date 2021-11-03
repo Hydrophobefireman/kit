@@ -4,4 +4,6 @@ export interface SelectOptions {
 }
 export interface SelectProps {
   options: SelectOptions[];
+  setValue(v: string | number): void;
+  label: string;
 }

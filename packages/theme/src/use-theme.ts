@@ -1,9 +1,9 @@
-import { set, subscribe, useSharedState } from "statedrive";
+import {set, subscribe, useSharedState} from "statedrive";
 
-import { useAtomListener } from "@hydrophobefireman/kit/hooks";
+import {useAtomListener} from "@hydrophobefireman/kit/hooks";
 
-import { ThemeAtom } from "./state";
-import { ThemeListener } from "./types";
+import {ThemeAtom} from "./state";
+import {ThemeListener} from "./types";
 
 const KEY = "UI-KIT-THEME";
 

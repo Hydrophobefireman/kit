@@ -1,4 +1,4 @@
-import { flatPollyill } from "./_array-prototype-type-flat-pollyfill";
+import {flatPollyill} from "./_array-prototype-type-flat-pollyfill";
 
 type Mapper<T> = (x: T, i: number) => T;
 flatPollyill();

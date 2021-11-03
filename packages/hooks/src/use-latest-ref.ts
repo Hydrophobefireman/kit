@@ -1,4 +1,4 @@
-import { useRef } from "@hydrophobefireman/ui-lib";
+import {useRef} from "@hydrophobefireman/ui-lib";
 
 export function useLatestRef<T>(x: T) {
   const obj = useRef(x);

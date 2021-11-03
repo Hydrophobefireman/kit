@@ -1,5 +1,5 @@
-import { ComplexComponent } from "@hydrophobefireman/kit";
-import { useLatestRef } from "@hydrophobefireman/kit/hooks";
+import {ComplexComponent} from "@hydrophobefireman/kit";
+import {useLatestRef} from "@hydrophobefireman/kit/hooks";
 import {
   Path,
   Router as UIRouter,
@@ -8,9 +8,9 @@ import {
   useState,
 } from "@hydrophobefireman/ui-lib";
 
-import { isLoadableRoute } from "./dynamic";
-import { Route } from "./route";
-import { RouterContext } from "./router-context";
+import {isLoadableRoute} from "./dynamic";
+import {Route} from "./route";
+import {RouterContext} from "./router-context";
 import {
   Preloader,
   RouterProps,
@@ -29,9 +29,9 @@ export function Router(props: RouterProps) {
         let val = props.paths[x];
         if (!("component" in val || "jsx" in val)) {
           if (typeof val === "function") {
-            val = { component: val };
+            val = {component: val};
           } else if (val.constructor === undefined) {
-            val = { jsx: val };
+            val = {jsx: val};
           }
         }
         return (
@@ -78,7 +78,7 @@ export function TransitionManager({
     setTransitionComplete(false);
     const next = latestChildRef.current;
     if ("component" in next) {
-      const { component, preload, fallback } = next;
+      const {component, preload, fallback} = next;
       let preloader: Preloader = preload!;
       let Fallback: ComplexComponent = fallback!;
 

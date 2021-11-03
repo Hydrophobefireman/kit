@@ -1,12 +1,12 @@
-import { BaseElement, _util } from "@hydrophobefireman/kit";
-import { BaseDom } from "@hydrophobefireman/kit/base-dom";
+import {BaseElement, _util} from "@hydrophobefireman/kit";
+import {BaseDom} from "@hydrophobefireman/kit/base-dom";
 import * as classnames from "@hydrophobefireman/kit/classnames";
-import { Box } from "@hydrophobefireman/kit/container";
-import { useLabelId, useToggleState } from "@hydrophobefireman/kit/hooks";
-import { Text } from "@hydrophobefireman/kit/text";
-import { h } from "@hydrophobefireman/ui-lib";
+import {Box} from "@hydrophobefireman/kit/container";
+import {useLabelId, useToggleState} from "@hydrophobefireman/kit/hooks";
+import {Text} from "@hydrophobefireman/kit/text";
+import {h} from "@hydrophobefireman/ui-lib";
 
-import { CheckboxProps } from "./types";
+import {CheckboxProps} from "./types";
 
 export function Checkbox({
   checked,
@@ -41,7 +41,7 @@ export function Checkbox({
       class={[
         classnames.relInputLabel,
         boxClass,
-        { [classnames.checkboxIsInvalid]: errored },
+        {[classnames.checkboxIsInvalid]: errored},
       ]}
       style={_util.extend(labelStyle, boxStyle)}
       for={inputId}
@@ -104,7 +104,7 @@ function Checkmark() {
 Checkbox.Label = Text;
 
 export function useCheckbox(initial?: boolean) {
-  const { active, setActive, toggle } = useToggleState(initial);
+  const {active, setActive, toggle} = useToggleState(initial);
   return {
     checked: active,
     setChecked: setActive,

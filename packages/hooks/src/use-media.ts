@@ -1,5 +1,5 @@
-import { _util } from "@hydrophobefireman/kit";
-import { useEffect, useMemo, useState } from "@hydrophobefireman/ui-lib";
+import {_util} from "@hydrophobefireman/kit";
+import {useEffect, useMemo, useState} from "@hydrophobefireman/ui-lib";
 export function useMedia(query: string) {
   const q = useMemo(() => window.matchMedia(query), [query]);
   const [matches, setMatches] = useState(() => q.matches);

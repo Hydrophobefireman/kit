@@ -2,13 +2,13 @@
 // transition.css-events has some issues with
 // multiple firing events
 // this implementation is inspired by geist ui
-import { BaseElement, _util } from "@hydrophobefireman/kit";
-import { BaseDom } from "@hydrophobefireman/kit/base-dom";
+import {BaseElement, _util} from "@hydrophobefireman/kit";
+import {BaseDom} from "@hydrophobefireman/kit/base-dom";
 import * as classnames from "@hydrophobefireman/kit/classnames";
-import { useLatestRef, useMedia } from "@hydrophobefireman/kit/hooks";
-import { h, useEffect, useState } from "@hydrophobefireman/ui-lib";
+import {useLatestRef, useMedia} from "@hydrophobefireman/kit/hooks";
+import {h, useEffect, useState} from "@hydrophobefireman/ui-lib";
 
-import { RenderState, TransitionProps } from "./types";
+import {RenderState, TransitionProps} from "./types";
 
 export function Transition({
   render,
@@ -30,7 +30,7 @@ export function Transition({
   const [transitionState, setTransitionState] = useState<RenderState | null>(
     null
   );
-  const times = useLatestRef({ enterTime, leaveTime, clearTime });
+  const times = useLatestRef({enterTime, leaveTime, clearTime});
   const prm = useLatestRef(useMedia.usePrefersReducedMotion());
   const transitionHookRef = useLatestRef(transitionHook);
   const [renderState, setRenderState] = useState(() => render);
@@ -39,7 +39,7 @@ export function Transition({
       // no animations. just skip to the content
       return setRenderState(render);
     }
-    const { enterTime, leaveTime, clearTime } = times.current;
+    const {enterTime, leaveTime, clearTime} = times.current;
     const nextState: RenderState = visible ? "INITIAL" : "UNMOUNT";
     const time = visible ? enterTime : leaveTime;
     let didSync = false;
@@ -71,7 +71,7 @@ export function Transition({
     };
   }, [visible, render]);
   const isHidden = !renderState;
-  const css = isHidden ? { transition: "0.0001s" } : null;
+  const css = isHidden ? {transition: "0.0001s"} : null;
 
   return h(
     BaseDom,

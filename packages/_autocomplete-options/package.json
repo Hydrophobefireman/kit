@@ -1,5 +1,5 @@
 {
-  "name": "file-drop-target",
+  "name": "autocomplete-options",
   "version": "0.0.1-2021-10-29-18-55",
   "private": true,
   "main": "src/index.js",

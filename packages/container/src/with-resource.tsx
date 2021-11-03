@@ -1,4 +1,4 @@
-import { PendingDataContext, _util } from "@hydrophobefireman/kit";
+import {PendingDataContext, _util} from "@hydrophobefireman/kit";
 
 export type ResourceContainerProps = {
   isPending: boolean;

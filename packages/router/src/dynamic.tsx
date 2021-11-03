@@ -1,13 +1,13 @@
-import { ComplexComponent, _util } from "@hydrophobefireman/kit";
-import { h, useLayoutEffect, useState } from "@hydrophobefireman/ui-lib";
+import {ComplexComponent, _util} from "@hydrophobefireman/kit";
+import {h, useLayoutEffect, useState} from "@hydrophobefireman/ui-lib";
 
-import { DynamicComponentProps, Preloader } from "./types";
+import {DynamicComponentProps, Preloader} from "./types";
 
 export function dynamic(
   loader: Preloader,
-  { fallback, errorFallback, unsafe }: DynamicComponentProps = {}
+  {fallback, errorFallback, unsafe}: DynamicComponentProps = {}
 ) {
-  function Fallback({ error }: any) {
+  function Fallback({error}: any) {
     return errorFallback ? errorFallback(error) : <div>An error occured</div>;
   }
   const F = fallback;

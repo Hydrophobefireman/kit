@@ -1,7 +1,7 @@
-import { BaseElement, _util } from "@hydrophobefireman/kit";
-import { BaseDom } from "@hydrophobefireman/kit/base-dom";
+import {BaseElement, _util} from "@hydrophobefireman/kit";
+import {BaseDom} from "@hydrophobefireman/kit/base-dom";
 import * as classnames from "@hydrophobefireman/kit/classnames";
-import { useLatestRef } from "@hydrophobefireman/kit/hooks";
+import {useLatestRef} from "@hydrophobefireman/kit/hooks";
 import {
   forwardRef,
   h,
@@ -10,7 +10,7 @@ import {
   useState,
 } from "@hydrophobefireman/ui-lib";
 
-import { RenderState, TransitionProps } from "./types";
+import {RenderState, TransitionProps} from "./types";
 
 export const Transition = forwardRef<BaseElement<TransitionProps>>(
   function Transition(
@@ -113,7 +113,7 @@ export const Transition = forwardRef<BaseElement<TransitionProps>>(
     const css = _util.extend(
       {},
       style,
-      !child ? { transition: "0.0001s" } : null
+      !child ? {transition: "0.0001s"} : null
     );
     return h(
       BaseDom,

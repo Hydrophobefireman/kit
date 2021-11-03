@@ -1,5 +1,5 @@
-import { BaseDomProps } from "@hydrophobefireman/kit";
-import { RefType } from "@hydrophobefireman/ui-lib";
+import {BaseDomProps} from "@hydrophobefireman/kit";
+import {RefType} from "@hydrophobefireman/ui-lib";
 
 export interface DropdownProps {
   parent: RefType<HTMLElement>;

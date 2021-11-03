@@ -1,5 +1,5 @@
-import { Keys } from "./types";
-import { UseKeyboardOptions, useKeyboard } from "./use-keyboard-event";
+import {Keys} from "./types";
+import {UseKeyboardOptions, useKeyboard} from "./use-keyboard-event";
 
 export function useKeyPress(
   k: Keys | Keys[],

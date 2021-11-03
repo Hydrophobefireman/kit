@@ -1,8 +1,8 @@
-import { BaseElement, _util } from "@hydrophobefireman/kit";
-import { buildPortal } from "@hydrophobefireman/kit/build-portal";
+import {BaseElement, _util} from "@hydrophobefireman/kit";
+import {buildPortal} from "@hydrophobefireman/kit/build-portal";
 import * as classnames from "@hydrophobefireman/kit/classnames";
-import { Box } from "@hydrophobefireman/kit/container";
-import { FocusTrap } from "@hydrophobefireman/kit/focus-trap";
+import {Box} from "@hydrophobefireman/kit/container";
+import {FocusTrap} from "@hydrophobefireman/kit/focus-trap";
 import {
   _useHideScrollbar,
   _useSelfEvent,
@@ -11,11 +11,11 @@ import {
   useMount,
   useToggleState,
 } from "@hydrophobefireman/kit/hooks";
-import { Text, TextProps } from "@hydrophobefireman/kit/text";
-import { Transition } from "@hydrophobefireman/kit/transition";
-import { h, useEffect, useRef, useState } from "@hydrophobefireman/ui-lib";
+import {Text, TextProps} from "@hydrophobefireman/kit/text";
+import {Transition} from "@hydrophobefireman/kit/transition";
+import {h, useEffect, useRef, useState} from "@hydrophobefireman/ui-lib";
 
-import { ModalProps } from "./types";
+import {ModalProps} from "./types";
 
 function ModalImpl({
   active,
@@ -71,14 +71,14 @@ function _Modal({
     />
   );
 }
-function Actions({ children }: { children?: any }) {
+function Actions({children}: {children?: any}) {
   return <div class={classnames.modalActions}>{children}</div>;
 }
-function Action({ class: cls, className, ...props }: BaseElement<{}>) {
+function Action({class: cls, className, ...props}: BaseElement<{}>) {
   const classProp = [cls, className, classnames.modalActionButton];
   const ref = useRef<HTMLButtonElement>();
   useMount(() => {
-    const { current } = ref;
+    const {current} = ref;
     if (
       current === (current.parentNode && current.parentNode.firstElementChild)
     )
@@ -94,7 +94,7 @@ function Title({
   const klass = [classnames.modalHead, cls, className];
   return h(
     Text,
-    _util.extend({ as: "h2", noMargin: true, class: klass }, props) as any
+    _util.extend({as: "h2", noMargin: true, class: klass}, props) as any
   );
 }
 function Subtitle({
@@ -110,12 +110,12 @@ function Subtitle({
   ];
   return h(
     Text,
-    _util.extend({ as: "p", noMargin: true, class: klass }, props) as any
+    _util.extend({as: "p", noMargin: true, class: klass}, props) as any
   );
 }
-function Body({ children }: { children?: any }) {
+function Body({children}: {children?: any}) {
   return (
-    <Box horizontal="center" style={{ padding: "2rem" }}>
+    <Box horizontal="center" style={{padding: "2rem"}}>
       {children}
     </Box>
   );
@@ -133,5 +133,5 @@ Modal.Title = Title;
 Modal.Subtitle = Subtitle;
 Modal.Action = Action;
 Modal.Body = Body;
-export { Actions, Title, Subtitle, Action, Body };
-export { useToggleState as useModal };
+export {Actions, Title, Subtitle, Action, Body};
+export {useToggleState as useModal};

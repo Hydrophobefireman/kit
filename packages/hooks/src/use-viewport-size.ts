@@ -1,6 +1,6 @@
-import { useCallback, useState } from "@hydrophobefireman/ui-lib";
+import {useCallback, useState} from "@hydrophobefireman/ui-lib";
 
-import { useResize } from "./use-resize";
+import {useResize} from "./use-resize";
 
 const getDimensions = (): [number, number] => [
   window.innerHeight,

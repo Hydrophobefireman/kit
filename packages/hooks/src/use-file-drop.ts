@@ -1,4 +1,4 @@
-import { useEffect, useState } from "@hydrophobefireman/ui-lib";
+import {useEffect, useState} from "@hydrophobefireman/ui-lib";
 
 function preventDefault(e: Event) {
   e.preventDefault();
@@ -6,7 +6,7 @@ function preventDefault(e: Event) {
 
 export function useFileDrop(
   el?: HTMLElement,
-  options?: { multiple?: boolean }
+  options?: {multiple?: boolean}
 ): [File[] | null, (f: File[]) => void, () => void] {
   options = options || {};
   // el = el || document.documentElement;

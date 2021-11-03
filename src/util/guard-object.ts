@@ -3,7 +3,7 @@ export function guardObject(x: any, message: string): x is Record<string, any> {
   return true;
 }
 
-export function guardCss(style: any): style is { [k: string]: any } {
+export function guardCss(style: any): style is {[k: string]: any} {
   return !style || guardObject(style, "Only object css allowed");
 }
 

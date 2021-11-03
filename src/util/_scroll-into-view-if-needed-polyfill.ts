@@ -9,7 +9,7 @@ function scrollIntoViewIfNeeded(this: Element, center?: boolean) {
     rect.right > container.right ||
     rect.left < container.left
   )
-    center ? this.scrollIntoView({ block: "center" }) : this.scrollIntoView();
+    center ? this.scrollIntoView({block: "center"}) : this.scrollIntoView();
 }
 export function scrollIntoViewIfNeededPolyfill() {
   if (!(Element.prototype as any).scrollIntoViewIfNeeded)

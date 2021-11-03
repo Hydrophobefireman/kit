@@ -20,6 +20,7 @@
       "./": "./",
       "./alerts": "./alerts/src/index.js",
       "./autocomplete": "./autocomplete/src/index.js",
+      "./_autocomplete-options": "./_autocomplete-options/src/index.js",
       "./base-dom": "./base-dom/src/index.js",
       "./bottom-sheet": "./bottom-sheet/src/index.js",
       "./build-portal": "./build-portal/src/index.js",
@@ -78,6 +79,7 @@
    "kitPackages": [
       "alerts",
       "autocomplete",
+      "_autocomplete-options",
       "base-dom",
       "bottom-sheet",
       "build-portal",

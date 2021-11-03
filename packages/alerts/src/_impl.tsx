@@ -1,1 +1,1 @@
-export { persist, show } from "./_tree";
+export {persist, show} from "./_tree";
