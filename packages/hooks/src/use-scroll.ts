@@ -1,5 +1,5 @@
-import { useLatestRef } from "./use-latest-ref";
-import { useMount } from "./use-mount";
+import {useLatestRef} from "./use-latest-ref";
+import {useMount} from "./use-mount";
 
 export function useScroll(
   cb: (e: Event) => void,

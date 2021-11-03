@@ -1,6 +1,6 @@
-import { Properties } from "csstype";
+import {Properties} from "csstype";
 
-import { RefType } from "@hydrophobefireman/ui-lib";
+import {RefType} from "@hydrophobefireman/ui-lib";
 
 /**
  * @see https://stackoverflow.com/questions/51465182/how-to-remove-index-signature-using-mapped-types/66252656#66252656
@@ -45,7 +45,7 @@ export interface _BaseDomProps {
   depends?: boolean;
   skeleton?(resource: any): any;
   children?: any;
-  style?: Properties & { [k: string]: any };
+  style?: Properties & {[k: string]: any};
   ref?: any;
 }
 
