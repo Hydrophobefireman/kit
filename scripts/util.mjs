@@ -1,5 +1,8 @@
-const { rRoot, root, readFile, rm } = require("./actions");
-const { join } = require("path");
+import { join } from "path";
+import process from "process";
+import { fileURLToPath } from "url";
+
+import { rRoot, readFile, rm, root } from "./actions.mjs";
 
 const packageJsonLoc = join(root, "package.json");
 const packageDir = join(root, "packages");
@@ -29,7 +32,11 @@ function prettyJSON(x) {
   return JSON.stringify(x, null, 3);
 }
 
-module.exports = {
+function isMain(importMetaUrl) {
+  return process.argv[1] === fileURLToPath(importMetaUrl);
+}
+export {
+  isMain,
   prettyJSON,
   root,
   rRoot,

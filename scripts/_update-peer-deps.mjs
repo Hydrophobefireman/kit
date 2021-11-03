@@ -1,11 +1,13 @@
-const {
-  packageDir,
-  prettyJSON,
+import { join } from "path";
+
+import { readFile, writeFile } from "./actions.mjs";
+import {
   fromPackageJson,
+  isMain,
+  packageDir,
   packageJsonLoc,
-} = require("./util");
-const { readFile, writeFile } = require("./actions");
-const { join } = require("path");
+  prettyJSON,
+} from "./util.mjs";
 
 async function updatePackages() {
   const packageJson = await fromPackageJson();
@@ -28,8 +30,9 @@ async function updatePackages() {
   packageJson.exports = exportsField;
   await writeFile(packageJsonLoc, prettyJSON(packageJson));
 }
-module.exports.updatePackages = updatePackages;
+const _updatePackages = updatePackages;
+export { _updatePackages as updatePackages };
 
-if (require.main === module) {
+if (isMain(import.meta.url)) {
   updatePackages();
 }

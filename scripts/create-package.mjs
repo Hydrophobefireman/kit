@@ -1,7 +1,6 @@
-const { mkdir, writeFile } = require("./actions");
-const { join } = require("path");
-const { prettyJSON, fromPackageJson } = require("./util");
-const { updatePackages } = require("./_update-peer-deps");
+import { updatePackages } from "./_update-peer-deps.mjs";
+import { mkdir, root, writeFile } from "./actions.mjs";
+import { fromPackageJson, isMain, prettyJSON } from "./util.mjs";
 
 const packageJsonTemplate = (name, version) => ({
   name,
@@ -17,11 +16,11 @@ const packageJsonTemplate = (name, version) => ({
 function indexTemplate(name) {
   return `export * from "./${name}";\nexport * from "./types";\n`;
 }
+
 const MODULE_TEMPLATE = "export {}\n";
 
-const appRoot = join(__dirname, "..");
-const packageJson = join(appRoot, "package.json");
-const packageDir = join(appRoot, "packages");
+const packageJson = join(root, "package.json");
+const packageDir = join(root, "packages");
 
 async function createPackage() {
   const packageName = process.argv.slice(2)[0];
@@ -57,6 +56,6 @@ async function createPackage() {
   await updatePackages();
 }
 
-if (require.main === module) {
+if (isMain(import.meta.url)) {
   createPackage();
 }

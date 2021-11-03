@@ -1,10 +1,10 @@
-const { join } = require("path");
-const { rename } = require("./actions");
-const { fromPackageJson } = require("./util");
-const root = join(__dirname, "..");
-const dist = join(root, "dist");
+import { join } from "path";
+
+import { updatePackages } from "./_update-peer-deps.mjs";
+import { dist, rename } from "./actions.mjs";
+import { fromPackageJson, isMain } from "./util.mjs";
+
 const packages = join(dist, "packages");
-const { updatePackages } = require("./_update-peer-deps");
 
 async function movePackage(name) {
   const src = join(packages, name);
@@ -18,6 +18,6 @@ async function main() {
   await Promise.all(kitPackages.map((x) => movePackage(x)));
 }
 
-if (require.main === module) {
+if (isMain(import.meta.url)) {
   main();
 }
