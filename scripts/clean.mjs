@@ -1,7 +1,7 @@
-import { join } from "path";
+import {join} from "path";
 
-import { mkdir } from "./actions.mjs";
-import { isMain, postpublish, root } from "./util.mjs";
+import {mkdir} from "./actions.mjs";
+import {isMain, postpublish, root} from "./util.mjs";
 
 async function main() {
   console.log(`Root: ${root}`);

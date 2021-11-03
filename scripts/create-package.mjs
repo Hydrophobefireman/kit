@@ -1,6 +1,6 @@
-import { updatePackages } from "./_update-peer-deps.mjs";
-import { mkdir, root, writeFile } from "./actions.mjs";
-import { fromPackageJson, isMain, prettyJSON } from "./util.mjs";
+import {updatePackages} from "./_update-peer-deps.mjs";
+import {mkdir, root, writeFile} from "./actions.mjs";
+import {fromPackageJson, isMain, prettyJSON} from "./util.mjs";
 
 const packageJsonTemplate = (name, version) => ({
   name,
@@ -26,7 +26,7 @@ async function createPackage() {
   const packageName = process.argv.slice(2)[0];
   if (!packageName) throw new Error("Invalid package name");
   const packageJsonContent = await fromPackageJson();
-  const { kitPackages, version } = packageJsonContent;
+  const {kitPackages, version} = packageJsonContent;
 
   if (kitPackages.includes(packageName))
     throw new Error(`Package: "${packageName}" already exists`);

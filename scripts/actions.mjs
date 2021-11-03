@@ -1,5 +1,5 @@
-import { dirname, join, relative } from "path";
-import { fileURLToPath } from "url";
+import {dirname, join, relative} from "path";
+import {fileURLToPath} from "url";
 
 import {
   copyFile as _copyFile,

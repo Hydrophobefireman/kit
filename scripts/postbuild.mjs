@@ -1,13 +1,13 @@
-import { join } from "path";
+import {join} from "path";
 
-import { copyFile, dist, root } from "./actions.mjs";
-import { fromPackageJson, isMain } from "./util.mjs";
+import {copyFile, dist, root} from "./actions.mjs";
+import {fromPackageJson, isMain} from "./util.mjs";
 
 const builtPackages = join(dist, "packages");
 const srcPackages = join(root, "packages");
 
 async function postbuild() {
-  const { kitPackages } = await fromPackageJson();
+  const {kitPackages} = await fromPackageJson();
   return await Promise.all(
     kitPackages.map(async (x) => {
       const sourceDir = join(srcPackages, x);

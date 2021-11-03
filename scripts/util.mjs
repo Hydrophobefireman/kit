@@ -1,8 +1,8 @@
-import { join } from "path";
+import {join} from "path";
 import process from "process";
-import { fileURLToPath } from "url";
+import {fileURLToPath} from "url";
 
-import { rRoot, readFile, rm, root } from "./actions.mjs";
+import {rRoot, readFile, rm, root} from "./actions.mjs";
 
 const packageJsonLoc = join(root, "package.json");
 const packageDir = join(root, "packages");
@@ -14,13 +14,13 @@ async function fromPackageJson() {
 }
 
 async function postpublish() {
-  const { kitPackages } = await fromPackageJson();
-  await rm(join(root, "dist"), { force: true, recursive: true });
+  const {kitPackages} = await fromPackageJson();
+  await rm(join(root, "dist"), {force: true, recursive: true});
   return await Promise.all(
     kitPackages.map(async (x) => {
       const loc = join(root, x);
       try {
-        await rm(loc, { force: true, recursive: true });
+        await rm(loc, {force: true, recursive: true});
       } catch (e) {
         console.log("[prebuild] Skip clean", rRoot(loc));
       }

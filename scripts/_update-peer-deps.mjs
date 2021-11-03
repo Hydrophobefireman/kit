@@ -1,6 +1,6 @@
-import { join } from "path";
+import {join} from "path";
 
-import { readFile, writeFile } from "./actions.mjs";
+import {readFile, writeFile} from "./actions.mjs";
 import {
   fromPackageJson,
   isMain,
@@ -11,7 +11,7 @@ import {
 
 async function updatePackages() {
   const packageJson = await fromPackageJson();
-  const { kitPackages, version, peerDependencies, kitBase } = packageJson;
+  const {kitPackages, version, peerDependencies, kitBase} = packageJson;
 
   await Promise.all(
     kitPackages.map(async (x) => {
@@ -28,10 +28,11 @@ async function updatePackages() {
     exportsField[`./${packageName}`] = `./${packageName}/src/index.js`;
   });
   packageJson.exports = exportsField;
+  packageJson.kitPackages = kitPackages.sort();
   await writeFile(packageJsonLoc, prettyJSON(packageJson));
 }
 const _updatePackages = updatePackages;
-export { _updatePackages as updatePackages };
+export {_updatePackages as updatePackages};
 
 if (isMain(import.meta.url)) {
   updatePackages();

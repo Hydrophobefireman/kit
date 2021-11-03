@@ -1,4 +1,4 @@
-import { isMain, postpublish } from "./util.mjs";
+import {isMain, postpublish} from "./util.mjs";
 
 if (isMain(import.meta.url)) {
   postpublish();

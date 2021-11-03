@@ -81,9 +81,9 @@
     }
   },
   "kitPackages": [
+    "_autocomplete-options",
     "alerts",
     "autocomplete",
-    "_autocomplete-options",
     "base-dom",
     "bottom-sheet",
     "build-portal",

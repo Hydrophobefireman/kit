@@ -1,8 +1,8 @@
-import { join } from "path";
+import {join} from "path";
 
-import { updatePackages } from "./_update-peer-deps.mjs";
-import { dist, rename } from "./actions.mjs";
-import { fromPackageJson, isMain } from "./util.mjs";
+import {updatePackages} from "./_update-peer-deps.mjs";
+import {dist, rename} from "./actions.mjs";
+import {fromPackageJson, isMain} from "./util.mjs";
 
 const packages = join(dist, "packages");
 
@@ -14,7 +14,7 @@ async function movePackage(name) {
 
 async function main() {
   await updatePackages();
-  const { kitPackages } = await fromPackageJson();
+  const {kitPackages} = await fromPackageJson();
   await Promise.all(kitPackages.map((x) => movePackage(x)));
 }
 
