@@ -10,7 +10,7 @@ export function useId(defaultId?: string) {
   return idx;
 }
 
-export function useLabelId(defaultId?: string) {
+export function usePairedId(defaultId?: string) {
   const id = useId(defaultId);
   return [id, `${id}--label`];
 }

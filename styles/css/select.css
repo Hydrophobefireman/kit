@@ -1,0 +1,8 @@
+._kit-select-button {
+  padding-right: 0.5rem;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 0.5rem;
+  border: 2px solid var(--kit-shade-3);
+  border-radius: var(--kit-radius);
+}

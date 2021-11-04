@@ -144,3 +144,5 @@ export const fileDropTarget = "kit-file-drop-target";
 export const fileDropTargetAccepting = "kit-file-drop-target-accepting";
 
 export const _focusTrap = "_kit-focus-trap";
+
+export const _selectButton = `${inlineFlex} _kit-select-button`;

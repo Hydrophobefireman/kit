@@ -1,17 +1,15 @@
-import {dirname, join, relative} from "path";
-import {fileURLToPath} from "url";
+const {join, relative} = require("path");
 
-import {
-  copyFile as _copyFile,
-  mkdir as _mkdir,
-  readFile as _readFile,
-  readdir as _readdir,
-  rename as _rename,
-  rm as _rm,
-  writeFile as _writeFile,
-} from "fs/promises";
+const {
+  copyFile: _copyFile,
+  mkdir: _mkdir,
+  readFile: _readFile,
+  readdir: _readdir,
+  rename: _rename,
+  rm: _rm,
+  writeFile: _writeFile,
+} = require("fs/promises");
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, "..");
 const dist = join(root, "dist");
 function rRoot(path) {
@@ -59,7 +57,7 @@ const copyFile = async function copyFile(src, dest, ...rest) {
   console.log(`$ cp ${rRoot(src)} ${rRoot(dest)}`);
   return await _copyFile(src, dest);
 };
-export {
+module.exports = {
   writeFile,
   dist,
   readFile,

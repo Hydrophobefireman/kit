@@ -1,6 +1,6 @@
-import {updatePackages} from "./_update-peer-deps.mjs";
-import {mkdir, root, writeFile} from "./actions.mjs";
-import {fromPackageJson, isMain, prettyJSON} from "./util.mjs";
+const {updatePackages} = require("./_update-peer-deps");
+const {mkdir, root, writeFile} = require("./actions");
+const {fromPackageJson, prettyJSON} = require("./util");
 
 const packageJsonTemplate = (name, version) => ({
   name,
@@ -56,6 +56,6 @@ async function createPackage() {
   await updatePackages();
 }
 
-if (isMain(import.meta.url)) {
+if (require.main === module) {
   createPackage();
 }

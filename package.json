@@ -2,14 +2,13 @@
   "name": "@hydrophobefireman/kit",
   "description": "",
   "types": "dist/src/index.d.ts",
-  "version": "0.0.1-2021-10-29-18-55",
+  "version": "0.0.1-2021-11-03-22-51",
   "license": "MIT",
   "homepage": "https://github.com/Hydrophobefireman/kit#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Hydrophobefireman/kit.git"
   },
-  "type": "module",
   "main": "dist/src/index.js",
   "module": "dist/src/index.js",
   "exports": {
@@ -19,9 +18,9 @@
     "./styles": "./styles/index.js",
     "./package.json": "./package.json",
     "./": "./",
+    "./_autocomplete-options": "./_autocomplete-options/src/index.js",
     "./alerts": "./alerts/src/index.js",
     "./autocomplete": "./autocomplete/src/index.js",
-    "./_autocomplete-options": "./_autocomplete-options/src/index.js",
     "./base-dom": "./base-dom/src/index.js",
     "./bottom-sheet": "./bottom-sheet/src/index.js",
     "./build-portal": "./build-portal/src/index.js",
@@ -46,11 +45,11 @@
   },
   "scripts": {
     "_i": "for i in ./dist/packages/*; do echo \"$i\" && cp \"$i\" ./examples/node_modules/@hydrophobefireman/kit/ -r ;done && cp styles ./examples/node_modules/@hydrophobefireman/kit/ -r &&  cp dist ./examples/node_modules/@hydrophobefireman/kit/ -r && cp package.json ./examples/node_modules/@hydrophobefireman/kit/",
-    "prebuild": "node scripts/clean.mjs",
-    "prepublishOnly": "npm run build &&  node scripts/prepublishOnly.mjs",
-    "postpublish": "node scripts/postpublish.mjs",
-    "postbuild": "node scripts/postbuild.mjs",
-    "create-package": "node scripts/create-package.mjs",
+    "prebuild": "node scripts/clean.js",
+    "prepublishOnly": "npm run build &&  node scripts/prepublishOnly.js",
+    "postpublish": "node scripts/postpublish.js",
+    "postbuild": "node scripts/postbuild.js",
+    "create-package": "node scripts/create-package.js",
     "build": "tsc",
     "prepare": "husky install"
   },
@@ -61,7 +60,7 @@
     "statedrive": "^0.0.13"
   },
   "dependencies": {
-    "@hydrophobefireman/kit-icons": "^0.0.3",
+    "@hydrophobefireman/kit-icons": "^0.0.5",
     "csstype": "^3.0.9"
   },
   "devDependencies": {

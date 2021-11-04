@@ -3,32 +3,33 @@ import "@hydrophobefireman/kit/styles";
 // javascript is supported
 import "./App.css";
 
-import { css } from "catom";
+import {css} from "catom";
 
-import { _util } from "@hydrophobefireman/kit";
-import { AlertRoot, useAlerts } from "@hydrophobefireman/kit/alerts";
+import {_util} from "@hydrophobefireman/kit";
+import {AlertRoot, useAlerts} from "@hydrophobefireman/kit/alerts";
 import {
   AutoComplete,
   useAutoComplete,
 } from "@hydrophobefireman/kit/autocomplete";
-import { BottomSheet } from "@hydrophobefireman/kit/bottom-sheet";
+import {BottomSheet} from "@hydrophobefireman/kit/bottom-sheet";
 import {
   Button,
   ButtonProps,
   TextButton as TB,
 } from "@hydrophobefireman/kit/button";
-import { Collapse, useCollapse } from "@hydrophobefireman/kit/collapse";
-import { Box, Resource } from "@hydrophobefireman/kit/container";
-import { FileDropTarget } from "@hydrophobefireman/kit/file-drop-target";
-import { Input, Switch, useSwitch } from "@hydrophobefireman/kit/input";
+import {Collapse, useCollapse} from "@hydrophobefireman/kit/collapse";
+import {Box, Resource} from "@hydrophobefireman/kit/container";
+import {FileDropTarget} from "@hydrophobefireman/kit/file-drop-target";
+import {Input, Switch, useSwitch} from "@hydrophobefireman/kit/input";
 import {
   Checkbox,
   RadioGroup,
   RadioInput,
   useCheckbox,
 } from "@hydrophobefireman/kit/input";
-import { Modal, useModal } from "@hydrophobefireman/kit/modal";
-import { Text } from "@hydrophobefireman/kit/text";
+import {Modal, useModal} from "@hydrophobefireman/kit/modal";
+import {Select} from "@hydrophobefireman/kit/select";
+import {Text} from "@hydrophobefireman/kit/text";
 import {
   installLocalStorageReflection,
   installPreferenceReflection,
@@ -42,7 +43,7 @@ import {
   useState,
 } from "@hydrophobefireman/ui-lib";
 
-import { RouterTest } from "./RouterTest";
+import {RouterTest} from "./RouterTest";
 
 const sanitizeRegExp = /([^\w]|_)/g;
 const clean = (x: any) => (x + "").replace(sanitizeRegExp, "").toLowerCase();
@@ -50,7 +51,7 @@ const contains = (b: any, a: any) => clean(b).includes(clean(a));
 installLocalStorageReflection();
 installPreferenceReflection();
 function A() {
-  const { persist } = useAlerts();
+  const {persist} = useAlerts();
   const onClick = () => {
     persist({
       mask: true,
@@ -64,7 +65,7 @@ function A() {
 }
 
 function CollapseTest() {
-  const { active, toggle } = useCollapse(false);
+  const {active, toggle} = useCollapse(false);
   return (
     <div>
       <Button mode="secondary" variant="shadow" label="toggle" onClick={toggle}>
@@ -76,11 +77,11 @@ function CollapseTest() {
     </div>
   );
 }
-function ThemeSwitcher({ children }: any) {
+function ThemeSwitcher({children}: any) {
   const [value, setValue] = useState(null);
 
   return (
-    <div style={value ? { "--kit-theme-fg": value } : null}>
+    <div style={value ? {"--kit-theme-fg": value} : null}>
       <input type="color" onInput={(x) => setValue(x.currentTarget.value)} />
       {children}
     </div>
@@ -94,68 +95,77 @@ function App(): VNode {
     setTimeout(() => setName("John"), 1000);
   }, [refetch]);
   const [value, setValue] = useState(null);
-  const { persist } = useAlerts();
-  const { currentTheme, toggle } = useTheme();
-  const { currentState, toggle: toggleSwitch } = useSwitch("intermediate");
-  const { active, toggle: toggleModal, setActive } = useModal();
+  const {persist} = useAlerts();
+  const {currentTheme, toggle} = useTheme();
+  const {currentState, toggle: toggleSwitch} = useSwitch("intermediate");
+  const {active, toggle: toggleModal, setActive} = useModal();
   const [files, setFiles] = useState<File[]>(null);
   const resetRef = useRef(null);
-  const { setValue: setAcValue, value: acValue } = useAutoComplete("");
+  const {setValue: setAcValue, value: acValue} = useAutoComplete("");
 
   const options = [
-    { value: "Things Fall Apart" },
-    { value: "Fairy tales" },
-    { value: "The Divine Comedy" },
-    { value: "The Epic Of Gilgamesh" },
-    { value: "The Book Of Job" },
-    { value: "One Thousand and One Nights" },
-    { value: "Njál's Saga" },
-    { value: "Pride and Prejudice" },
-    { value: "Le Père Goriot" },
-    { value: "Molloy, Malone Dies, The Unnamable, the trilogy" },
-    { value: "The Decameron" },
-    { value: "Ficciones" },
-    { value: "Wuthering Heights" },
-    { value: "The Stranger" },
-    { value: "Poems" },
-    { value: "Journey to the End of the Night" },
-    { value: "Don Quijote De La Mancha" },
-    { value: "The Canterbury Tales" },
-    { value: "Stories" },
-    { value: "Nostromo" },
-    { value: "Great Expectations" },
-    { value: "Jacques the Fatalist" },
-    { value: "Berlin Alexanderplatz" },
-    { value: "Crime and Punishment" },
-    { value: "The Idiot" },
-    { value: "The Possessed" },
-    { value: "The Brothers Karamazov" },
-    { value: "Middlemarch" },
-    { value: "Invisible Man" },
-    { value: "Medea" },
-    { value: "Absalom, Absalom!" },
-    { value: "The Sound and the Fury" },
-    { value: "Madame Bovary" },
-    { value: "Sentimental Education" },
-    { value: "Gypsy Ballads" },
-    { value: "One Hundred Years of Solitude" },
-    { value: "Love in the Time of Cholera" },
-    { value: "Faust" },
-    { value: "Dead Souls" },
-    { value: "The Tin Drum" },
-    { value: "The Devil to Pay in the Backlands" },
-    { value: "Hunger" },
-    { value: "The Old Man and the Sea" },
-    { value: "Iliad" },
-    { value: "Odyssey" },
-    { value: "A Doll's House" },
-    { value: "Ulysses" },
-    { value: "The Trial" },
-    { value: "The Castle" },
+    {value: "Things Fall Apart"},
+    {value: "Fairy tales"},
+    {value: "The Divine Comedy"},
+    {value: "The Epic Of Gilgamesh"},
+    {value: "The Book Of Job"},
+    {value: "One Thousand and One Nights"},
+    {value: "Njál's Saga"},
+    {value: "Pride and Prejudice"},
+    {value: "Le Père Goriot"},
+    {value: "Molloy, Malone Dies, The Unnamable, the trilogy"},
+    {value: "The Decameron"},
+    {value: "Ficciones"},
+    {value: "Wuthering Heights"},
+    {value: "The Stranger"},
+    {value: "Poems"},
+    {value: "Journey to the End of the Night"},
+    {value: "Don Quijote De La Mancha"},
+    {value: "The Canterbury Tales"},
+    {value: "Stories"},
+    {value: "Nostromo"},
+    {value: "Great Expectations"},
+    {value: "Jacques the Fatalist"},
+    {value: "Berlin Alexanderplatz"},
+    {value: "Crime and Punishment"},
+    {value: "The Idiot"},
+    {value: "The Possessed"},
+    {value: "The Brothers Karamazov"},
+    {value: "Middlemarch"},
+    {value: "Invisible Man"},
+    {value: "Medea"},
+    {value: "Absalom, Absalom!"},
+    {value: "The Sound and the Fury"},
+    {value: "Madame Bovary"},
+    {value: "Sentimental Education"},
+    {value: "Gypsy Ballads"},
+    {value: "One Hundred Years of Solitude"},
+    {value: "Love in the Time of Cholera"},
+    {value: "Faust"},
+    {value: "Dead Souls"},
+    {value: "The Tin Drum"},
+    {value: "The Devil to Pay in the Backlands"},
+    {value: "Hunger"},
+    {value: "The Old Man and the Sea"},
+    {value: "Iliad"},
+    {value: "Odyssey"},
+    {value: "A Doll's House"},
+    {value: "Ulysses"},
+    {value: "The Trial"},
+    {value: "The Castle"},
   ];
   const noResult = acValue && options.every((x) => !contains(x.value, acValue));
+  const [sv, setsv] = useState("");
   return (
     <>
+      <Select
+        value={sv}
+        setValue={setsv as any}
+        label="select value"
+        buttonClass={css({width: "300px"})}
+        options={[...options]}
+        dropdownClass={css({maxHeight: "300px", overflow: "auto"})}
+      />
       <FileDropTarget
         multiple
         onUpdate={(f, r) => {
@@ -266,7 +276,7 @@ function App(): VNode {
           horizontal="center"
           vertical="center"
         >
-          <Box element="div" style={{ width: "100%" }}>
+          <Box element="div" style={{width: "100%"}}>
             <div>
               Hello <Text.strong depends>{name}</Text.strong>
             </div>
@@ -296,14 +306,14 @@ function App(): VNode {
           </Box>
         </Box>
       </Resource>
-      <Box style={{ marginTop: "2rem", flexWrap: "wrap" }} row>
+      <Box style={{marginTop: "2rem", flexWrap: "wrap"}} row>
         <TextButton
-          class={css({ margin: ".5rem" })}
+          class={css({margin: ".5rem"})}
           text="Normal"
           variant="normal"
         />
         <TextButton
-          style={{ "--kit-border": "blue" }}
+          style={{"--kit-border": "blue"}}
           class={css({
             margin: ".5rem",
             pseudo: {
@@ -315,33 +325,25 @@ function App(): VNode {
           text="Custom"
           variant="custom"
         />
+        <TextButton class={css({margin: ".5rem"})} text="Alert" mode="alert" />
+        <TextButton class={css({margin: ".5rem"})} text="Error" mode="error" />
         <TextButton
-          class={css({ margin: ".5rem" })}
-          text="Alert"
-          mode="alert"
-        />
-        <TextButton
-          class={css({ margin: ".5rem" })}
-          text="Error"
-          mode="error"
-        />
-        <TextButton
-          class={css({ margin: ".5rem" })}
+          class={css({margin: ".5rem"})}
           text="Secondary"
           mode="secondary"
         />
         <TextButton
-          class={css({ margin: ".5rem" })}
+          class={css({margin: ".5rem"})}
           text="Success"
           mode="success"
         />
         <TextButton
-          class={css({ margin: ".5rem" })}
+          class={css({margin: ".5rem"})}
           text="Voilet"
           mode="voilet"
         />
         <TextButton
-          class={css({ margin: ".5rem" })}
+          class={css({margin: ".5rem"})}
           text="Warning"
           mode="warning"
         />
@@ -368,7 +370,7 @@ function App(): VNode {
   );
 }
 function CheckboxTest() {
-  const { checked, toggle } = useCheckbox(false);
+  const {checked, toggle} = useCheckbox(false);
   return (
     <Checkbox checked={checked} onCheck={toggle} errored={!checked}>
       Hello
@@ -412,17 +414,9 @@ function BottomSheetDemo() {
 function TextButton({
   text,
   ...rest
-}: { text: string; class: any; [l: string]: any } & Omit<
-  ButtonProps,
-  "label"
->) {
+}: {text: string; class: any; [l: string]: any} & Omit<ButtonProps, "label">) {
   return (
-    <Button
-      style={{ fontSize: ".9rem" }}
-      label={text}
-      variant="shadow"
-      {...rest}
-    >
+    <Button style={{fontSize: ".9rem"}} label={text} variant="shadow" {...rest}>
       {text}
     </Button>
   );

@@ -20,6 +20,7 @@ import {clean, contains} from "./util";
 
 const win = typeof window !== "undefined" ? window : (null as any);
 const opts = {target: win};
+const optsPreventDefault = _util.extend({passive: false}, opts);
 _util.scrollIntoViewIfNeededPolyfill();
 function OptionsValue({
   render,
@@ -32,12 +33,10 @@ function OptionsValue({
   currentValue: AutoCompleteValue;
   highlightedValue: string | null;
 }) {
-  const ref = useRef<HTMLLIElement>();
   return (
     <li
       role="option"
       tabIndex={-1}
-      ref={ref}
       onClick={select}
       data-value={value}
       data-active={String(currentValue === value || highlightedValue === value)}
@@ -56,7 +55,10 @@ export function OptionsRenderer({
   select,
   setCurrentValue,
   labelledBy,
+  as,
+  preventDefault,
 }: OptionsRendererProps) {
+  const As = as || "ul";
   const [highlightedValue, _setHighlightedValue] = useState<string | null>(
     null
   );
@@ -81,7 +83,8 @@ export function OptionsRenderer({
     });
     return {children, activeChild, $curr};
   }
-  function handleArrowUp() {
+  function handleArrowUp(e: JSX.TargetedKeyboardEvent<Window>) {
+    preventDefault && e.preventDefault();
     const {activeChild, children, $curr} = _arrow();
     if (!activeChild) {
       const lastChild = children[children.length - 1];
@@ -94,7 +97,8 @@ export function OptionsRenderer({
     }
     setHighlightedValue(children[$curr - 1]);
   }
-  function handleArrowDown() {
+  function handleArrowDown(e: JSX.TargetedKeyboardEvent<Window>) {
+    preventDefault && e.preventDefault();
     const {$curr, activeChild, children} = _arrow();
     if (!activeChild) {
       const firstChild = children[0];
@@ -106,9 +110,10 @@ export function OptionsRenderer({
     }
     setHighlightedValue(children[$curr + 1]);
   }
-  const ulRef = useRef<HTMLUListElement>();
-  useKeyPress("ArrowUp", handleArrowUp, opts);
-  useKeyPress("ArrowDown", handleArrowDown, opts);
+  const ulRef = useRef<HTMLUListElement | HTMLOptionElement>();
+  const keypressOptions = preventDefault ? optsPreventDefault : opts;
+  useKeyPress("ArrowUp", handleArrowUp, keypressOptions);
+  useKeyPress("ArrowDown", handleArrowDown, keypressOptions);
   useKeyPress(
     "Enter",
     () => {
@@ -126,8 +131,8 @@ export function OptionsRenderer({
     opts
   );
   return (
-    <ul
-      ref={ulRef}
+    <As
+      ref={ulRef as any}
       class={classnames._autoCompleteInlineList}
       aria-labelledBy={labelledBy}
     >
@@ -140,7 +145,7 @@ export function OptionsRenderer({
           highlightedValue={highlightedValue}
         />
       ))}
-    </ul>
+    </As>
   );
 }
 

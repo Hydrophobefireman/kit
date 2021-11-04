@@ -2,7 +2,7 @@ import {BaseElement, _util} from "@hydrophobefireman/kit";
 import {BaseDom} from "@hydrophobefireman/kit/base-dom";
 import * as classnames from "@hydrophobefireman/kit/classnames";
 import {Box} from "@hydrophobefireman/kit/container";
-import {useLabelId, useToggleState} from "@hydrophobefireman/kit/hooks";
+import {usePairedId, useToggleState} from "@hydrophobefireman/kit/hooks";
 import {Text} from "@hydrophobefireman/kit/text";
 import {h} from "@hydrophobefireman/ui-lib";
 
@@ -25,7 +25,7 @@ export function Checkbox({
   ...rest
 }: BaseElement<CheckboxProps>) {
   _util.guardCss(boxStyle);
-  const [inputId, labelId] = useLabelId(id);
+  const [inputId, labelId] = usePairedId(id);
   const labelStyle = {};
   if (size) {
     labelStyle["--kit-checkbox-size"] = size;

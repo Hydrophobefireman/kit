@@ -1,8 +1,7 @@
-import {join} from "path";
-
-import {updatePackages} from "./_update-peer-deps.mjs";
-import {dist, rename} from "./actions.mjs";
-import {fromPackageJson, isMain} from "./util.mjs";
+const {join} = require("path");
+const {updatePackages} = require("./_update-peer-deps");
+const {dist, rename, root} = require("./actions");
+const {fromPackageJson} = require("./util");
 
 const packages = join(dist, "packages");
 
@@ -18,6 +17,6 @@ async function main() {
   await Promise.all(kitPackages.map((x) => movePackage(x)));
 }
 
-if (isMain(import.meta.url)) {
+if (require.main === module) {
   main();
 }

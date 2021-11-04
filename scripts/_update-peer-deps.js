@@ -1,13 +1,11 @@
-import {join} from "path";
-
-import {readFile, writeFile} from "./actions.mjs";
-import {
+const {join} = require("path");
+const {readFile, writeFile} = require("./actions");
+const {
   fromPackageJson,
-  isMain,
   packageDir,
   packageJsonLoc,
   prettyJSON,
-} from "./util.mjs";
+} = require("./util");
 
 async function updatePackages() {
   const packageJson = await fromPackageJson();
@@ -31,9 +29,8 @@ async function updatePackages() {
   packageJson.kitPackages = kitPackages.sort();
   await writeFile(packageJsonLoc, prettyJSON(packageJson));
 }
-const _updatePackages = updatePackages;
-export {_updatePackages as updatePackages};
+module.exports = {updatePackages};
 
-if (isMain(import.meta.url)) {
+if (require.main === module) {
   updatePackages();
 }

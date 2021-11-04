@@ -1,7 +1,6 @@
-import {join} from "path";
-
-import {mkdir} from "./actions.mjs";
-import {isMain, postpublish, root} from "./util.mjs";
+const {join} = require("path");
+const {mkdir} = require("./actions");
+const {postpublish, root} = require("./util.js");
 
 async function main() {
   console.log(`Root: ${root}`);
@@ -10,6 +9,6 @@ async function main() {
   await mkdir(core);
 }
 
-if (isMain(import.meta.url)) {
+if (require.main === module) {
   main();
 }

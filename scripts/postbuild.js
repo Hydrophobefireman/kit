@@ -1,7 +1,6 @@
-import {join} from "path";
-
-import {copyFile, dist, root} from "./actions.mjs";
-import {fromPackageJson, isMain} from "./util.mjs";
+const {join} = require("path");
+const {copyFile, dist, root} = require("./actions");
+const {fromPackageJson} = require("./util");
 
 const builtPackages = join(dist, "packages");
 const srcPackages = join(root, "packages");
@@ -18,6 +17,6 @@ async function postbuild() {
   );
 }
 
-if (isMain(import.meta.url)) {
+if (require.main === module) {
   postbuild();
 }

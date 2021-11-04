@@ -4,7 +4,7 @@ import * as classnames from "@hydrophobefireman/kit/classnames";
 import {
   _useSelfEvent,
   useKeyPress,
-  useLabelId,
+  usePairedId,
 } from "@hydrophobefireman/kit/hooks";
 import {forwardRef, h, useRef} from "@hydrophobefireman/ui-lib";
 
@@ -33,7 +33,7 @@ function BaseInput({
   __$ref,
   ...props
 }: BaseElement<InputProps> & {__$ref: any}) {
-  const [idx, labelIdx] = useLabelId(id);
+  const [idx, labelIdx] = usePairedId(id);
   const s = size || "default";
   const isMat = variant === "material";
   const active = !!value;

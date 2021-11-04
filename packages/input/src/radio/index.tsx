@@ -2,7 +2,7 @@ import {BaseElement, _util, useIsPending} from "@hydrophobefireman/kit";
 import {BaseDom} from "@hydrophobefireman/kit/base-dom";
 import * as classnames from "@hydrophobefireman/kit/classnames";
 import {Box} from "@hydrophobefireman/kit/container";
-import {useId, useKeyPress, useLabelId} from "@hydrophobefireman/kit/hooks";
+import {useId, useKeyPress, usePairedId} from "@hydrophobefireman/kit/hooks";
 import {
   Fragment,
   createContext,
@@ -82,7 +82,7 @@ function BaseRadioInput<T>({
 }: BaseRadioProps<T>) {
   _util.guardCss(labelStyle);
   const {value: currentValue, setValue, name} = ctx;
-  const [inputId, labelId] = useLabelId(id);
+  const [inputId, labelId] = usePairedId(id);
   const isSelected = currentValue === value;
   const label = useRef<HTMLLabelElement>();
   const update = () => setValue(value);

@@ -6,4 +6,6 @@ export interface SelectProps {
   options: SelectOptions[];
   setValue(v: string | number): void;
   label: string;
+  buttonClass?: string;
+  dropdownClass?: string;
 }
