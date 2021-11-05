@@ -10,7 +10,6 @@ export interface OptionsRendererProps {
   setCurrentValue?(q: AutoCompleteValue): void;
   select: AutoCompleteOptionsRendererProps["select"];
   labelledBy: string;
-  as?: "ul" | "option";
   preventDefault?: boolean;
 }
 

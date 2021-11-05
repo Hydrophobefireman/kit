@@ -29,8 +29,19 @@ export function Select({
   const listboxRef = useRef<HTMLDivElement>();
   /*NodeJS.Timeout */
   const timerRef = useRef<any>();
+  const ulRef = useRef<HTMLUListElement>();
   const [_inputValue, _setInputValue] = useState("");
-
+  const [highlightedValue, __setHighlightedValue] = useState(value);
+  function setHighlightedValue(e: any) {
+    __setHighlightedValue(e);
+    if (e) {
+      const c = Array.from(ulRef.current.children);
+      const el: any = c.find((x: HTMLElement) => x.dataset.value == e);
+      if (el) {
+        el.scrollIntoViewIfNeeded();
+      }
+    }
+  }
   useEffect(() => {
     active && inputRef.current.focus();
   }, [active]);
@@ -57,13 +68,23 @@ export function Select({
     );
     setActive(false);
   }
+  function handleSetHighlightedValue(e: string): void;
+  function handleSetHighlightedValue(e: JSX.TargetedEvent<HTMLElement>): void;
+  function handleSetHighlightedValue(
+    e: JSX.TargetedEvent<HTMLElement> | string
+  ) {
+    if (!e) return;
+    setHighlightedValue(
+      typeof e === "string" ? e : (e.currentTarget.dataset.value as any)
+    );
+  }
   useEffect(() => {
     if (!_inputValue) return;
     const f = options.find(
       (x) =>
         String(x.value).toLowerCase().indexOf(_inputValue.toLowerCase()) === 0
     );
-    if (f) setValue(f.value);
+    if (f) setHighlightedValue(f.value);
   }, [_inputValue]);
   return (
     <Box ref={parentRef} inlineFlex>
@@ -118,12 +139,15 @@ export function Select({
                 data-transition-owner={idx}
                 ref={listboxRef}
               >
-                <OptionsRenderer
+                <OptionsRenderer.__ControlledHighlightedElement
                   labelledBy={labelId}
                   options={options}
+                  __ulRef={ulRef}
                   currentValue={value as string}
                   select={handleSetValue}
                   setCurrentValue={handleSetValue}
+                  highlightedValue={highlightedValue}
+                  _setHighlightedValue={handleSetHighlightedValue}
                 />
               </div>
             )

@@ -17,8 +17,8 @@ export function applyRef(ref: any, value: any) {
 type RefObj<R> = ((val: R) => void) | RefType<R>;
 
 export function applyForwardedRef<R = any>(
-  externalRef: RefObj<R>,
-  internalRef: RefObj<R>
+  externalRef?: RefObj<R>,
+  internalRef?: RefObj<R>
 ) {
   return function (value: R) {
     if (!value) return;

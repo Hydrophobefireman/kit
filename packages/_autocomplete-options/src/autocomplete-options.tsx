@@ -49,19 +49,21 @@ function OptionsValue({
     </li>
   );
 }
-export function OptionsRenderer({
+function _OptionsRenderer({
   options,
   currentValue,
   select,
   setCurrentValue,
   labelledBy,
-  as,
+  __ulRef,
+  _setHighlightedValue,
+  highlightedValue,
   preventDefault,
-}: OptionsRendererProps) {
-  const As = as || "ul";
-  const [highlightedValue, _setHighlightedValue] = useState<string | null>(
-    null
-  );
+}: OptionsRendererProps & {
+  highlightedValue: any;
+  _setHighlightedValue(a: any): void;
+  __ulRef?: RefType<HTMLUListElement>;
+}) {
   useEffect(() => {
     setHighlightedValue(null);
   }, [currentValue]);
@@ -71,7 +73,7 @@ export function OptionsRenderer({
     _setHighlightedValue(e.dataset.value!);
   }
   function _arrow() {
-    const listParent = ulRef.current;
+    const listParent = _InternalUlRef.current;
 
     const children: HTMLLIElement[] = Array.from(listParent.children) as any;
     let $curr: number = 0;
@@ -110,14 +112,14 @@ export function OptionsRenderer({
     }
     setHighlightedValue(children[$curr + 1]);
   }
-  const ulRef = useRef<HTMLUListElement | HTMLOptionElement>();
+  const _InternalUlRef = useRef<HTMLUListElement | HTMLOptionElement>();
   const keypressOptions = preventDefault ? optsPreventDefault : opts;
   useKeyPress("ArrowUp", handleArrowUp, keypressOptions);
   useKeyPress("ArrowDown", handleArrowDown, keypressOptions);
   useKeyPress(
     "Enter",
     () => {
-      const children = Array.from(ulRef.current.children);
+      const children = Array.from(_InternalUlRef.current.children);
       const e =
         children.find(
           (x: HTMLElement) => x.dataset.value === highlightedValue
@@ -131,8 +133,8 @@ export function OptionsRenderer({
     opts
   );
   return (
-    <As
-      ref={ulRef as any}
+    <ul
+      ref={_util.applyForwardedRef(__ulRef, _InternalUlRef) as any}
       class={classnames._autoCompleteInlineList}
       aria-labelledBy={labelledBy}
     >
@@ -145,10 +147,31 @@ export function OptionsRenderer({
           highlightedValue={highlightedValue}
         />
       ))}
-    </As>
+    </ul>
   );
 }
 
+const __OptionsRenderer = forwardRef<OptionsRendererProps>(
+  function OptionsRenderer /** uncontrolled */(
+    props: OptionsRendererProps,
+    ref
+  ) {
+    const [highlightedValue, _setHighlightedValue] = useState<string | null>(
+      null
+    );
+    return h(
+      _OptionsRenderer,
+      _util.extend({__ulRef: ref}, props, {
+        highlightedValue,
+        _setHighlightedValue,
+      })
+    );
+  }
+);
+export const OptionsRenderer: typeof __OptionsRenderer & {
+  __ControlledHighlightedElement: typeof _OptionsRenderer;
+} = __OptionsRenderer as any;
+OptionsRenderer.__ControlledHighlightedElement = _OptionsRenderer;
 export const AutoCompleteOptions = forwardRef<
   AutoCompleteOptionsRendererProps,
   any
