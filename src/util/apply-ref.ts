@@ -1,4 +1,4 @@
-import {RefType} from "@hydrophobefireman/ui-lib";
+import {RefType, useCallback} from "@hydrophobefireman/ui-lib";
 
 import {warnOnce} from "./warn";
 
@@ -16,13 +16,13 @@ export function applyRef(ref: any, value: any) {
 
 type RefObj<R> = ((val: R) => void) | RefType<R>;
 
-export function applyForwardedRef<R = any>(
+export function useSyncedRefs<R = any>(
   externalRef?: RefObj<R>,
   internalRef?: RefObj<R>
 ) {
-  return function (value: R) {
-    if (!value) return;
+  return useCallback(function (value: R) {
+    // if (!value) return;
     applyRef(externalRef, value);
     applyRef(internalRef, value);
-  };
+  }, []);
 }

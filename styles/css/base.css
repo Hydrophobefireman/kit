@@ -110,7 +110,8 @@ body {
   transition: var(--kit-transition);
 }
 
-.kit-button {
+.kit-button,
+[button-reset] {
   cursor: pointer;
   font: inherit;
   outline: none;

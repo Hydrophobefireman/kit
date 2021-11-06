@@ -5,11 +5,12 @@ export interface AutoCompleteOptionsProps {
   render?(value: AutoCompleteValue): JSX.Element;
 }
 export interface OptionsRendererProps {
-  options: AutoCompleteOptionsProps[];
+  options: (AutoCompleteOptionsProps & {pos: number})[];
   currentValue: AutoCompleteValue;
   setCurrentValue?(q: AutoCompleteValue): void;
   select: AutoCompleteOptionsRendererProps["select"];
   labelledBy: string;
+  size: number;
   preventDefault?: boolean;
 }
 

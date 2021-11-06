@@ -6,3 +6,7 @@
   border: 2px solid var(--kit-shade-3);
   border-radius: var(--kit-radius);
 }
+
+[kit-hidden-input-trap]:focus + ._kit-select-button {
+  border-color: var(--kit-foreground) !important;
+}

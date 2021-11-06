@@ -7,19 +7,33 @@ import {Dropdown} from "@hydrophobefireman/kit/dropdown";
 import {usePairedId, useToggleState} from "@hydrophobefireman/kit/hooks";
 import {ChevronDownIcon} from "@hydrophobefireman/kit/icons";
 import {Transition} from "@hydrophobefireman/kit/transition";
-import {useEffect, useRef, useState} from "@hydrophobefireman/ui-lib";
+import {
+  h,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "@hydrophobefireman/ui-lib";
 
 import {SelectProps} from "./types";
 
+const memoWarning = _util.warnOnce();
+let memoCacheMissCount = 0;
 export function Select({
-  options,
+  options: _options,
   id,
   dropdownClass,
   value,
   label,
-  setValue,
+  setValue: _setValue,
   buttonClass,
 }: BaseElement<SelectProps>) {
+  const options = useMemo(() => {
+    if (memoCacheMissCount++ == 3) {
+      memoWarning(null, "Remember to memo your options!");
+    }
+    return _options.map((x, i) => _util.extend({}, x, {pos: i + 1}));
+  }, [_options]);
   const parentRef = useRef<HTMLElement>();
   const buttonRef = useRef<HTMLElement>();
   const [idx, labelId] = usePairedId(id);
@@ -32,13 +46,24 @@ export function Select({
   const ulRef = useRef<HTMLUListElement>();
   const [_inputValue, _setInputValue] = useState("");
   const [highlightedValue, __setHighlightedValue] = useState(value);
+  function setValue(nv: any) {
+    __setHighlightedValue("");
+    _setValue(nv);
+  }
   function setHighlightedValue(e: any) {
     __setHighlightedValue(e);
     if (e) {
-      const c = Array.from(ulRef.current.children);
-      const el: any = c.find((x: HTMLElement) => x.dataset.value == e);
-      if (el) {
-        el.scrollIntoViewIfNeeded();
+      if (ulRef.current) {
+        const c = Array.from(ulRef.current.children);
+        const el: any = c.find((x: HTMLElement) => x.dataset.value == e);
+        if (el) {
+          el.scrollIntoViewIfNeeded();
+        }
+      } else {
+        // the select button hasn't been clicked, this is a keyboard navigation
+        // and the user has tried to fill the select by typing
+        // we skip all the intermediate steps and fire the onchange
+        setValue(e);
       }
     }
   }
@@ -92,10 +117,12 @@ export function Select({
         {label}
       </label>
       <BaseDom
+        element="button"
+        button-reset
         id={buttonId}
+        onFocus={() => inputRef.current.focus()}
         aria-haspopup="listbox"
         aria-expanded={active}
-        element="button"
         ref={buttonRef as any}
         onClick={toggle}
         aria-label={label}
@@ -106,6 +133,7 @@ export function Select({
       </BaseDom>
       <input
         onBlur={(e) => {
+          if (!active) return;
           const {relatedTarget} = e;
           if (
             relatedTarget !== buttonRef.current &&
@@ -113,11 +141,17 @@ export function Select({
           )
             setActive(false);
         }}
+        onKeyDown={({key}) => {
+          if (key === "Enter") {
+            setActive(true);
+          }
+        }}
         data-has-focus={String(active)}
         data-debug-value={_inputValue}
         value={_inputValue}
         onInput={handleHiddenInput}
         ref={inputRef}
+        kit-hidden-input-trap
         class={classnames.srOnly}
         style={{fontSize: "16px"}}
       />
@@ -129,7 +163,7 @@ export function Select({
           id={active ? idx : ""}
           visible={active}
           render={
-            active && (
+            active && options && options.length > 1 ? (
               <div
                 class={classnames.autocompleteOptions}
                 id={controlledBoxId}
@@ -141,6 +175,7 @@ export function Select({
               >
                 <OptionsRenderer.__ControlledHighlightedElement
                   labelledBy={labelId}
+                  size={options.length}
                   options={options}
                   __ulRef={ulRef}
                   currentValue={value as string}
@@ -150,10 +185,29 @@ export function Select({
                   _setHighlightedValue={handleSetHighlightedValue}
                 />
               </div>
-            )
+            ) : null
           }
         />
       </Dropdown>
     </Box>
   );
 }
+
+Select.EventDriven = function ({
+  onChange,
+  ...props
+}: Omit<BaseElement<SelectProps>, "value" | "setValue"> & {
+  onChange(next: string, prev: string): void;
+}) {
+  const [value, _setValue] = useState("");
+  return h(
+    Select,
+    _util.extend(props, {
+      value,
+      setValue(next: string) {
+        _setValue(next);
+        onChange(next, value);
+      },
+    })
+  );
+};

@@ -1,6 +1,6 @@
 import {_util} from "@hydrophobefireman/kit";
 import * as classnames from "@hydrophobefireman/kit/classnames";
-import {useKeyPress} from "@hydrophobefireman/kit/hooks";
+import {useKeyPress, useMount} from "@hydrophobefireman/kit/hooks";
 import {
   RefType,
   forwardRef,
@@ -26,20 +26,28 @@ function OptionsValue({
   render,
   value,
   select,
+  size,
+  pos,
   currentValue,
   highlightedValue,
 }: AutoCompleteOptionsProps & {
+  size: number;
+  pos: number;
   select(e: any): void;
   currentValue: AutoCompleteValue;
   highlightedValue: string | null;
 }) {
+  const ariaSelected = currentValue === value;
   return (
     <li
       role="option"
       tabIndex={-1}
       onClick={select}
       data-value={value}
-      data-active={String(currentValue === value || highlightedValue === value)}
+      aria-posinset={pos}
+      aria-setsize={size}
+      aria-selected={ariaSelected}
+      data-active={String(ariaSelected || highlightedValue === value)}
       class={[
         classnames.autocompleteOption,
         currentValue === value ? classnames.autocompleteCurrentValue : "",
@@ -54,6 +62,7 @@ function _OptionsRenderer({
   currentValue,
   select,
   setCurrentValue,
+  size,
   labelledBy,
   __ulRef,
   _setHighlightedValue,
@@ -64,6 +73,21 @@ function _OptionsRenderer({
   _setHighlightedValue(a: any): void;
   __ulRef?: RefType<HTMLUListElement>;
 }) {
+  // useMount(() => {
+  //   const listParent = _InternalUlRef.current;
+  //   if (listParent) {
+  //     _util.buildRaf(
+  //       _util.buildRaf(() => {
+  //         const children = Array.from(listParent.children);
+  //         const c = children.find(
+  //           (x: HTMLElement) => x.dataset.value === currentValue
+  //         );
+  //         if (c) (c as any).scrollIntoViewIfNeeded();
+  //       })
+  //     );
+  //   }
+  // });
+
   useEffect(() => {
     setHighlightedValue(null);
   }, [currentValue]);
@@ -114,6 +138,7 @@ function _OptionsRenderer({
   }
   const _InternalUlRef = useRef<HTMLUListElement | HTMLOptionElement>();
   const keypressOptions = preventDefault ? optsPreventDefault : opts;
+  const commonRef = _util.useSyncedRefs(__ulRef, _InternalUlRef);
   useKeyPress("ArrowUp", handleArrowUp, keypressOptions);
   useKeyPress("ArrowDown", handleArrowDown, keypressOptions);
   useKeyPress(
@@ -134,14 +159,16 @@ function _OptionsRenderer({
   );
   return (
     <ul
-      ref={_util.applyForwardedRef(__ulRef, _InternalUlRef) as any}
+      ref={commonRef as any}
       class={classnames._autoCompleteInlineList}
       aria-labelledBy={labelledBy}
     >
-      {options.map(({render, value}) => (
+      {options.filter(Boolean).map((x) => (
         <OptionsValue
-          render={render}
-          value={value}
+          size={size}
+          pos={x.pos}
+          render={x.render}
+          value={x.value}
           select={select}
           currentValue={currentValue}
           highlightedValue={highlightedValue}
@@ -187,19 +214,25 @@ export const AutoCompleteOptions = forwardRef<
   }: AutoCompleteOptionsRendererProps,
   ref: RefType<any>
 ) {
+  const getAllAsFiltered = () =>
+    options.map((x, i) => _util.extend({}, x, {pos: i + 1}));
   query = query || "";
   const funcRef = useRef<(a: AutoCompleteValue, b: string) => boolean>();
   funcRef.current = containsFunction || contains;
-  const [filteredOptions, setFilteredOptions] = useState<
-    AutoCompleteOptionsProps[]
-  >([]);
+  const [filteredOptions, setFilteredOptions] =
+    useState<(AutoCompleteOptionsProps & {pos: number})[]>(getAllAsFiltered);
   useEffect(() => {
-    const {current} = funcRef;
+    const {current: filterFunc} = funcRef;
     if (!options || !options.length) return setFilteredOptions([]);
-    if (current === contains && !clean(query))
-      return setFilteredOptions(options);
-
-    setFilteredOptions(options.filter((x) => !!current(x.value, query as any)));
+    if (filterFunc === contains && !clean(query))
+      return setFilteredOptions(getAllAsFiltered);
+    const filtered = options.map((x, i) => {
+      if (filterFunc(x.value, query as any)) {
+        return _util.extend({}, x, {post: i + 1});
+      }
+      return null as any;
+    });
+    setFilteredOptions(filtered);
   }, [query, options, containsFunction]);
 
   return filteredOptions.length ? (
@@ -207,6 +240,7 @@ export const AutoCompleteOptions = forwardRef<
       <OptionsRenderer
         labelledBy={labelledBy}
         options={filteredOptions}
+        size={options.length}
         currentValue={query}
         setCurrentValue={setQuery}
         select={select}

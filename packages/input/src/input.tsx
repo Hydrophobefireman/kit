@@ -133,10 +133,11 @@ export const SearchInput = forwardRef<BaseElement<InputProps>>(
       ),
       {target: typeof document !== "undefined" ? document.body : undefined}
     );
+    const commonRef = _util.useSyncedRefs(ref, $internalDom);
     return h(
       Input,
       _util.extend(props as any, {
-        ref: _util.applyForwardedRef(ref, $internalDom),
+        ref: commonRef,
       })
     );
   }

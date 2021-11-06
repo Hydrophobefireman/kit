@@ -82,6 +82,7 @@ export const Collapse = forwardRef<BaseElement<{active?: boolean}>>(
       current.style.height = "auto";
       _util.raf(latestHeight);
     };
+    const commonRef = _util.useSyncedRefs(ref, $internalRef);
     return h(
       "div",
       _util.extend(
@@ -89,7 +90,7 @@ export const Collapse = forwardRef<BaseElement<{active?: boolean}>>(
           ontransitionstart: () => (isPendingTransition.current = true),
           ontransitioncancel: onend,
           ontransitionend: onend,
-          ref: _util.applyForwardedRef(ref, $internalRef),
+          ref: commonRef,
           children,
           class: klass,
           "data-is-active": `${active}`,
