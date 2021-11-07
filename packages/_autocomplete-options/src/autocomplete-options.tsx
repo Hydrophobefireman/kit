@@ -98,16 +98,28 @@ function _OptionsRenderer({
   }
   function _arrow() {
     const listParent = _InternalUlRef.current;
-
     const children: HTMLLIElement[] = Array.from(listParent.children) as any;
-    let $curr: number = 0;
-    const activeChild = children.find((x, i) => {
+    let $_highlightedCurr: number = 0;
+    let $_activeCurr: number = 0;
+    let selectedElement: HTMLLIElement = null as any;
+    let elWithArrowFocus = children.find((x, i) => {
       // store the index in $curr
       // so that we don't have to do an indexOf
-      $curr = i;
-      return x.dataset.value === highlightedValue;
+      $_highlightedCurr = i;
+      const v = x.dataset.value;
+      if (!selectedElement) {
+        $_activeCurr = i;
+        if (v === currentValue) {
+          selectedElement = x;
+        }
+      }
+      return v === highlightedValue;
     });
-    return {children, activeChild, $curr};
+    if (!elWithArrowFocus && selectedElement) {
+      elWithArrowFocus = selectedElement;
+      $_highlightedCurr = $_activeCurr;
+    }
+    return {children, activeChild: elWithArrowFocus, $curr: $_highlightedCurr};
   }
   function handleArrowUp(e: JSX.TargetedKeyboardEvent<Window>) {
     preventDefault && e.preventDefault();

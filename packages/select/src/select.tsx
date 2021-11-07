@@ -4,7 +4,7 @@ import {BaseDom} from "@hydrophobefireman/kit/base-dom";
 import * as classnames from "@hydrophobefireman/kit/classnames";
 import {Box} from "@hydrophobefireman/kit/container";
 import {Dropdown} from "@hydrophobefireman/kit/dropdown";
-import {usePairedId, useToggleState} from "@hydrophobefireman/kit/hooks";
+import {Keys, usePairedId, useToggleState} from "@hydrophobefireman/kit/hooks";
 import {ChevronDownIcon} from "@hydrophobefireman/kit/icons";
 import {Transition} from "@hydrophobefireman/kit/transition";
 import {
@@ -45,7 +45,7 @@ export function Select({
   const timerRef = useRef<any>();
   const ulRef = useRef<HTMLUListElement>();
   const [_inputValue, _setInputValue] = useState("");
-  const [highlightedValue, __setHighlightedValue] = useState(value);
+  const [highlightedValue, __setHighlightedValue] = useState("");
   function setValue(nv: any) {
     __setHighlightedValue("");
     _setValue(nv);
@@ -98,7 +98,7 @@ export function Select({
   function handleSetHighlightedValue(
     e: JSX.TargetedEvent<HTMLElement> | string
   ) {
-    if (!e) return;
+    if (!e) return setHighlightedValue("");
     setHighlightedValue(
       typeof e === "string" ? e : (e.currentTarget.dataset.value as any)
     );
@@ -116,33 +116,24 @@ export function Select({
       <label class={classnames.srOnly} id={labelId}>
         {label}
       </label>
-      <BaseDom
-        element="button"
-        button-reset
-        id={buttonId}
-        onFocus={() => inputRef.current.focus()}
-        aria-haspopup="listbox"
-        aria-expanded={active}
-        ref={buttonRef as any}
-        onClick={toggle}
-        aria-label={label}
-        class={[classnames._selectButton, buttonClass]}
-      >
-        <span>{value || label}</span>
-        <ChevronDownIcon focusable="false" role="img" aria-hidden size={16} />
-      </BaseDom>
+
       <input
         onBlur={(e) => {
           if (!active) return;
           const {relatedTarget} = e;
           if (
-            relatedTarget !== buttonRef.current &&
-            !listboxRef.current.contains(relatedTarget as Node)
-          )
+            !listboxRef.current.contains(relatedTarget as Node) &&
+            relatedTarget !== buttonRef.current
+          ) {
             setActive(false);
+          }
         }}
         onKeyDown={({key}) => {
-          if (key === "Enter") {
+          let k: Keys = key as any;
+          if (
+            !active &&
+            (k === "Enter" || k === "ArrowDown" || k === "ArrowUp")
+          ) {
             setActive(true);
           }
         }}
@@ -155,6 +146,25 @@ export function Select({
         class={classnames.srOnly}
         style={{fontSize: "16px"}}
       />
+      <BaseDom
+        element="button"
+        button-reset
+        id={buttonId}
+        onFocus={(e) => {
+          if (e.relatedTarget === inputRef.current) return;
+          inputRef.current.focus();
+        }}
+        aria-haspopup="listbox"
+        aria-expanded={active}
+        ref={buttonRef as any}
+        aria-controls={controlledBoxId}
+        onClick={toggle}
+        aria-label={label}
+        class={[classnames._selectButton, buttonClass]}
+      >
+        <span>{value || label}</span>
+        <ChevronDownIcon focusable="false" role="img" aria-hidden size={16} />
+      </BaseDom>
       <Dropdown class={dropdownClass} parent={parentRef} sibling={buttonRef}>
         <Transition
           enterClass={classnames.autocompleteInactive}
