@@ -1,5 +1,8 @@
 import {BaseElement, _util} from "@hydrophobefireman/kit";
-import {OptionsRenderer} from "@hydrophobefireman/kit/_autocomplete-options";
+import {
+  OptionsRenderer,
+  __BLANK__,
+} from "@hydrophobefireman/kit/_autocomplete-options";
 import {BaseDom} from "@hydrophobefireman/kit/base-dom";
 import * as classnames from "@hydrophobefireman/kit/classnames";
 import {Box} from "@hydrophobefireman/kit/container";
@@ -118,6 +121,7 @@ export function Select({
       </label>
 
       <input
+        children={null as any}
         onBlur={(e) => {
           if (!active) return;
           const {relatedTarget} = e;
@@ -163,7 +167,13 @@ export function Select({
         class={[classnames._selectButton, buttonClass]}
       >
         <span>{value || label}</span>
-        <ChevronDownIcon focusable="false" role="img" aria-hidden size={16} />
+        <ChevronDownIcon
+          color="var(--kit-foreground)"
+          focusable="false"
+          role="img"
+          aria-hidden
+          size={16}
+        />
       </BaseDom>
       <Dropdown class={dropdownClass} parent={parentRef} sibling={buttonRef}>
         <Transition
@@ -191,7 +201,11 @@ export function Select({
                   currentValue={value as string}
                   select={handleSetValue}
                   setCurrentValue={handleSetValue}
-                  highlightedValue={highlightedValue}
+                  highlightedValue={
+                    highlightedValue === __BLANK__
+                      ? ""
+                      : highlightedValue || value
+                  }
                   _setHighlightedValue={handleSetHighlightedValue}
                 />
               </div>

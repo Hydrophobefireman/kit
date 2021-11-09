@@ -45,7 +45,3 @@
 a {
   color: var(--kit-link-color);
 }
-
-a:visited {
-  color: var(--kit-link-color-visited);
-}

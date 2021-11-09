@@ -1,2 +1,2 @@
 export * from "./autocomplete-options";
-export * from "./types";
+export * from "./util";

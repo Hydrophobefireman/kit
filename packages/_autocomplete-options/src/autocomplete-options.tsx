@@ -1,6 +1,6 @@
 import {_util} from "@hydrophobefireman/kit";
 import * as classnames from "@hydrophobefireman/kit/classnames";
-import {useKeyPress, useMount} from "@hydrophobefireman/kit/hooks";
+import {useKeyPress} from "@hydrophobefireman/kit/hooks";
 import {
   RefType,
   forwardRef,
@@ -16,11 +16,12 @@ import {
   AutoCompleteValue,
   OptionsRendererProps,
 } from "./types";
-import {clean, contains} from "./util";
+import {__BLANK__, clean, contains} from "./util";
 
 const win = typeof window !== "undefined" ? window : (null as any);
 const opts = {target: win};
 const optsPreventDefault = _util.extend({passive: false}, opts);
+
 _util.scrollIntoViewIfNeededPolyfill();
 function OptionsValue({
   render,
@@ -100,25 +101,14 @@ function _OptionsRenderer({
     const listParent = _InternalUlRef.current;
     const children: HTMLLIElement[] = Array.from(listParent.children) as any;
     let $_highlightedCurr: number = 0;
-    let $_activeCurr: number = 0;
-    let selectedElement: HTMLLIElement = null as any;
     let elWithArrowFocus = children.find((x, i) => {
       // store the index in $curr
       // so that we don't have to do an indexOf
       $_highlightedCurr = i;
       const v = x.dataset.value;
-      if (!selectedElement) {
-        $_activeCurr = i;
-        if (v === currentValue) {
-          selectedElement = x;
-        }
-      }
       return v === highlightedValue;
     });
-    if (!elWithArrowFocus && selectedElement) {
-      elWithArrowFocus = selectedElement;
-      $_highlightedCurr = $_activeCurr;
-    }
+
     return {children, activeChild: elWithArrowFocus, $curr: $_highlightedCurr};
   }
   function handleArrowUp(e: JSX.TargetedKeyboardEvent<Window>) {
@@ -131,7 +121,7 @@ function _OptionsRenderer({
     }
     const firstChild = children[0];
     if (activeChild === firstChild) {
-      return setHighlightedValue(null);
+      return setHighlightedValue(__BLANK__);
     }
     setHighlightedValue(children[$curr - 1]);
   }
@@ -144,7 +134,7 @@ function _OptionsRenderer({
     }
     const lastChild = children[children.length - 1];
     if (activeChild === lastChild) {
-      return setHighlightedValue(null);
+      return setHighlightedValue(__BLANK__);
     }
     setHighlightedValue(children[$curr + 1]);
   }
