@@ -2,7 +2,7 @@
   "name": "@hydrophobefireman/kit",
   "description": "",
   "types": "dist/src/index.d.ts",
-  "version": "0.0.1-2021-11-03-22-51",
+  "version": "0.0.2",
   "license": "MIT",
   "homepage": "https://github.com/Hydrophobefireman/kit#readme",
   "repository": {
@@ -21,6 +21,7 @@
     "./_autocomplete-options": "./_autocomplete-options/src/index.js",
     "./alerts": "./alerts/src/index.js",
     "./autocomplete": "./autocomplete/src/index.js",
+    "./avatar": "./avatar/src/index.js",
     "./base-dom": "./base-dom/src/index.js",
     "./bottom-sheet": "./bottom-sheet/src/index.js",
     "./build-portal": "./build-portal/src/index.js",
@@ -60,11 +61,11 @@
     "statedrive": "^0.0.13"
   },
   "dependencies": {
-    "@hydrophobefireman/kit-icons": "^0.0.5",
+    "@hydrophobefireman/kit-icons": "^0.0.7",
     "csstype": "^3.0.9"
   },
   "devDependencies": {
-    "@types/node": "^16.11.6",
+    "@types/node": "^16.11.7",
     "husky": "^7.0.4",
     "pretty-quick": "^3.1.1",
     "typescript": "^4.4.4"
@@ -83,6 +84,7 @@
     "_autocomplete-options",
     "alerts",
     "autocomplete",
+    "avatar",
     "base-dom",
     "bottom-sheet",
     "build-portal",

@@ -11,6 +11,7 @@ import {
   AutoComplete,
   useAutoComplete,
 } from "@hydrophobefireman/kit/autocomplete";
+import {Avatar} from "@hydrophobefireman/kit/avatar";
 import {BottomSheet} from "@hydrophobefireman/kit/bottom-sheet";
 import {
   Button,
@@ -413,6 +414,7 @@ function App(): VNode {
           </ol>
         </span>
       )}
+
       <CollapseTest />
       <Modal
         active={active}
@@ -576,6 +578,7 @@ function App(): VNode {
         <TestInput variant="material" placeholder="hello" size="large" />
         <TestInput errored placeholder="hello" size="small" />
       </Box>
+      <Avatar text="H" />
       <Resource isPending={true} resourceName="ok">
         <Box horizontal="center">
           <Text size={16} color="kit-highlight-pink">
