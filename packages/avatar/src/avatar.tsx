@@ -1,5 +1,6 @@
 import {BaseElement, _util} from "@hydrophobefireman/kit";
 import {Box} from "@hydrophobefireman/kit/container";
+import {h} from "@hydrophobefireman/ui-lib";
 
 import {AvatarProps} from "./types";
 
@@ -15,13 +16,18 @@ export function Avatar({
   src,
   variant,
   text,
+  ...rest
 }: BaseElement<AvatarProps>) {
   _util.guardCss(style);
+  const borderRadius = _util.toPx(
+    variantToBorderRadiusMap.get(variant || "circle")
+  );
   const css = _util.extend(
     {
-      borderRadius: variantToBorderRadiusMap.get(variant || "circle"),
+      borderRadius,
       backgroundColor: "#bdbdbd",
       fontSize: "1.2rem",
+      userSelect: "none",
     },
     style,
     {
@@ -29,9 +35,15 @@ export function Avatar({
       height: _util.toPx(height == null ? 40 : width),
     }
   );
-  return (
-    <Box horizontal="center" vertical="center" style={css}>
-      {src && (
+  return h(
+    Box,
+    _util.extend({}, rest, {
+      horiontal: "center",
+      vertical: "center",
+      style: css,
+    }),
+    [
+      src && (
         <img
           src={src}
           style={{
@@ -41,10 +53,12 @@ export function Avatar({
             objectFit: "cover",
             color: "transparent",
             textIndent: 10000,
+            borderRadius,
           }}
+          children={null as any}
         />
-      )}
-      {!src && text && <div>{text}</div>}
-    </Box>
+      ),
+      !src && text && <div>{text}</div>,
+    ]
   );
 }
