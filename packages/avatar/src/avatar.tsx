@@ -1,6 +1,6 @@
 import {BaseElement, _util} from "@hydrophobefireman/kit";
 import {Box} from "@hydrophobefireman/kit/container";
-import {h} from "@hydrophobefireman/ui-lib";
+import {forwardRef, h} from "@hydrophobefireman/ui-lib";
 
 import {AvatarProps} from "./types";
 
@@ -9,15 +9,21 @@ const variantToBorderRadiusMap = new Map<AvatarProps["variant"], string>([
   ["square", "0"],
   ["rounded", "10px"],
 ]);
-export function Avatar({
-  height,
-  width,
-  style,
-  src,
-  variant,
-  text,
-  ...rest
-}: BaseElement<AvatarProps>) {
+const altWarning = _util.warnOnce();
+export const Avatar = forwardRef<BaseElement<AvatarProps>>(function Avatar(
+  {
+    height,
+    width,
+    style,
+    src,
+    alt,
+    variant,
+    text,
+    ...rest
+  }: BaseElement<AvatarProps>,
+  ref
+) {
+  if (src && !alt) altWarning(null, "Supply alt text!");
   _util.guardCss(style);
   const borderRadius = _util.toPx(
     variantToBorderRadiusMap.get(variant || "circle")
@@ -37,7 +43,7 @@ export function Avatar({
   );
   return h(
     Box,
-    _util.extend({}, rest, {
+    _util.extend({ref}, rest, {
       horiontal: "center",
       vertical: "center",
       style: css,
@@ -46,6 +52,7 @@ export function Avatar({
       src && (
         <img
           src={src}
+          alt={alt}
           style={{
             width: "100%",
             height: "100%",
@@ -61,4 +68,4 @@ export function Avatar({
       !src && text && <div>{text}</div>,
     ]
   );
-}
+});
