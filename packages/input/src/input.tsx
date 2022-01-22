@@ -34,6 +34,7 @@ function BaseInput({
   ...props
 }: BaseElement<InputProps> & {__$ref: any}) {
   const [idx, labelIdx] = usePairedId(id);
+  const divId = `${idx}--validity-checker`;
   const s = size || "default";
   const isMat = variant === "material";
   const active = !!value;
@@ -59,6 +60,8 @@ function BaseInput({
             placeholder: isMat ? null : placeholder || label,
             "data-kit-active": active,
             "aria-labelledby": labelIdx,
+            "aria-invalid": !!errored,
+            "aria-described-by": divId,
             inlineFlex: true,
             ref: __$ref,
             class: [
@@ -73,6 +76,7 @@ function BaseInput({
         ) as any
       )}
       <div
+        id={divId}
         aria-hidden={!errored || !helperText}
         class={[
           classnames.inputHelperText,
