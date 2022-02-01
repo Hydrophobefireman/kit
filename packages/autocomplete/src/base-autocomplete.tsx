@@ -18,6 +18,7 @@ export function BaseAutoComplete({
   value,
   options,
   containerClass,
+  listClass,
   isPending,
   depends,
   dropdownClass,
@@ -116,6 +117,7 @@ export function BaseAutoComplete({
                 setQuery={$setValue}
                 select={select}
                 labelledBy={labelId}
+                listClass={listClass}
               />
             )
           }

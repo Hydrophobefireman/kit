@@ -12,6 +12,7 @@ export interface OptionsRendererProps {
   labelledBy: string;
   size: number;
   preventDefault?: boolean;
+  listClass?: string;
 }
 
 export type AutoCompleteValue = string | number | null;
@@ -24,4 +25,5 @@ export interface AutoCompleteOptionsRendererProps {
   noSuggestions?: JSX.Element | ComplexComponent;
   labelledBy: string;
   ref?: any;
+  listClass?: string;
 }

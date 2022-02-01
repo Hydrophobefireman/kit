@@ -67,6 +67,7 @@ function _OptionsRenderer({
   labelledBy,
   __ulRef,
   _setHighlightedValue,
+  listClass,
   highlightedValue,
   preventDefault,
 }: OptionsRendererProps & {
@@ -74,21 +75,6 @@ function _OptionsRenderer({
   _setHighlightedValue(a: any): void;
   __ulRef?: RefType<HTMLUListElement>;
 }) {
-  // useMount(() => {
-  //   const listParent = _InternalUlRef.current;
-  //   if (listParent) {
-  //     _util.buildRaf(
-  //       _util.buildRaf(() => {
-  //         const children = Array.from(listParent.children);
-  //         const c = children.find(
-  //           (x: HTMLElement) => x.dataset.value === currentValue
-  //         );
-  //         if (c) (c as any).scrollIntoViewIfNeeded();
-  //       })
-  //     );
-  //   }
-  // });
-
   useEffect(() => {
     setHighlightedValue(null);
   }, [currentValue]);
@@ -162,7 +148,7 @@ function _OptionsRenderer({
   return (
     <ul
       ref={commonRef as any}
-      class={classnames._autoCompleteInlineList}
+      class={[classnames._autoCompleteInlineList, listClass].join(" ")}
       aria-labelledBy={labelledBy}
     >
       {options.map((x) => (
@@ -180,23 +166,21 @@ function _OptionsRenderer({
   );
 }
 
-const __OptionsRenderer = forwardRef<OptionsRendererProps>(
-  function OptionsRenderer /** uncontrolled */(
-    props: OptionsRendererProps,
-    ref
-  ) {
-    const [highlightedValue, _setHighlightedValue] = useState<string | null>(
-      null
-    );
-    return h(
-      _OptionsRenderer,
-      _util.extend({__ulRef: ref}, props, {
-        highlightedValue,
-        _setHighlightedValue,
-      })
-    );
-  }
-);
+const __OptionsRenderer = forwardRef<OptionsRendererProps>(function (
+  /** uncontrolled */ props: OptionsRendererProps,
+  ref
+) {
+  const [highlightedValue, _setHighlightedValue] = useState<string | null>(
+    null
+  );
+  return h(
+    _OptionsRenderer,
+    _util.extend({__ulRef: ref}, props, {
+      highlightedValue,
+      _setHighlightedValue,
+    })
+  );
+});
 export const OptionsRenderer: typeof __OptionsRenderer & {
   __ControlledHighlightedElement: typeof _OptionsRenderer;
 } = __OptionsRenderer as any;
@@ -213,6 +197,7 @@ export const AutoCompleteOptions = forwardRef<
     setQuery,
     noSuggestions,
     labelledBy,
+    listClass,
   }: AutoCompleteOptionsRendererProps,
   ref: RefType<any>
 ) {
@@ -230,7 +215,7 @@ export const AutoCompleteOptions = forwardRef<
       return setFilteredOptions(getAllAsFiltered);
     const filtered = options.map((x, i) => {
       if (filterFunc(x.value, query as any)) {
-        return _util.extend({}, x, {post: i + 1});
+        return _util.extend({}, x, {pos: i + 1});
       }
       return null as any;
     });
@@ -247,6 +232,7 @@ export const AutoCompleteOptions = forwardRef<
         currentValue={query}
         setCurrentValue={setQuery}
         select={select}
+        listClass={listClass}
       />
     </div>
   ) : noSuggestions ? (
