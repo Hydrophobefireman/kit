@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "@hydrophobefireman/ui-lib";
+import {useEffect, useRef} from "@hydrophobefireman/ui-lib";
 
 export function useInterval(callback: () => void, delay: number) {
   const savedCallback = useRef<() => void>();

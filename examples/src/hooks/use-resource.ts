@@ -1,7 +1,7 @@
-import { useEffect, useState } from "@hydrophobefireman/ui-lib";
+import {useEffect, useState} from "@hydrophobefireman/ui-lib";
 
 export interface AbortableFetchResponse<T> {
-  result: Promise<{ data: T; error?: string }>;
+  result: Promise<{data: T; error?: string}>;
   controller: AbortController;
   headers: Promise<Headers>;
 }
@@ -24,9 +24,9 @@ export function useResource<
   }
   function fetchResource(returnPromise?: R) {
     if (resp) setResp(null);
-    const { controller, result } = func(...(args as any));
+    const {controller, result} = func(...(args as any));
     const prom = result.then((x) => {
-      const { data, error } = x;
+      const {data, error} = x;
       if (error) {
         setResp(null);
         return setError(error);
@@ -39,5 +39,5 @@ export function useResource<
     >;
   }
   useEffect(fetchResource, args);
-  return { resp, fetchResource, error, setResp, clearError } as const;
+  return {resp, fetchResource, error, setResp, clearError} as const;
 }

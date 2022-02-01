@@ -1,4 +1,4 @@
-import { useMount } from "./use-mount";
+import {useMount} from "./use-mount";
 
 export function useScrolltoAnchor() {
   useMount(() => {

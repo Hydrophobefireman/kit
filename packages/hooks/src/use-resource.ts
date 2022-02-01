@@ -1,4 +1,6 @@
-import {useIsPending} from "@hydrophobefireman/kit";
+import {State, useSharedState} from "statedrive";
+
+import {_util, useIsPending} from "@hydrophobefireman/kit";
 import {useEffect, useState} from "@hydrophobefireman/ui-lib";
 
 export interface AbortableFetchResponse<T> {
@@ -11,19 +13,22 @@ export type FetchResourceCallback<T extends boolean> = (
   v?: T
 ) => T extends true ? Promise<void> : void;
 
-export type PromiseResponse<T> = T extends Promise<infer U> ? U : T;
-
-function buildUseResource(independant: boolean) {
+function buildUseResource(independant: boolean, cache: boolean) {
   return function useResource<
     T extends (...args: any) => AbortableFetchResponse<any>,
     R extends boolean = true
-  >(func: T, args: Parameters<T>) {
-    type Ret = PromiseResponse<ReturnType<T>["result"]>["data"];
-    const [resp, setResp] = useState<Ret>(null);
+  >(func: T, args: Parameters<T>, cachingStore?: State<any>) {
+    type Ret = Awaited<ReturnType<T>["result"]>["data"];
+    const [resp, setResp]: [Ret, (k: Ret) => void] = cache
+      ? useSharedState<Ret>(
+          _util.guardExists(cachingStore, "Need to provide a caching store")!
+        )
+      : useState<Ret>(null);
     const [error, setError] = useState<any>("");
     function clearError() {
       setError(null);
     }
+
     const {isPending} = useIsPending();
     const _dep: Array<any> = args || [];
     const dependencies = independant ? _dep : _dep.concat(isPending);
@@ -52,6 +57,15 @@ function buildUseResource(independant: boolean) {
   };
 }
 
-export const useResource = /* #__PURE__ */ buildUseResource(false);
+export const useResource = /* #__PURE__ */ buildUseResource(false, false);
+export const useCachingResource = /* #__PURE__ */ buildUseResource(false, true);
+export const useIndependantResource = /* #__PURE__ */ buildUseResource(
+  true,
+  false
+);
+export const useCachingIndependantResource = /* #__PURE__ */ buildUseResource(
+  true,
+  true
+);
 
-export const useIndependantResource = /* #__PURE__ */ buildUseResource(true);
+export {buildUseResource};

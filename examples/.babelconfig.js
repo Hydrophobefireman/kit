@@ -31,7 +31,7 @@ module.exports = {
           },
         ],
       ],
-      plugins: [...plugins, ["@babel/plugin-transform-runtime", { corejs: 3 }]],
+      plugins: [...plugins, ["@babel/plugin-transform-runtime", {corejs: 3}]],
     },
   },
 };

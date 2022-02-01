@@ -43,10 +43,13 @@ export const AutoCompleteInput = forwardRef<
   useEffect(() => setQuery(_value), [_value]);
   return h(
     mode === "search" ? Input.Search : Input,
-    _util.extend(props, {
+    _util.extend({}, props, {
       autoComplete: "off",
       value: _value,
-      onFocus: () => setDirty(true),
+      onFocus: (e: JSX.TargetedFocusEvent<HTMLElement>) => {
+        setDirty(true);
+        props.onFocus?.call(e.currentTarget, e);
+      },
       onBlur: (e: JSX.TargetedFocusEvent<HTMLInputElement>) => {
         const newFocus = e.relatedTarget as HTMLElement;
         setDirty(
@@ -55,6 +58,7 @@ export const AutoCompleteInput = forwardRef<
                 optionRef.current.contains(newFocus)
             : false
         );
+        props.onBlur?.call(e.currentTarget, e);
       },
       setValue: (v: string) => {
         setDirty(true);

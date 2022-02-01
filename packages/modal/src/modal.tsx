@@ -46,33 +46,46 @@ function _Modal({
   children,
   onClickOutside,
   onAnimationComplete,
+  noTransition,
 }: ModalProps) {
   const id = useId();
   const [target, setTarget] = useState<HTMLDivElement>(null as any);
-
-  return (
+  const out = active && (
+    <ModalImpl
+      onClickOutside={active ? onClickOutside : (null as any)}
+      active={active}
+      children={children}
+      _setDom={setTarget}
+    />
+  );
+  return noTransition ? (
+    out
+  ) : (
     <Transition
       visible={active}
       transitionTargets={[target]}
       id={active ? id : ""}
       transitionHook={onAnimationComplete}
-      render={
-        active && (
-          <ModalImpl
-            onClickOutside={active ? onClickOutside : (null as any)}
-            active={active}
-            children={children}
-            _setDom={setTarget}
-          />
-        )
-      }
+      render={out}
       leaveClass={classnames.modalLeave}
       enterClass={classnames._modalEnter}
     />
   );
 }
-function Actions({children}: {children?: any}) {
-  return <div class={classnames.modalActions}>{children}</div>;
+function Actions({
+  children,
+  class: cls,
+  className,
+}: {
+  children?: any;
+  className?: string;
+  class?: string;
+}) {
+  return (
+    <div class={[classnames.modalActions, cls, className].join(" ")}>
+      {children}
+    </div>
+  );
 }
 function Action({class: cls, className, ...props}: BaseElement<{}>) {
   const classProp = [cls, className, classnames.modalActionButton];

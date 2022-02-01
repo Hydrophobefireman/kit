@@ -7,7 +7,7 @@ export interface InputProps {
   class?: string;
   className?: string;
   value?: string | number;
-  setValue?(val: string | number): void;
+  setValue?(val: any): void;
   helperText?: string;
 }
 

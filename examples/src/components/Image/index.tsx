@@ -1,4 +1,4 @@
-import { FakeWeakMap } from "@hydrophobefireman/j-utils";
+import {FakeWeakMap} from "@hydrophobefireman/j-utils";
 import {
   useEffect,
   useRef,
@@ -48,8 +48,8 @@ export default function LazyImage(props: ComponentProps<"img">) {
     }
     return () => listenerMap.delete(current);
   }, [imgRef.current]);
-  const { src, ...rest } = props;
+  const {src, ...rest} = props;
   return <img {...rest} src={shouldLoad ? src : null} ref={imgRef} />;
 }
 
-export { LazyImage };
+export {LazyImage};

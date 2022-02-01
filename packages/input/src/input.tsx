@@ -61,7 +61,7 @@ function BaseInput({
             "data-kit-active": active,
             "aria-labelledby": labelIdx,
             "aria-invalid": !!errored,
-            "aria-described-by": divId,
+            "aria-describedby": divId,
             inlineFlex: true,
             ref: __$ref,
             class: [

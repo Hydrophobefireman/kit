@@ -1,4 +1,4 @@
-import { useEffect, useState } from "@hydrophobefireman/ui-lib";
+import {useEffect, useState} from "@hydrophobefireman/ui-lib";
 
 function preventDefault(e: Event) {
   e.preventDefault();

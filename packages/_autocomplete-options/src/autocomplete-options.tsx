@@ -93,8 +93,8 @@ function _OptionsRenderer({
     setHighlightedValue(null);
   }, [currentValue]);
   function setHighlightedValue(e: HTMLElement | null) {
-    if (!e) return _setHighlightedValue(null);
-    (e as any).scrollIntoViewIfNeeded();
+    if (!e || !e.dataset || !e.dataset.value) return _setHighlightedValue(null);
+    (e as any).scrollIntoViewIfNeeded && (e as any).scrollIntoViewIfNeeded();
     _setHighlightedValue(e.dataset.value!);
   }
   function _arrow() {
@@ -165,7 +165,7 @@ function _OptionsRenderer({
       class={classnames._autoCompleteInlineList}
       aria-labelledBy={labelledBy}
     >
-      {options.filter(Boolean).map((x) => (
+      {options.map((x) => (
         <OptionsValue
           size={size}
           pos={x.pos}
@@ -237,11 +237,12 @@ export const AutoCompleteOptions = forwardRef<
     setFilteredOptions(filtered);
   }, [query, options, containsFunction]);
 
-  return filteredOptions.length ? (
+  const cleaned = filteredOptions.filter(Boolean);
+  return cleaned.length ? (
     <div class={classnames.autocompleteOptions} ref={ref}>
       <OptionsRenderer
         labelledBy={labelledBy}
-        options={filteredOptions}
+        options={cleaned}
         size={options.length}
         currentValue={query}
         setCurrentValue={setQuery}

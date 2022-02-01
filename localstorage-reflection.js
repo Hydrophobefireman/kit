@@ -11,7 +11,7 @@ const listener = function () {
   );
 };
 
-export { listener };
+export {listener};
 
 export const scriptTag = `<script>(${listener
   .toString()

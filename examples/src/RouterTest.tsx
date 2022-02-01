@@ -1,5 +1,5 @@
-import { Button } from "@hydrophobefireman/kit/button";
-import { Router, dynamic } from "@hydrophobefireman/kit/router";
+import {Button} from "@hydrophobefireman/kit/button";
+import {Router, dynamic} from "@hydrophobefireman/kit/router";
 
 function getDynamic(x: any) {
   let loadedOnce = false;
@@ -17,7 +17,7 @@ function getDynamic(x: any) {
   );
 }
 
-function RouteButton({ href, text }: any) {
+function RouteButton({href, text}: any) {
   return (
     <Button
       label={text}
@@ -25,7 +25,7 @@ function RouteButton({ href, text }: any) {
       mode="secondary"
       href={href}
       preserveScroll
-      style={{ margin: "10px" }}
+      style={{margin: "10px"}}
     >
       {text}
     </Button>
@@ -54,9 +54,9 @@ export function RouterTest() {
     <Router
       // transitionStyle={{ }}
       paths={{
-        "/": { component: Root },
-        "/1": { component: Page1 },
-        "/o/:ok": { component: Page2 },
+        "/": {component: Root},
+        "/1": {component: Page1},
+        "/o/:ok": {component: Page2},
       }}
     />
   );
