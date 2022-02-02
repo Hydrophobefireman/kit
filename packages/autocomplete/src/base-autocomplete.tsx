@@ -10,7 +10,7 @@ import {h, useMemo, useRef, useState} from "@hydrophobefireman/ui-lib";
 import {AutoCompleteInput} from "./autocomplete-input";
 import {AutoCompleteProps} from "./types";
 
-export function BaseAutoComplete({
+export function AutoComplete({
   mode,
   itemRender,
   onChange,
@@ -19,8 +19,6 @@ export function BaseAutoComplete({
   options,
   containerClass,
   listClass,
-  isPending,
-  depends,
   dropdownClass,
   noSuggestions,
   preserveOpenOnClick,
@@ -30,7 +28,7 @@ export function BaseAutoComplete({
   const inputRef = useRef<HTMLInputElement>();
   const [dirty, setDirty] = useState(false);
   const parentRef = useRef<HTMLElement>();
-  const expanded = !isPending && dirty;
+  const expanded = dirty;
   const idx = useId(id);
   const optionRef = useRef<HTMLElement>();
   const __setInputValue = useRef<(v: any) => void>();
@@ -88,7 +86,6 @@ export function BaseAutoComplete({
             mode,
             setDirty,
             optionRef,
-            depends,
             expanded,
             id: inputId,
           },

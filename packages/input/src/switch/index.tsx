@@ -22,7 +22,6 @@ export function Switch({
   id,
   class: cls,
   className,
-  depends,
   labelStyle,
   disabled,
   label,
@@ -55,7 +54,6 @@ export function Switch({
       inlineFlex
       for={inputId}
       id={labelId}
-      depends={depends}
       style={_util.extend(_labelStyle, labelStyle)}
     >
       {h(

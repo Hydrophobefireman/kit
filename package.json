@@ -2,7 +2,7 @@
   "name": "@hydrophobefireman/kit",
   "description": "",
   "types": "dist/src/index.d.ts",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "license": "MIT",
   "homepage": "https://github.com/Hydrophobefireman/kit#readme",
   "repository": {
@@ -17,7 +17,7 @@
     "./styles/": "./styles/",
     "./styles": "./styles/index.js",
     "./package.json": "./package.json",
-    "./*": "./*",
+    "./": "./",
     "./_autocomplete-options": "./_autocomplete-options/src/index.js",
     "./alerts": "./alerts/src/index.js",
     "./autocomplete": "./autocomplete/src/index.js",

@@ -9,13 +9,7 @@ export const BaseDom = forwardRef<BaseDomProps>(function BaseDom(
   props: BaseDomProps,
   ref
 ) {
-  const {element, class: klass, className, depends, disabled, ...rest} = props;
-  if (depends !== undefined) {
-    throw new TypeError(
-      "This component does not know how to render skeleton views! " +
-        "Write your custom implementation or use a different component"
-    );
-  }
+  const {element, class: klass, className, disabled, ...rest} = props;
   const displayMode =
     onlyOneProp(displayProps, props, "Multiple display props provided!") || "";
 

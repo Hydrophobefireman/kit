@@ -3,7 +3,6 @@ export interface SwitchProps {
   labelClass?: string;
   errored?: boolean;
   inline?: boolean;
-  depends?: boolean;
   label: string;
   labelStyle?: any;
   width?: string;

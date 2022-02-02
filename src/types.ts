@@ -42,7 +42,6 @@ export interface _BaseDomProps {
   none?: boolean;
   class?: DOMClass;
   className?: DOMClass;
-  depends?: boolean;
   skeleton?(resource: any): any;
   children?: any;
   style?: Properties & {[k: string]: any};

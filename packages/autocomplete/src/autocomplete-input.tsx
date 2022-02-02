@@ -12,7 +12,6 @@ export const AutoCompleteInput = forwardRef<
     value,
     setDirty,
     optionRef,
-    depends,
     expanded,
     setQuery,
     setValueRef,
@@ -65,7 +64,6 @@ export const AutoCompleteInput = forwardRef<
         setValue(v);
       },
       ref: ref,
-      depends,
       role: "combobox",
       "aria-autocomplete": "list",
       "aria-expanded": expanded,

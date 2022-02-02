@@ -1,23 +1,25 @@
 import {Properties} from "csstype";
 
-import {BaseElement, _util, useIsPending} from "@hydrophobefireman/kit";
-import {Skeleton} from "@hydrophobefireman/kit/skeleton";
-import {h} from "@hydrophobefireman/ui-lib";
+import {BaseElement, _util} from "@hydrophobefireman/kit";
+import {forwardRef, h} from "@hydrophobefireman/ui-lib";
 
 import {TextAs, TextProps} from "./types";
 
-function BaseText({
-  as = "p",
-  size,
-  weight,
-  transform,
-  align,
-  color,
-  children,
-  style,
-  noMargin,
-  ...rest
-}: BaseElement<TextProps>) {
+const _T = forwardRef(function BaseText(
+  {
+    as = "p",
+    size,
+    weight,
+    transform,
+    align,
+    color,
+    children,
+    style,
+    noMargin,
+    ...rest
+  }: BaseElement<TextProps>,
+  ref
+) {
   const css: Properties = {};
   align && (css.textAlign = align);
   size && (css.fontSize = _util.toPx(size));
@@ -26,34 +28,20 @@ function BaseText({
   transform && (css.textTransform = transform);
   noMargin && (css.margin = 0);
   const C = as;
-  return h(C, _util.extend({style: _util.extend(css, style), children}, rest));
-}
-function DependantText(props: BaseElement<TextProps>) {
-  const {isPending} = useIsPending();
-  if (isPending)
-    return (
-      <Skeleton>
-        {h(
-          BaseText,
-          _util.extend(_util.removeEventsFromProps(props), {
-            children: "Loading..",
-          }) as any
-        )}
-      </Skeleton>
-    );
-  return h(BaseText, props as any);
-}
-
-export function Text({depends, ...props}: BaseElement<TextProps>) {
-  if (depends) return h(DependantText, props as any);
-  return h(BaseText, props as any);
-}
+  return h(
+    C,
+    _util.extend({ref, style: _util.extend(css, style), children}, rest)
+  );
+});
 
 function createTextComponent<T extends TextAs>(x: T) {
   return function (props: Omit<BaseElement<TextProps>, "as">) {
     return h(Text, _util.extend({}, props, {as: x}) as any);
   };
 }
+export const Text: typeof _T & {
+  [K in TextAs]: ReturnType<typeof createTextComponent>;
+} = _T as any;
 
 Text.b = createTextComponent("b");
 Text.div = createTextComponent("div");

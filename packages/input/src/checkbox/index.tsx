@@ -18,7 +18,6 @@ export function Checkbox({
   boxStyle,
   class: cls,
   className,
-  depends,
   size,
   disabled,
   id,
@@ -35,7 +34,6 @@ export function Checkbox({
       inlineFlex={inline}
       row
       disabled={disabled}
-      depends={depends}
       vertical="center"
       element="label"
       class={[

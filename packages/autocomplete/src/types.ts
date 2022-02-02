@@ -21,7 +21,6 @@ export interface AutoCompleteProps extends Omit<InputProps, "value"> {
   mode?: "search" | "normal";
   itemRender?(value: AutoCompleteValue): JSX.Element;
   containerClass?: string;
-  isPending?: boolean;
   noSuggestions?: JSX.Element | ComplexComponent;
   dropdownClass?: string;
   listClass?: string;

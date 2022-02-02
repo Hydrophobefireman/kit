@@ -1,4 +1,4 @@
-import {BaseElement, _util, useIsPending} from "@hydrophobefireman/kit";
+import {BaseElement, _util} from "@hydrophobefireman/kit";
 import {BaseDom} from "@hydrophobefireman/kit/base-dom";
 import * as classnames from "@hydrophobefireman/kit/classnames";
 import {
@@ -100,23 +100,9 @@ function BaseInput({
     </BaseDom>
   );
 }
-function DependantInput(props: BaseElement<InputProps> & {__$ref: any}) {
-  const {isPending} = useIsPending();
-  return h(
-    BaseInput,
-    isPending
-      ? _util.extend(
-          {disabled: true} as any,
-          _util.removeEventsFromProps(props)
-        )
-      : (props as any)
-  );
-}
-function InputComponent({depends, ..._rest}: BaseElement<InputProps>, ref) {
-  const rest = _util.extend(_rest, {__$ref: ref});
-  if (depends) {
-    return h(DependantInput, rest as any);
-  }
+
+function InputComponent(props: BaseElement<InputProps>, ref) {
+  const rest = _util.extend(props, {__$ref: ref});
   return h(BaseInput, rest as any);
 }
 

@@ -1,7 +1,6 @@
-import {BaseElement, _util, useIsPending} from "@hydrophobefireman/kit";
+import {BaseElement, _util} from "@hydrophobefireman/kit";
 import {BaseDom} from "@hydrophobefireman/kit/base-dom";
 import * as classnames from "@hydrophobefireman/kit/classnames";
-import {SpinnerIcon} from "@hydrophobefireman/kit/icons";
 import {A, forwardRef, h} from "@hydrophobefireman/ui-lib";
 
 import {ButtonProps} from "./types";
@@ -24,7 +23,6 @@ const modeClassMap = new Map<ButtonProps["mode"], string>([
 
 function BaseButton(props: BaseElement<InternalButtonProps>) {
   const {
-    depends,
     class: cls,
     className,
     foreground,
@@ -101,36 +99,13 @@ function BaseButton(props: BaseElement<InternalButtonProps>) {
 function getLinkElement(href: string) {
   return _util.isSameOrigin(href) ? A : "a";
 }
-function DependantButton(props: BaseElement<InternalButtonProps>) {
-  const {isPending, resourceName} = useIsPending();
-  if (isPending) {
-    if (props.skeleton) {
-      return props.skeleton(resourceName);
-    }
-    const {class: cls, className, prefix: _, ...rest} = props;
-    return h(
-      BaseButton,
-      _util.extend(
-        {
-          prefix: <SpinnerIcon />,
-          disabled: true,
-          "aria-hidden": true,
-          class: [cls, className, classnames.noEvents],
-        },
-        _util.removeEventsFromProps(rest)
-      ) as any
-    );
-  }
-  return h(BaseButton, props as any);
-}
 
 export const Button = forwardRef<BaseElement<ButtonProps>>(function _Button(
   props: BaseElement<ButtonProps>,
   ref
 ) {
-  const {depends, ...rest} = props;
+  const rest = _util.extend({}, props);
   (rest as InternalButtonProps).__$ref = ref;
-  if (depends) return h(DependantButton, rest as any);
   return h(BaseButton, rest as any);
 });
 

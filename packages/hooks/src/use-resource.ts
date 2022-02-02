@@ -1,6 +1,6 @@
 import {State, useSharedState} from "statedrive";
 
-import {_util, useIsPending} from "@hydrophobefireman/kit";
+import {_util} from "@hydrophobefireman/kit";
 import {useEffect, useState} from "@hydrophobefireman/ui-lib";
 
 export interface AbortableFetchResponse<T> {
@@ -13,11 +13,16 @@ export type FetchResourceCallback<T extends boolean> = (
   v?: T
 ) => T extends true ? Promise<void> : void;
 
-function buildUseResource(independant: boolean, cache: boolean) {
+function buildUseResource(cache: boolean) {
   return function useResource<
     T extends (...args: any) => AbortableFetchResponse<any>,
     R extends boolean = true
-  >(func: T, args: Parameters<T>, cachingStore?: State<any>) {
+  >(
+    func: T,
+    args: Parameters<T>,
+    cachingStore?: State<any>,
+    requiredDeps?: Partial<typeof args>
+  ) {
     type Ret = Awaited<ReturnType<T>["result"]>["data"];
     const [resp, setResp]: [Ret, (k: Ret) => void] = cache
       ? useSharedState<Ret>(
@@ -29,15 +34,13 @@ function buildUseResource(independant: boolean, cache: boolean) {
       setError(null);
     }
 
-    const {isPending} = useIsPending();
-    const _dep: Array<any> = args || [];
-    const dependencies = independant ? _dep : _dep.concat(isPending);
-
+    const dep: Array<any> = args || [];
     function fetchResource(returnPromise?: R) {
-      const shouldWait = isPending && !independant;
-      if (shouldWait) return;
+      const r: Array<any> = requiredDeps as any;
+      // don't fetch unless all required deps are truthy
+      if (r && !r.every((x) => x !== null)) return;
 
-      if (resp) setResp(null);
+      if (resp && !cache) setResp(null);
       const {controller, result} = func(...(args as any));
       const prom = result.then((x) => {
         const {data, error} = x;
@@ -52,20 +55,12 @@ function buildUseResource(independant: boolean, cache: boolean) {
         FetchResourceCallback<R>
       >;
     }
-    useEffect(fetchResource, dependencies);
+    useEffect(fetchResource, dep);
     return {resp, fetchResource, error, setResp, clearError};
   };
 }
 
-export const useResource = /* #__PURE__ */ buildUseResource(false, false);
-export const useCachingResource = /* #__PURE__ */ buildUseResource(false, true);
-export const useIndependantResource = /* #__PURE__ */ buildUseResource(
-  true,
-  false
-);
-export const useCachingIndependantResource = /* #__PURE__ */ buildUseResource(
-  true,
-  true
-);
+export const useResource = /* #__PURE__ */ buildUseResource(false);
+export const useCachingResource = /* #__PURE__ */ buildUseResource(true);
 
 export {buildUseResource};
