@@ -126,7 +126,7 @@ export function Select({
           if (!active) return;
           const {relatedTarget} = e;
           if (
-            !listboxRef.current.contains(relatedTarget as Node) &&
+            !listboxRef.current?.contains(relatedTarget as Node) &&
             relatedTarget !== buttonRef.current
           ) {
             setActive(false);
@@ -156,7 +156,7 @@ export function Select({
         id={buttonId}
         onFocus={(e) => {
           if (e.relatedTarget === inputRef.current) return;
-          inputRef.current.focus();
+          inputRef.current?.focus();
         }}
         aria-haspopup="listbox"
         aria-expanded={active}
@@ -183,7 +183,7 @@ export function Select({
           id={active ? idx : ""}
           visible={active}
           render={
-            active && options && options.length > 1 ? (
+            active && options && options.length >= 1 ? (
               <div
                 class={classnames.autocompleteOptions}
                 id={controlledBoxId}

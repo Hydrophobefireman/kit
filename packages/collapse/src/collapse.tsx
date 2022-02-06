@@ -15,8 +15,10 @@ import {
 } from "@hydrophobefireman/ui-lib";
 
 function _inactive(style: CSSStyleDeclaration) {
-  style.height = "0px";
-  style.overflow = "hidden";
+  if (style) {
+    style.height = "0px";
+    style.overflow = "hidden";
+  }
 }
 export const Collapse = forwardRef<BaseElement<{active?: boolean}>>(
   function Collapse(

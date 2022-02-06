@@ -69,11 +69,14 @@ function _OptionsRenderer({
   _setHighlightedValue,
   listClass,
   highlightedValue,
+
   preventDefault,
+  ...rest
 }: OptionsRendererProps & {
   highlightedValue: any;
   _setHighlightedValue(a: any): void;
   __ulRef?: RefType<HTMLUListElement>;
+  noArrow?: boolean;
 }) {
   useEffect(() => {
     setHighlightedValue(null);
@@ -98,6 +101,9 @@ function _OptionsRenderer({
     return {children, activeChild: elWithArrowFocus, $curr: $_highlightedCurr};
   }
   function handleArrowUp(e: JSX.TargetedKeyboardEvent<Window>) {
+    if (rest.noArrow) {
+      return;
+    }
     preventDefault && e.preventDefault();
     const {activeChild, children, $curr} = _arrow();
     if (!activeChild) {
@@ -112,6 +118,9 @@ function _OptionsRenderer({
     setHighlightedValue(children[$curr - 1]);
   }
   function handleArrowDown(e: JSX.TargetedKeyboardEvent<Window>) {
+    if (rest.noArrow) {
+      return;
+    }
     preventDefault && e.preventDefault();
     const {$curr, activeChild, children} = _arrow();
     if (!activeChild) {

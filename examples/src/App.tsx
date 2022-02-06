@@ -19,7 +19,7 @@ import {
   TextButton as TB,
 } from "@hydrophobefireman/kit/button";
 import {Collapse, useCollapse} from "@hydrophobefireman/kit/collapse";
-import {Box, Resource} from "@hydrophobefireman/kit/container";
+import {Box} from "@hydrophobefireman/kit/container";
 import {FileDropTarget} from "@hydrophobefireman/kit/file-drop-target";
 import {Input, Switch, useSwitch} from "@hydrophobefireman/kit/input";
 import {
@@ -168,7 +168,12 @@ function App(): VNode {
         options={useMemo(
           () =>
             [
-              {value: "Afghanistan"},
+              {
+                value: "Afghanistan",
+                render() {
+                  return <div>ok afg</div>;
+                },
+              },
               {value: "Albania"},
               {value: "Algeria"},
               {value: "Andorra"},
@@ -484,50 +489,49 @@ function App(): VNode {
         />
       </Box>
 
-      <Resource resourceName="name" isPending={!name}>
-        <Box
-          element="main"
-          class={[
-            css({
-              margin: "auto",
-              width: "500px",
-              height: "200px",
-              border: "2px solid",
-              marginTop: "20px",
-            }),
-          ]}
-          horizontal="center"
-          vertical="center"
-        >
-          <Box element="div" style={{width: "100%"}}>
-            <div>
-              Hello <Text.strong depends>{name}</Text.strong>
-            </div>
-          </Box>
-          <Button
-            mode="secondary"
-            depends
-            label="Refetch"
-            onClick={() => {
-              setName("");
-              setRefetch({});
-            }}
-          >
-            Refetch
-          </Button>
-
-          <Box element="div" horizontal="center">
-            <div>Current Theme is {currentTheme} </div>
-            <Switch
-              label="Toggle Theme"
-              state={currentTheme === "dark" ? "enabled" : "disabled"}
-              onInput={toggle}
-              width="2rem"
-              height="1rem"
-            />
-          </Box>
+      <Box
+        element="main"
+        class={[
+          css({
+            margin: "auto",
+            width: "500px",
+            height: "200px",
+            border: "2px solid",
+            marginTop: "20px",
+          }),
+        ]}
+        horizontal="center"
+        vertical="center"
+      >
+        <Box element="div" style={{width: "100%"}}>
+          <div>
+            Hello <Text.strong depends>{name}</Text.strong>
+          </div>
         </Box>
-      </Resource>
+        <Button
+          mode="secondary"
+          depends
+          label="Refetch"
+          onClick={() => {
+            setName("");
+            setRefetch({});
+          }}
+        >
+          Refetch
+        </Button>
+
+        <Box element="div" horizontal="center">
+          <div>Current Theme is {currentTheme} </div>
+          <Switch
+            label="Toggle Theme"
+            state={currentTheme === "dark" ? "enabled" : "disabled"}
+            onInput={toggle}
+            width="2rem"
+            height="1rem"
+          />
+        </Box>
+      </Box>
+
       <Box style={{marginTop: "2rem", flexWrap: "wrap"}} row>
         <TextButton
           class={css({margin: ".5rem"})}
@@ -579,13 +583,13 @@ function App(): VNode {
         <TestInput errored placeholder="hello" size="small" />
       </Box>
       <Avatar text="H" />
-      <Resource isPending={true} resourceName="ok">
-        <Box horizontal="center">
-          <Text size={16} color="kit-highlight-pink">
-            Hello World
-          </Text>
-        </Box>
-      </Resource>
+
+      <Box horizontal="center">
+        <Text size={16} color="kit-highlight-pink">
+          Hello World
+        </Text>
+      </Box>
+
       <Box horizontal="center">
         <CheckboxTest />
       </Box>
