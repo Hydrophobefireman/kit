@@ -2,7 +2,7 @@
   "name": "@hydrophobefireman/kit",
   "description": "",
   "types": "dist/src/index.d.ts",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "license": "MIT",
   "homepage": "https://github.com/Hydrophobefireman/kit#readme",
   "repository": {
@@ -16,6 +16,8 @@
     "./styles/css/": "./styles/css/",
     "./styles/": "./styles/",
     "./styles": "./styles/index.js",
+    "./css-reset": "./css-reset/index.js",
+    "./css-reset/": "./css-reset/",
     "./package.json": "./package.json",
     "./*": "./*",
     "./_autocomplete-options": "./_autocomplete-options/src/index.js",
@@ -29,7 +31,6 @@
     "./classnames": "./classnames/src/index.js",
     "./collapse": "./collapse/src/index.js",
     "./container": "./container/src/index.js",
-    "./css-reset": "./css-reset/src/index.js",
     "./dropdown": "./dropdown/src/index.js",
     "./file-drop-target": "./file-drop-target/src/index.js",
     "./focus-trap": "./focus-trap/src/index.js",
@@ -77,6 +78,8 @@
       "./styles/css/": "./styles/css/",
       "./styles/": "./styles/",
       "./styles": "./styles/index.js",
+      "./css-reset": "./css-reset/index.js",
+      "./css-reset/": "./css-reset/",
       "./package.json": "./package.json",
       "./*": "./*"
     }
@@ -93,7 +96,6 @@
     "classnames",
     "collapse",
     "container",
-    "css-reset",
     "dropdown",
     "file-drop-target",
     "focus-trap",
