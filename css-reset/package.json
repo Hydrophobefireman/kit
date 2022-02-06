@@ -2,9 +2,9 @@
   "name": "css-reset",
   "version": "0.0.18",
   "private": true,
-  "main": "src/index.js",
-  "module": "src/index.js",
-  "types": "src/index.d.ts",
+  "main": "./index.js",
+  "module": "./index.js",
+  "types": "./index.d.ts",
   "license": "MIT",
   "scripts": {},
   "peerDependencies": {
