@@ -62,7 +62,8 @@ export const Collapse = forwardRef<BaseElement<{active?: boolean}>>(
     useLayoutEffect(update, [active]);
     function latestHeight() {
       const {current} = $internalRef;
-      current.style.height = `${current.getBoundingClientRect().height}px`;
+      if (current && current.style)
+        current.style.height = `${current.getBoundingClientRect().height}px`;
     }
     useResize(
       () =>
@@ -80,9 +81,10 @@ export const Collapse = forwardRef<BaseElement<{active?: boolean}>>(
       isPendingTransition.current = false;
       const {current} = $internalRef;
       if (!active) return;
-
-      current.style.height = "auto";
-      _util.raf(latestHeight);
+      if (current && current.style) {
+        current.style.height = "auto";
+        _util.raf(latestHeight);
+      }
     };
     const commonRef = _util.useSyncedRefs(ref, $internalRef);
     return h(

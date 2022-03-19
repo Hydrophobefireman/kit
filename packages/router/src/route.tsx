@@ -13,8 +13,8 @@ export function Route({render}: RouteComponentProps) {
     _util.extend(css, transitionStyle || {opacity: 0.5});
   }
   return (
-    <kit-route data-route={path}>
-      <div style={css}>{h(render, {params})}</div>
-    </kit-route>
+    <div data-route kit-route style={css}>
+      {h(render, {params})}
+    </div>
   );
 }
