@@ -77,7 +77,6 @@ function _OptionsRenderer({
   _setHighlightedValue(a: any): void;
   __ulRef?: RefType<HTMLUListElement>;
   noArrow?: boolean;
-  enabled?: boolean;
 }) {
   useEffect(() => {
     setHighlightedValue(null);

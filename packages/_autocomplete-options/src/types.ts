@@ -13,6 +13,7 @@ export interface OptionsRendererProps {
   size: number;
   preventDefault?: boolean;
   listClass?: string;
+  enabled?: boolean;
 }
 
 export type AutoCompleteValue = string | number | null;
