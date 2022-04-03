@@ -69,7 +69,7 @@ function _OptionsRenderer({
   _setHighlightedValue,
   listClass,
   highlightedValue,
-
+  enabled = true,
   preventDefault,
   ...rest
 }: OptionsRendererProps & {
@@ -77,6 +77,7 @@ function _OptionsRenderer({
   _setHighlightedValue(a: any): void;
   __ulRef?: RefType<HTMLUListElement>;
   noArrow?: boolean;
+  enabled?: boolean;
 }) {
   useEffect(() => {
     setHighlightedValue(null);
@@ -134,7 +135,10 @@ function _OptionsRenderer({
     setHighlightedValue(children[$curr + 1]);
   }
   const _InternalUlRef = useRef<HTMLUListElement | HTMLOptionElement>();
-  const keypressOptions = preventDefault ? optsPreventDefault : opts;
+  const keypressOptions = _util.extend(
+    {enabled},
+    preventDefault ? optsPreventDefault : opts
+  );
   const commonRef = _util.useSyncedRefs(__ulRef, _InternalUlRef);
   useKeyPress("ArrowUp", handleArrowUp, keypressOptions);
   useKeyPress("ArrowDown", handleArrowDown, keypressOptions);

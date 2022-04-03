@@ -1,16 +1,16 @@
 {
-   "name": "base-dom",
-   "version": "0.0.23",
-   "private": true,
-   "main": "src/index.js",
-   "module": "src/index.js",
-   "source": "src/index.ts",
-   "types": "src/index.d.ts",
-   "license": "MIT",
-   "scripts": {},
-   "peerDependencies": {
-      "@hydrophobefireman/flask-jwt-jskit": "^0.1.5",
-      "@hydrophobefireman/ui-lib": "^1.11.3",
-      "statedrive": "^0.0.13"
-   }
+  "name": "base-dom",
+  "version": "0.0.24",
+  "private": true,
+  "main": "src/index.js",
+  "module": "src/index.js",
+  "source": "src/index.ts",
+  "types": "src/index.d.ts",
+  "license": "MIT",
+  "scripts": {},
+  "peerDependencies": {
+    "@hydrophobefireman/flask-jwt-jskit": "^0.1.5",
+    "@hydrophobefireman/ui-lib": "^1.11.3",
+    "statedrive": "^0.0.13"
+  }
 }
