@@ -2,7 +2,7 @@
   "name": "@hydrophobefireman/kit",
   "description": "",
   "types": "dist/src/index.d.ts",
-  "version": "0.0.25",
+  "version": "0.0.27",
   "license": "MIT",
   "homepage": "https://github.com/Hydrophobefireman/kit#readme",
   "repository": {
@@ -67,10 +67,10 @@
     "csstype": "^3.0.11"
   },
   "devDependencies": {
-    "@types/node": "^17.0.23",
-    "husky": "^7.0.4",
+    "@types/node": "^17.0.31",
+    "husky": "^8.0.1",
     "pretty-quick": "^3.1.3",
-    "typescript": "^4.6.3"
+    "typescript": "^4.6.4"
   },
   "kitBase": {
     "exports": {

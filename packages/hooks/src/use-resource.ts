@@ -1,7 +1,7 @@
 import {State, useSharedState} from "statedrive";
 
 import {_util} from "@hydrophobefireman/kit";
-import {useEffect, useState} from "@hydrophobefireman/ui-lib";
+import {useEffect, useRef, useState} from "@hydrophobefireman/ui-lib";
 
 export interface AbortableFetchResponse<T> {
   result: Promise<{data: T; error?: string}>;
@@ -21,7 +21,7 @@ function buildUseResource(cache: boolean) {
     func: T,
     args: Parameters<T>,
     cachingStore?: State<any>,
-    requiredDeps?: Partial<typeof args>
+    requiredDeps?: Partial<typeof args | any[]>
   ) {
     type Ret = Awaited<ReturnType<T>["result"]>["data"];
     const [resp, setResp]: [Ret, (k: Ret) => void] = cache
@@ -29,34 +29,55 @@ function buildUseResource(cache: boolean) {
           _util.guardExists(cachingStore, "Need to provide a caching store")!
         )
       : useState<Ret>(null);
-    const [error, setError] = useState<any>("");
+    const [fetchState, setFetchState] = useState<"error" | "fetching" | "idle">(
+      "idle"
+    );
+    const errorText = useRef<string>();
     function clearError() {
-      setError(null);
+      setFetchState("idle");
+      errorText.current = "";
     }
 
     const dep: Array<any> = args || [];
     function fetchResource(returnPromise?: R) {
+      setFetchState("fetching");
+      errorText.current = "";
       const r: Array<any> = requiredDeps as any;
       // don't fetch unless all required deps are truthy
-      if (r && !r.every((x) => x !== null)) return;
+      if (r && !r.every((x) => x !== null)) return setFetchState("idle");
 
       if (resp && !cache) setResp(null);
       const {controller, result} = func(...(args as any));
       const prom = result.then((x) => {
         const {data, error} = x;
         if (error) {
-          setResp(null);
-          return setError(error);
+          if (!cache) setResp(null);
+          setFetchState("error");
+          errorText.current = error;
+          return;
         }
-        setError(null);
+        setFetchState("idle");
         setResp(data);
       });
-      return (returnPromise ? prom : () => controller.abort()) as ReturnType<
-        FetchResourceCallback<R>
-      >;
+      return (
+        returnPromise
+          ? prom
+          : () => {
+              // if this is happening because of a new render, we don't really care
+              // since it will be set to fetching anyway
+              controller.abort();
+            }
+      ) as ReturnType<FetchResourceCallback<R>>;
     }
     useEffect(fetchResource, dep);
-    return {resp, fetchResource, error, setResp, clearError};
+    return {
+      resp,
+      fetchResource,
+      error: errorText.current,
+      fetchState,
+      setResp,
+      clearError,
+    };
   };
 }
 

@@ -6,7 +6,7 @@ import "./App.css";
 import {css} from "catom";
 
 import {_util} from "@hydrophobefireman/kit";
-import {AlertRoot, useAlerts} from "@hydrophobefireman/kit/alerts";
+import {useAlerts} from "@hydrophobefireman/kit/alerts";
 import {
   AutoComplete,
   useAutoComplete,
@@ -453,7 +453,6 @@ function App(): VNode {
           label="OKAY"
           state={currentState}
           onInput={toggleSwitch}
-          depends
           width="2rem"
           height="1rem"
         />
@@ -505,12 +504,11 @@ function App(): VNode {
       >
         <Box element="div" style={{width: "100%"}}>
           <div>
-            Hello <Text.strong depends>{name}</Text.strong>
+            Hello <Text.strong>{name}</Text.strong>
           </div>
         </Box>
         <Button
           mode="secondary"
-          depends
           label="Refetch"
           onClick={() => {
             setName("");
@@ -651,9 +649,7 @@ function TextButton({
 
 render(
   <ThemeSwitcher>
-    <AlertRoot>
-      <App />
-    </AlertRoot>
+    <App />
   </ThemeSwitcher>,
   document.getElementById("app-mount")
 );

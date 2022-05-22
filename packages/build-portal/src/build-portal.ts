@@ -14,16 +14,18 @@ export function buildPortal<P extends {}, C extends ComplexComponent>(
     useEffect(() => {
       if ("active" in props && !(props as any).active) restore();
     }, [(props as any).active]);
-    useMount(() => p.init());
     const id = useId();
     const C = h(rootContainer, props)!;
     useEffect(() => {
       p.child(id, C);
       p.dispatch();
     });
-    useMount(() => () => {
-      p.unmount(id);
-      p.dispatch();
+    useMount(() => {
+      p.init();
+      return () => {
+        p.unmount(id);
+        p.dispatch();
+      };
     });
     return null;
   }
