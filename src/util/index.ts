@@ -15,3 +15,4 @@ export * from "./_scroll-into-view-if-needed-polyfill";
 export * from "./toPx";
 export * from "./portal-tree";
 export * from "./random";
+export * from "./event-path";

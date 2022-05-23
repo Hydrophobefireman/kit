@@ -1,4 +1,7 @@
+let checked = false;
 export function flatPollyill() {
+  if (checked) return;
+  checked = true;
   if (!Array.prototype.flat) {
     function f(depth: number) {
       return depth
