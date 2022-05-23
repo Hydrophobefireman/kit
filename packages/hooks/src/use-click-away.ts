@@ -11,12 +11,13 @@ export function useClickAway(
     if (!target || !ref.current) return;
     const cb = (e: JSX.TargetedMouseEvent<any>) => ref.current(e);
     const listener = (event: JSX.TargetedMouseEvent<any>) => {
-      const path = (event as any).path;
-      if (
-        !((path && path.length ? path : null) || event.composedPath()).includes(
-          target
-        )
-      ) {
+      let __path: EventTarget[];
+      const $path = event.composedPath
+        ? event.composedPath()
+        : (__path = (event as any).path) && __path.length
+        ? __path
+        : [];
+      if (!$path.includes(target)) {
         cb(event);
       }
     };
