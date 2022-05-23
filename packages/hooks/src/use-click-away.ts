@@ -2,19 +2,22 @@ import {useEffect} from "@hydrophobefireman/ui-lib";
 
 import {useLatestRef} from "./use-latest-ref";
 
-export function useClickAway(listener: () => void, target: EventTarget) {
+export function useClickAway(
+  listener: (e: JSX.TargetedMouseEvent<any>) => void,
+  target: EventTarget
+) {
   const ref = useLatestRef(listener);
   useEffect(() => {
     if (!target || !ref.current) return;
-    const cb = () => ref.current();
-    const listener = (event: Event) => {
+    const cb = (e: JSX.TargetedMouseEvent<any>) => ref.current(e);
+    const listener = (event: JSX.TargetedMouseEvent<any>) => {
       const path = (event as any).path;
       if (
         !((path && path.length ? path : null) || event.composedPath()).includes(
           target
         )
       ) {
-        cb();
+        cb(event);
       }
     };
     document.addEventListener("click", listener);
