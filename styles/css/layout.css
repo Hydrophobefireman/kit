@@ -8,7 +8,7 @@
   display: inline-flex;
 }
 .kit-block {
-  display: inline;
+  display: block;
 }
 
 .kit-inline-block {
