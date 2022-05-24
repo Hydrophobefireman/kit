@@ -14,7 +14,8 @@ import {
 import {Text, TextProps} from "@hydrophobefireman/kit/text";
 import {Transition} from "@hydrophobefireman/kit/transition";
 import {h, useEffect, useRef, useState} from "@hydrophobefireman/ui-lib";
-import {createClassProp} from "../../../src/util";
+
+const {createClassProp} = _util;
 
 import {ModalProps} from "./types";
 
