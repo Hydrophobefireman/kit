@@ -14,6 +14,7 @@ import {
 import {Text, TextProps} from "@hydrophobefireman/kit/text";
 import {Transition} from "@hydrophobefireman/kit/transition";
 import {h, useEffect, useRef, useState} from "@hydrophobefireman/ui-lib";
+import {createClassProp} from "../../../src/util";
 
 import {ModalProps} from "./types";
 
@@ -23,6 +24,8 @@ function ModalImpl({
   _setDom: setDom,
   onClickOutside,
   onEscape,
+  class: cls,
+  className,
 }: ModalProps) {
   const ref = useRef<HTMLDivElement>();
   useEffect(() => {
@@ -36,7 +39,10 @@ function ModalImpl({
 
   return (
     <div class={classnames.mask} onClick={onClickOutside && handleOusideClick}>
-      <div class={classnames.modal} ref={ref}>
+      <div
+        class={createClassProp([classnames.modal, cls, className])}
+        ref={ref}
+      >
         <FocusTrap shouldTrap={active}>{children}</FocusTrap>
       </div>
     </div>
@@ -48,6 +54,9 @@ function _Modal({
   onClickOutside,
   onAnimationComplete,
   noTransition,
+  onEscape,
+  class: cls,
+  className,
 }: ModalProps) {
   const id = useId();
   const [target, setTarget] = useState<HTMLDivElement>(null as any);
@@ -55,8 +64,11 @@ function _Modal({
     <ModalImpl
       onClickOutside={active ? onClickOutside : (null as any)}
       active={active}
+      onEscape={onEscape}
       children={children}
       _setDom={setTarget}
+      class={cls}
+      className={className}
     />
   );
   return noTransition ? (

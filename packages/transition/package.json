@@ -1,6 +1,6 @@
 {
   "name": "transition",
-  "version": "0.0.30",
+  "version": "0.0.32",
   "private": true,
   "main": "src/index.js",
   "module": "src/index.js",
@@ -9,8 +9,8 @@
   "license": "MIT",
   "scripts": {},
   "peerDependencies": {
-    "@hydrophobefireman/flask-jwt-jskit": "^0.1.5",
-    "@hydrophobefireman/ui-lib": "^1.11.3",
+    "@hydrophobefireman/flask-jwt-jskit": "^0.1.7",
+    "@hydrophobefireman/ui-lib": "^1.21.4",
     "statedrive": "^0.0.13"
   }
 }
