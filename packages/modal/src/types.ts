@@ -4,6 +4,7 @@ export interface ModalProps {
   onAnimationComplete?(): void;
   children?: any;
   _setDom?(d: HTMLDivElement): void;
-  onClickOutside?(): void;
+  onClickOutside?(e: JSX.TargetedMouseEvent<HTMLElement>): void;
+  onEscape?(e: JSX.TargetedKeyboardEvent<HTMLElement>): void;
   noTransition?: boolean;
 }
