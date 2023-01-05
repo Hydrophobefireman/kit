@@ -1,6 +1,6 @@
 {
   "name": "autocomplete-options",
-  "version": "0.0.33",
+  "version": "0.0.35",
   "private": true,
   "main": "src/index.js",
   "module": "src/index.js",
@@ -8,8 +8,8 @@
   "license": "MIT",
   "scripts": {},
   "peerDependencies": {
-    "@hydrophobefireman/flask-jwt-jskit": "^0.1.7",
-    "@hydrophobefireman/ui-lib": "^1.21.4",
-    "statedrive": "^0.0.13"
+    "@hydrophobefireman/flask-jwt-jskit": "latest",
+    "@hydrophobefireman/ui-lib": "latest",
+    "statedrive": "latest"
   }
 }

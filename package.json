@@ -2,7 +2,7 @@
   "name": "@hydrophobefireman/kit",
   "description": "",
   "types": "dist/src/index.d.ts",
-  "version": "0.0.33",
+  "version": "0.0.35",
   "license": "MIT",
   "homepage": "https://github.com/Hydrophobefireman/kit#readme",
   "repository": {
@@ -58,12 +58,12 @@
   },
   "sideEffects": false,
   "peerDependencies": {
-    "@hydrophobefireman/flask-jwt-jskit": "^0.1.7",
-    "@hydrophobefireman/ui-lib": "^1.21.4",
-    "statedrive": "^0.0.13"
+    "@hydrophobefireman/flask-jwt-jskit": "latest",
+    "@hydrophobefireman/ui-lib": "latest",
+    "statedrive": "latest"
   },
   "dependencies": {
-    "@hydrophobefireman/kit-icons": "^0.0.7",
+    "@hydrophobefireman/kit-icons": "latest",
     "csstype": "^3.1.0"
   },
   "devDependencies": {
