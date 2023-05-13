@@ -16,7 +16,7 @@ export function FileDropTarget({
   ...props
 }: ContainerProps & {
   message?: string;
-  onUpdate: (f: File[], reset: () => void) => void;
+  onUpdate: (f: File[] | File, reset: () => void) => void;
   multiple?: boolean;
 }) {
   const ref = useRef<HTMLDivElement>();
