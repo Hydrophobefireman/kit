@@ -49,6 +49,7 @@ export function Checkbox({
         BaseDom,
         _util.extend(
           {
+            id: inputId,
             element: "input",
             onInput: (e) =>
               onCheck((e.currentTarget as HTMLInputElement).checked),
