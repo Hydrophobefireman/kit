@@ -70,7 +70,7 @@ function _Modal({
   useEffect(() => {
     return () => setBail(true);
   }, []);
-  if (bail) return;
+  if (bail) return <></>;
   const out = active && (
     <ModalImpl
       onClickOutside={active ? onClickOutside : (null as any)}
@@ -83,7 +83,7 @@ function _Modal({
     />
   );
   return noTransition ? (
-    out
+    out || <></>
   ) : (
     <Transition
       visible={active}
