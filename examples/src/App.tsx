@@ -5,7 +5,6 @@ import "./App.css";
 
 import {css} from "catom";
 
-import {_util} from "@hydrophobefireman/kit";
 import {useAlerts} from "@hydrophobefireman/kit/alerts";
 import {
   AutoComplete,
@@ -21,11 +20,12 @@ import {
 import {Collapse, useCollapse} from "@hydrophobefireman/kit/collapse";
 import {Box} from "@hydrophobefireman/kit/container";
 import {FileDropTarget} from "@hydrophobefireman/kit/file-drop-target";
-import {Input, Switch, useSwitch} from "@hydrophobefireman/kit/input";
 import {
   Checkbox,
+  Input,
   RadioGroup,
   RadioInput,
+  Switch,
   useCheckbox,
 } from "@hydrophobefireman/kit/input";
 import {Modal, useModal} from "@hydrophobefireman/kit/modal";
@@ -98,8 +98,8 @@ function App(): VNode {
   }, [refetch]);
   const [value, setValue] = useState(null);
   const {persist} = useAlerts();
-  const {currentTheme, toggle} = useTheme();
-  const {currentState, toggle: toggleSwitch} = useSwitch("intermediate");
+  let {currentTheme, toggle} = useTheme();
+  const [currentState, toggleSwitch] = useState(false);
   const {active, toggle: toggleModal, setActive} = useModal();
   const [files, setFiles] = useState<File[]>(null);
   const resetRef = useRef(null);
@@ -158,6 +158,7 @@ function App(): VNode {
   ];
   const noResult = acValue && options.every((x) => !contains(x.value, acValue));
   const [sv, setsv] = useState("");
+  const [mt, setMT] = useState("");
   return (
     <>
       <Select
@@ -389,7 +390,7 @@ function App(): VNode {
                 );
               },
             })),
-          []
+          [],
         )}
         dropdownClass={css({maxHeight: "300px", overflow: "auto"})}
       />
@@ -405,7 +406,7 @@ function App(): VNode {
               mask: true,
               type: "error",
             });
-          setFiles(f);
+          setFiles([f].flat());
           resetRef.current = r;
         }}
       />
@@ -425,10 +426,12 @@ function App(): VNode {
         active={active}
         // onAnimationComplete={console.log}
         onClickOutside={() => setActive(false)}
+        onEscape={() => setActive(false)}
       >
         <Modal.Body>
           <Modal.Title>Hello</Modal.Title>
           <Modal.Subtitle>Hello World</Modal.Subtitle>
+          <Input value={mt} setValue={setMT} />
         </Modal.Body>
         <Modal.Actions>
           <Modal.Action autofocus>ok</Modal.Action>
@@ -451,8 +454,8 @@ function App(): VNode {
       <Box horizontal="center">
         <Switch
           label="OKAY"
-          state={currentState}
-          onInput={toggleSwitch}
+          checked={currentState}
+          onInput={() => toggleSwitch((a) => !a)}
           width="2rem"
           height="1rem"
         />
@@ -522,15 +525,14 @@ function App(): VNode {
           <div>Current Theme is {currentTheme} </div>
           <Switch
             label="Toggle Theme"
-            state={currentTheme === "dark" ? "enabled" : "disabled"}
+            checked={currentTheme === "dark"}
             onInput={toggle}
-            width="2rem"
-            height="1rem"
+            errored
           />
         </Box>
       </Box>
 
-      <Box style={{marginTop: "2rem", flexWrap: "wrap"}} row>
+      <Box style={{marginTop: "2rem", flexWrap: "wrap", gap: "1rem"}} row>
         <TextButton
           class={css({margin: ".5rem"})}
           text="Normal"
@@ -651,5 +653,5 @@ render(
   <ThemeSwitcher>
     <App />
   </ThemeSwitcher>,
-  document.getElementById("app-mount")
+  document.getElementById("app-mount"),
 );

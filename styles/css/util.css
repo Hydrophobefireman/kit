@@ -1,3 +1,6 @@
+.kit-modal::backdrop {
+  background-color: rgba(48, 48, 48, 0.8);
+}
 .kit-mask {
   height: 100vh;
   top: 0;

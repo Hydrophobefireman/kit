@@ -1,5 +1,7 @@
 import {Button} from "@hydrophobefireman/kit/button";
+import {Modal} from "@hydrophobefireman/kit/modal";
 import {Router, dynamic} from "@hydrophobefireman/kit/router";
+import {redirect} from "@hydrophobefireman/ui-lib";
 
 function getDynamic(x: any) {
   let loadedOnce = false;
@@ -11,9 +13,9 @@ function getDynamic(x: any) {
             resolve(function F() {
               return x;
             }),
-          1500
-        )
-      )
+          15,
+        ),
+      ),
   );
 }
 
@@ -35,19 +37,34 @@ const Root = getDynamic(
   <div>
     <RouteButton href="/1" text="Page 1" />
     <RouteButton href="/o/2" text="Page 2" />
-  </div>
+  </div>,
 );
 const Page1 = getDynamic(
   <div>
     <RouteButton href="/" text="Home" />
     <RouteButton href="/o/2" text="Page 2" />
-  </div>
+  </div>,
 );
 const Page2 = getDynamic(
   <div>
     <RouteButton href="/" text="Home" />
     <RouteButton href="/1" text="Page 1" />
-  </div>
+    <Modal active>
+      <Modal.Body>
+        Hello!
+        <button
+          onClick={() => {
+            setTimeout(() => {
+              redirect("/1");
+            });
+          }}
+        >
+          {" "}
+          ok
+        </button>
+      </Modal.Body>
+    </Modal>
+  </div>,
 );
 export function RouterTest() {
   return (

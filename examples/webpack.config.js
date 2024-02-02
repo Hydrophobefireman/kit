@@ -1,18 +1,22 @@
-const path = require("path");
 const TerserWebpackPlugin = require("terser-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const autoPrefixPlugin = require("autoprefixer");
 const HTMLInlineCSSWebpackPlugin =
   require("html-inline-css-webpack-plugin").default;
-const WebpackModuleNoModulePlugin = require("@hydrophobefireman/module-nomodule");
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const webpack = require("webpack");
+const {
+  HtmlWebpackEsmodulesPlugin,
+  FontInlineWebpackPlugin,
+} = require("@hydrophobefireman/module-nomodule");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const {autoPrefixCSS} = require("catom/dist/css");
 const babel = require("./.babelconfig");
 const uiConfig = require("./ui.config.json");
 const mode = process.env.NODE_ENV;
 const isProd = mode === "production";
 const {outputDir, staticFilePrefix, inlineCSS, enableCatom, fonts} = uiConfig;
+const path = require("path");
+require("dotenv").config();
 
 function prodOrDev(a, b) {
   return isProd ? a : b;
@@ -36,12 +40,6 @@ const cssLoaderOptions = {
     {loader: MiniCssExtractPlugin.loader},
     {
       loader: "css-loader",
-    },
-    {
-      loader: "postcss-loader",
-      options: {
-        postcssOptions: {plugins: [autoPrefixPlugin()]},
-      },
     },
   ],
 };
@@ -102,12 +100,26 @@ function getCfg(isLegacy) {
     },
     resolve: {
       extensions: [".ts", ".tsx", ".js", ".json"],
-      alias: {"@": srcPath("src")},
+      alias: {"@": srcPath("src"), "@kit": "@hydrophobefireman/kit"},
     },
     mode,
     optimization: {
       concatenateModules: false,
-      minimizer: prodOrDev([new TerserWebpackPlugin({parallel: true})], []),
+      minimizer: prodOrDev(
+        [
+          new TerserWebpackPlugin({parallel: true}),
+          new CssMinimizerPlugin({
+            minify: CssMinimizerPlugin.lightningCssMinify,
+            parallel: Math.floor(require("os").cpus()?.length / 2) || 1,
+          }),
+        ],
+        [
+          new CssMinimizerPlugin({
+            minify: CssMinimizerPlugin.lightningCssMinify,
+            parallel: Math.floor(require("os").cpus()?.length / 2) || 1,
+          }),
+        ],
+      ),
       splitChunks: {
         chunks: "all",
       },
@@ -120,7 +132,7 @@ function getCfg(isLegacy) {
           compilation,
           files,
           tags,
-          options
+          options,
         ) {
           let css = uiConfig.enableCatom
             ? `<style>
@@ -154,21 +166,20 @@ function getCfg(isLegacy) {
             removeRedundantAttributes: true,
             removeComments: true,
           },
-          !1
+          !1,
         ),
       }),
       new MiniCssExtractPlugin({
         filename: `${staticFilePrefix}/main-[contenthash].css`,
       }),
-      isProd &&
-        new OptimizeCSSAssetsPlugin({cssProcessor: require("cssnano")()}),
       isProd && inlineCSS && new HTMLInlineCSSWebpackPlugin({}),
-      new WebpackModuleNoModulePlugin({
+      new HtmlWebpackEsmodulesPlugin({
         mode: isLegacy ? "legacy" : "modern",
-        fonts,
       }),
+      new FontInlineWebpackPlugin({fonts}),
+      new webpack.EnvironmentPlugin(["NODE_ENV"]),
     ].filter(Boolean),
   };
 }
 
-module.exports = isProd ? [getCfg(false), getCfg(true)] : getCfg(false);
+module.exports = getCfg(false);

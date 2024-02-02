@@ -16,6 +16,7 @@
   width: 95%;
   max-width: 400px;
   animation: modal-in var(--kit-transition);
+  border: none;
 }
 
 @keyframes modal-in {

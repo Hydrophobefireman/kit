@@ -149,8 +149,8 @@ input.kit-checkbox-input:focus-visible + .kit-cb-icon-container,
   height: var(--kit-radio-size, 1rem);
   width: var(--kit-radio-size, 1rem);
   border-radius: 50%;
-  position: relative;
   transition: var(--kit-transition);
+  padding: 1px;
 }
 .kit-cb-icon-container.kit-checkbox-active,
 .kit-radio-span.kit-radio-active {
@@ -163,20 +163,59 @@ input.kit-checkbox-input:focus-visible + .kit-cb-icon-container,
   border-radius: 50%;
   height: 100%;
   width: 100%;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
   transform: scale(0);
 }
 
 .kit-radio-span.kit-radio-active > .kit-radio-indicator {
-  transform: scale(0.8);
+  transform: scale(1);
 }
 
-.kit-switch-label {
+/* <Switch> */
+
+input.kit-switch-input {
+  appearance: none;
+
+  display: inline-block;
+  background: var(--kit-shade-2);
+  height: var(--kit-switch-height, 1.1rem);
+  width: var(--kit-switch-width, 2rem);
+  vertical-align: middle;
+  border-radius: 2rem;
+  box-shadow: 0px 1px 3px #0003 inset;
+  transition: var(--kit-transition) background-color;
+  padding: 2px;
+  align-items: center;
+  display: inline-flex;
+  justify-content: flex-start;
+
+  &:checked {
+    background-color: var(--kit-theme-fg);
+  }
+  &:checked::before {
+    transform: translateX(var(--kit-switch-indicator-translate, 1rem));
+  }
+  &::before {
+    content: "";
+    display: block;
+    width: var(--kit-switch-indicator-size, 0.8rem);
+    height: var(--kit-switch-indicator-size, 0.8rem);
+    background: #fff;
+    border-radius: 1.2rem;
+    box-shadow: 0px 1px 3px #0003;
+    transition: 0.25s linear;
+    transform: translateX(0rem);
+  }
+
+  &:focus {
+    outline-color: transparent;
+  }
+  &:focus-visible {
+    outline: 2px solid dodgerblue;
+    outline-offset: 2px;
+  }
+}
+
+/* .kit-switch-label {
   width: var(--kit-switch-width, 3.8rem);
   height: var(--kit-switch-height, 2rem);
   outline: none;
@@ -237,4 +276,6 @@ input.kit-checkbox-input:focus-visible + .kit-cb-icon-container,
 }
 .kit-switch-indicator.kit-switch-active::before {
   transform: translateX(99%);
-}
+} */
+
+/** </Switch> */

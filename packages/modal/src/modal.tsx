@@ -15,9 +15,9 @@ import {Text, TextProps} from "@hydrophobefireman/kit/text";
 import {Transition} from "@hydrophobefireman/kit/transition";
 import {h, useEffect, useRef, useState} from "@hydrophobefireman/ui-lib";
 
-const {createClassProp} = _util;
-
 import {ModalProps} from "./types";
+
+const {createClassProp} = _util;
 
 function ModalImpl({
   active,
@@ -28,25 +28,30 @@ function ModalImpl({
   class: cls,
   className,
 }: ModalProps) {
-  const ref = useRef<HTMLDivElement>();
+  const ref = useRef<HTMLDialogElement>();
   useEffect(() => {
     setDom && setDom(ref.current);
+    ref.current?.showModal();
+    return () => ref.current?.close();
   }, [ref.current]);
   _useHideScrollbar(active);
   const handleOusideClick = _useSelfEvent<MouseEvent>(onClickOutside);
-  useKeyPress("Escape", (e) => onEscape && onEscape(e), {
-    target: window,
-  });
 
+  const prop = {
+    onCancel(e: Event) {
+      e.preventDefault();
+      onEscape?.(e as any);
+    },
+  };
   return (
-    <div class={classnames.mask} onClick={onClickOutside && handleOusideClick}>
-      <div
-        class={createClassProp([classnames.modal, cls, className])}
-        ref={ref}
-      >
-        <FocusTrap shouldTrap={active}>{children}</FocusTrap>
-      </div>
-    </div>
+    <dialog
+      onClick={handleOusideClick}
+      class={createClassProp([classnames.modal, cls, className])}
+      ref={ref}
+      {...(prop as any)}
+    >
+      {children}
+    </dialog>
   );
 }
 function _Modal({
@@ -60,7 +65,12 @@ function _Modal({
   className,
 }: ModalProps) {
   const id = useId();
-  const [target, setTarget] = useState<HTMLDivElement>(null as any);
+  const [target, setTarget] = useState<HTMLDialogElement>(null as any);
+  const [bail, setBail] = useState(false);
+  useEffect(() => {
+    return () => setBail(true);
+  }, []);
+  if (bail) return;
   const out = active && (
     <ModalImpl
       onClickOutside={active ? onClickOutside : (null as any)}
@@ -121,7 +131,7 @@ function Title({
   const klass = [classnames.modalHead, cls, className];
   return h(
     Text,
-    _util.extend({as: "h2", noMargin: true, class: klass}, props) as any
+    _util.extend({as: "h2", noMargin: true, class: klass}, props) as any,
   );
 }
 function Subtitle({
@@ -137,7 +147,7 @@ function Subtitle({
   ];
   return h(
     Text,
-    _util.extend({as: "p", noMargin: true, class: klass}, props) as any
+    _util.extend({as: "p", noMargin: true, class: klass}, props) as any,
   );
 }
 function Body({children}: {children?: any}) {
@@ -147,7 +157,7 @@ function Body({children}: {children?: any}) {
     </Box>
   );
 }
-const ModalComponent = buildPortal<ModalProps, typeof _Modal>("Modal", _Modal);
+const ModalComponent = _Modal;
 export const Modal: typeof ModalComponent & {
   Actions: typeof Actions;
   Title: typeof Title;

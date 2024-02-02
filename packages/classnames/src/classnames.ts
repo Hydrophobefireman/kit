@@ -109,11 +109,9 @@ export const radioActive = "kit-radio-active";
 export const radioIsInvalid = "kit-radio-invalid";
 
 export const _switchInputHidden = `kit-switch ${_hiddenInput}`;
-export const switchIndicator = "kit-switch-indicator";
 export const switchActive = "kit-switch-active";
 export const switchInactive = "kit-switch-inactive";
-export const switchIntermediate = "kit-switch-intermediate";
-export const switchLabel = "kit-switch-label";
+export const switchInput = `kit-switch-input`;
 export const switchIsInvalid = "kit-switch-invalid";
 
 export const snackbarContainer = "kit-snackbar-container";
